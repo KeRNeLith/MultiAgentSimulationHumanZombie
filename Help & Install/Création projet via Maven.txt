@@ -1,0 +1,31 @@
+Dézipper Maven dans un répertoire 
+Définir la variable M2_HOME=c:\Program Files\Apache-Maven-x.x.x
+Ajouter à la variable PATH : %M2_HOME%\bin
+(Attention la variable pour Java doit être définie => JAVA_HOME)
+
+Vérification du bon fonctionnement de Maven:
+mvn --version
+
+Exemple résultat:
+Apache Maven 3.3.9 (bb52d8502b132ec0a5a3f4c09453c07478323dc5; 2015-
+7+01:00)
+Maven home: C:\Program Files (x86)\Apache-Maven-3.3.9
+Java version: 1.8.0_45, vendor: Oracle Corporation
+Java home: C:\Program Files\Java\jdk1.8.0_45\jre
+Default locale: fr_FR, platform encoding: Cp1252
+OS name: "windows 7", version: "6.1", arch: "amd64", family: "dos"
+
+
+
+Commande de génération du projet:
+mvn archetype:generate -DgroupId=fr.sma.zombifier -DartifactId=zombifier -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+
+Pour compiler le projet:
+(Cette commande correspond à une phase du cycle de vie du build)
+mvn package
+
+Exécution du programme:
+java -cp target/zombifier-0.0.1.jar fr.sma.zombifier.App
+
+Génération du site (Javadoc):
+mvn site

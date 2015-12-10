@@ -1,0 +1,19 @@
+Explication sur Maven principe et installation:
+
+http://maven-guide-fr.erwan-alliaume.com/maven-guide-fr/site/reference/introduction.html
+
+
+Autre liens utiles:
+
+Maven site officiel:
+http://maven.apache.org/
+
+Getting started with Maven:
+https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
+
+Maven2 exemple:
+http://dcabasson.developpez.com/articles/java/maven/introduction-maven2/
+
+Tuto Maven (en):
+http://www.tutorialspoint.com/maven/
+

@@ -1,2 +1,4 @@
-# MultiAgentSimulationHumanZombie
-Simulation multiagent réalisée dans le cadre du cours d'Architecture Logicielle et qualité, de deuxième année, à l'ISIMA (Filière Génie Logiciel)
+# Multi Agent Simulation (Human Zombie)
+
+Simulation multi agent réalisée dans le cadre du cours d'Architecture Logicielle et qualité
+Au cours de la deuxième année d'école d'ingénieur à l'ISIMA (Filière Génie Logiciel)
