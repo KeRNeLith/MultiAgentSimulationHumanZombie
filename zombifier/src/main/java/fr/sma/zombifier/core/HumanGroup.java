@@ -13,6 +13,8 @@ public class HumanGroup extends Human
             
     public HumanGroup()
     {
+        super(null, 0, 0);
+        
         m_humans = new LinkedList<Human>();
     }
 }

@@ -25,7 +25,8 @@ public class ConsoleDisplay implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     // Create the instance
