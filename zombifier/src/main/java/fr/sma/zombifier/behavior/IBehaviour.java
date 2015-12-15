@@ -11,6 +11,8 @@ public interface IBehaviour
         // TO COMPLETE
     }
     
+    void analyze();
+    
     void move();
     
     IBehaviour next();
