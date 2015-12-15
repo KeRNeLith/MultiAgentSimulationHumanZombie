@@ -1,0 +1,6 @@
+id;position x;position y;direction_x;direction_y
+1;6;4;0;-1
+2;9;15;-1;0
+3;19;1;1;0
+4;12;12;0;1
+5;150;6;-1;0
