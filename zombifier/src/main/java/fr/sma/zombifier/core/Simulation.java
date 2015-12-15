@@ -6,7 +6,9 @@ import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
@@ -69,6 +71,7 @@ public class Simulation extends Observable
     {
         m_stop = false;
         m_end = false;
+        m_entities = new LinkedList<Entity>();
         
         // Load simulation params from file
         readSimulationConfiguration();
@@ -205,14 +208,15 @@ public class Simulation extends Observable
                     Entity e = constructor.newInstance(p, x, y);
 
                     // Try to add the entity
-                    if (!p.addEntity(e))
+                    if (p.addEntity(e))
                     {
-                        System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
+                        // Entity successfully added
+                        m_entities.add(e);
                     }
-                    // Entity successfully added
+                    // There is already an entity on the platform
                     else
                     {
-                        m_entities.add(e);
+                        System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
                     }
                 }
                 catch (NoSuchMethodException ex) 

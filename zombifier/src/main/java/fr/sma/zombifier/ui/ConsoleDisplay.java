@@ -1,6 +1,15 @@
 package fr.sma.zombifier.ui;
 
+import fr.sma.zombifier.core.Entity;
+import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.Simulation;
+import fr.sma.zombifier.core.Zombie;
+import fr.sma.zombifier.resources.FireWeapon;
+import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.resources.Weapon;
+import fr.sma.zombifier.world.Platform;
+import fr.sma.zombifier.world.World;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,8 +43,48 @@ public class ConsoleDisplay implements Observer
     @Override
     public void update(Observable o, Object arg)
     {
-        //m_simulation
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        World w = m_simulation.getWorld();
+        
+        // Display the world in the console
+        for (ArrayList<Platform> line : w)
+        {
+            for (Platform platform : line)
+            {
+                // If there is an entity
+                if (platform.hasEntity())
+                {
+                    // Check entity type
+                    Entity e = platform.getEntity();
+                    if (e instanceof Human)
+                    {
+                        System.out.print('H');
+                    }
+                    else if (e instanceof Zombie)
+                    {
+                        System.out.print('Z');
+                    }
+                }
+                else if (platform.hasResource())
+                {
+                    // Check resource type
+                    Resource r = platform.getResource();
+                    if (r instanceof Weapon)
+                    {
+                        System.out.print('K');
+                    }
+                    else if (r instanceof FireWeapon)
+                    {
+                        System.out.print('F');
+                    }
+                }
+                else
+                {
+                    System.out.print('.');
+                }
+            }
+            
+            System.out.println();
+        }
     }
 
     /**

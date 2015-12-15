@@ -51,11 +51,38 @@ public class Platform
     }
     
     /**
+     * Determine if the platform has an entity on it.
+     * @return true if the plaform contains an entity, otherwise false.
+     */
+    public boolean hasEntity()
+    {
+        return (m_entity != null);
+    }
+    
+    /**
+     * Get the entity on the platform if has one.
+     * @return The entity on the plaform if it contains one, otherwise null.
+     */
+    public Entity getEntity()
+    {
+        return m_entity;
+    }
+    
+    /**
      * Determine if the platform has a resource on it.
      * @return true if the plaform contains a resource, otherwise false.
      */
-    boolean hasResource()
+    public boolean hasResource()
     {
         return (m_resource != null);
+    }
+    
+    /**
+     * Get the resource on the platform if has one.
+     * @return The resource on the plaform if it contains one, otherwise null.
+     */
+    public Resource getResource()
+    {
+        return m_resource;
     }
 }
