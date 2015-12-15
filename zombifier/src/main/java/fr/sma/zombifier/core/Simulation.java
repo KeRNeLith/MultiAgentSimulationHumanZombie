@@ -4,10 +4,14 @@ import fr.sma.zombifier.tools.CSVParser;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -91,37 +95,51 @@ public class Simulation extends Observable
      */
     private void spawnEntities()
     {
-        // Parse config file for humans
-        CSVParser parser = new CSVParser();
-        parser.parseFile("./src/main/resources/humans.csv");
-        List< HashMap<String, String> > humansContent = parser.getParsedContent();
+        // Spawn Humans
+        this.<Human>spawnEntites("./src/main/resources/humans.csv", Human.class);
         
-        for (int i = 0 ; i < humansContent.size() ; i++)
+        // Spawn Zombies
+        this.<Zombie>spawnEntites("./src/main/resources/zombies.csv", Zombie.class);
+    }
+    
+    /**
+     * Spawn the given entity passed as template parameter (Extends Entity).
+     * @param <T> Subclass of Entity class.
+     * @param configPath Path to the file that contains configuration for the simulation run.
+     */
+    private <T extends Entity> void spawnEntites(final String configPath, Class<T> clazz)
+    {
+        // Parse config file for given entities
+        CSVParser parser = new CSVParser();
+        parser.parseFile(configPath);
+        List< HashMap<String, String> > entitiesContent = parser.getParsedContent();
+        
+        // For each entity described in the config file
+        for (int i = 0 ; i < entitiesContent.size() ; i++)
         {
-            Map<String, String> humanData = humansContent.get(i);
-            System.out.println(humanData.toString());
+            Map<String, String> entityData = entitiesContent.get(i);
             
             // Get X position
             int x;
-            if (humanData.containsKey("position_x"))
+            if (entityData.containsKey("position_x"))
             {
-                x = Integer.parseInt(humanData.get("position_x"));
+                x = Integer.parseInt(entityData.get("position_x"));
             }
             else
             {
-                System.err.println("Not found X position for the " + (i+1) + "th human.");
+                System.err.println("Not found X position for the " + (i+1) + "th " + clazz.getSimpleName());
                 continue;
             }
             
             // Get Y position
             int y;
-            if (humanData.containsKey("position_y"))
+            if (entityData.containsKey("position_y"))
             {
-                y = Integer.parseInt(humanData.get("position_y"));
+                y = Integer.parseInt(entityData.get("position_y"));
             }
             else
             {
-                System.err.println("Not found Y position for the " + (i+1) + "th human.");
+                System.err.println("Not found Y position for the " + (i+1) + "th " + clazz.getSimpleName());
                 continue;
             }
             
@@ -132,57 +150,84 @@ public class Simulation extends Observable
                 
                 // Get X watching direction
                 int dirX;
-                if (humanData.containsKey("direction_x"))
+                if (entityData.containsKey("direction_x"))
                 {
-                    dirX = Integer.parseInt(humanData.get("direction_x"));
+                    dirX = Integer.parseInt(entityData.get("direction_x"));
                     
                     if (dirX > 1 && dirX < -1)
                     {
-                        System.err.println("X watching direction is not between [-1, 1] for the " + (i+1) + "th human.");
+                        System.err.println("X watching direction is not between [-1, 1] for the " + (i+1) + "th " + clazz.getSimpleName());
                         continue;
                     }
                 }
                 else
                 {
-                    System.err.println("Not found X watching direction for the " + (i+1) + "th human.");
+                    System.err.println("Not found X watching direction for the " + (i+1) + "th " + clazz.getSimpleName());
                     continue;
                 }
 
                 // Get Y watching direction
                 int dirY;
-                if (humanData.containsKey("direction_y"))
+                if (entityData.containsKey("direction_y"))
                 {
-                    dirY = Integer.parseInt(humanData.get("direction_y"));
+                    dirY = Integer.parseInt(entityData.get("direction_y"));
                     
                     if (dirY > 1 && dirY < -1)
                     {
-                        System.err.println("Y watching direction is not between [-1, 1] for the " + (i+1) + "th human.");
+                        System.err.println("Y watching direction is not between [-1, 1] for the " + (i+1) + "th " + clazz.getSimpleName());
                         continue;
                     }
                 }
                 else
                 {
-                    System.err.println("Not found Y watching direction for the " + (i+1) + "th human.");
+                    System.err.println("Not found Y watching direction for the " + (i+1) + "th " + clazz.getSimpleName());
                     continue;
                 }
                 
-                // Create and affect the entity
-                Entity e = new Human(p, x, y);
-                
-                // Try to add the entity
-                if (!p.addEntity(e))
+                try
                 {
-                    System.err.println("Impossible to add the " + (i+1) + "th entity because there is already an entity in (" + x + ", " + y + ").");
+                    // Get constructor to instanciate entity
+                    Constructor<T> constructor = clazz.getConstructor(Platform.class, int.class, int.class);
+                    
+                    // Create and affect the entity
+                    Entity e = constructor.newInstance(p, x, y);
+
+                    // Try to add the entity
+                    if (!p.addEntity(e))
+                    {
+                        System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
+                    }
+                }
+                catch (NoSuchMethodException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (SecurityException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (InstantiationException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (IllegalAccessException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (IllegalArgumentException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                catch (InvocationTargetException ex) 
+                {
+                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             else
             {
-                System.err.println("There is a problem with the (X,Y) position for the " + (i+1) + "th human. (" + x + ", " + y + ") is out of the world.");
-                continue;
+                System.err.println("There is a problem with the (X,Y) position for the " + (i+1) + "th " + clazz.getSimpleName() + ". (" + x + ", " + y + ") is out of the world.");
             }
         }
-        
-        // TODO spawn zombies !
     }
     
     /**
