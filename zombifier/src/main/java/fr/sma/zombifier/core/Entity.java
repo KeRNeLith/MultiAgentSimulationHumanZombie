@@ -7,27 +7,31 @@ import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
 
 /**
- *
+ * The class is the base class for all entities. This class should be subclass to make sense.
+ * This is an abstract class.
+ * 
  * @author Alexandre Rabérin
  */
 public abstract class Entity
 {
-    private static long m_baseSeed = 1234;
+    private static long m_baseSeed = 1234;  /** Seed used to initialize all random generator for each entity. */
  
-    private static int m_nextId = 1;
-    private int m_id;
+    private static int m_nextId = 1;        /** Class attribute to determine the ID of each constructed entity. */
+    private int m_id;                       /** ID of the entity. */
     
-    private MersenneTwisterFast m_mt;    
-    private IBehaviour m_behaviour;
-    private BehaviourType m_behaviourType;
-    private Platform m_position;
-    private Pair<Integer, Integer>m_direction;
+    private MersenneTwisterFast m_mt;       /** Random generator of the entity. */
+    
+    private IBehaviour m_behaviour;         /** Current behaviour of the entity. */
+    private BehaviourType m_behaviourType;  /** Current behaviour type of the entity. */
+    
+    private Platform m_position;            /** Platform on which the entity is on. */
+    private Pair<Integer, Integer> m_direction; /** Direction in which the entity is watching. */
     
     /**
-     * Cree une instance Entité
-     * @param p Objet plateforme indiquant la position de l'entité
-     * @param direction_x Direction du regard sur l'axe des abscisses
-     * @param direction_y Direction du regard sur l'axe des ordonnées
+     * Constructor.
+     * @param p Platform on which the entity begin the simulation.
+     * @param direction_x Watching direction on X axis.
+     * @param direction_y Watching direction on Y axis.
      */
     public Entity(final Platform p, final int direction_x, final int direction_y)
     {

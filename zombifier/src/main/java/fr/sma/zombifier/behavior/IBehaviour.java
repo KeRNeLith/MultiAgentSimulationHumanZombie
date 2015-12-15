@@ -1,7 +1,8 @@
 package fr.sma.zombifier.behavior;
 
 /**
- *
+ * This interface declare all methods that should be implemented by all behaviour types.
+ * 
  * @author Alexandre Rabérin
  */
 public interface IBehaviour

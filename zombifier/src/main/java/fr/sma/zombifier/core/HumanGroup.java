@@ -1,6 +1,5 @@
 package fr.sma.zombifier.core;
 
-import fr.sma.zombifier.world.Platform;
 import java.util.LinkedList;
 import java.util.List;
 

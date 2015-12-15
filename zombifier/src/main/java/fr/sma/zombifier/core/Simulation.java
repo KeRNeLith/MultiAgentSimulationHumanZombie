@@ -14,33 +14,43 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * The Simulation class manage the run of all elements of the simulation.
+ * 
  * @author Alexandre Rabérin
  */
 public class Simulation extends Observable
 {
-    private World m_world;
+    private World m_world;              /** World on which entities will evolve. */
     
-    private List<Entity> m_entities;
+    private List<Entity> m_entities;    /** List of entities */
     
-    private final static long m_simulationSeed = 1234;
-    private MersenneTwisterFast m_simulationMt;
+    private final static long SIMULATION_SEED = 1234;   /** Seed of the simulation. */
+    private final MersenneTwisterFast m_simulationMt;   /** Random generator of the simulation. */
     
     private boolean m_stop;
     private boolean m_end;
     
     /**
+     * Constructor.
      * Create a Simulation context.
      */
     public Simulation()
     {
-        this.m_simulationMt = new MersenneTwisterFast(m_simulationSeed);
+        this.m_simulationMt = new MersenneTwisterFast(SIMULATION_SEED);
     }
     
+    /**
+     * Launch the simulation (initialize it) and the main loop.
+     */
     public void launch()
     {
         initSimultation();
         
+        // Notify Changes
+        this.setChanged();
+        this.notifyObservers();
+            
+        System.out.println( "Begin Simulation..." );
         // Main Loop
         //while (!m_end)
         {
@@ -73,15 +83,17 @@ public class Simulation extends Observable
         spawnResources();
     }
     
+    /**
+     * Read all properties of the simulation in the good configuration file.
+     * @see Based on configuration file simulation.properties.
+     */
     private void readSimulationConfiguration()
     {
-        // Todo read params
-        
+        // TODO read params
     }
     
     /**
      * Initialize the world environment.
-     * @see Based on configuration file simulation.properties.
      */
     private void initWorld()
     {
@@ -197,6 +209,11 @@ public class Simulation extends Observable
                     {
                         System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
                     }
+                    // Entity successfully added
+                    else
+                    {
+                        m_entities.add(e);
+                    }
                 }
                 catch (NoSuchMethodException ex) 
                 {
@@ -237,5 +254,15 @@ public class Simulation extends Observable
     private void spawnResources()
     {
         // TODO
+    }
+    
+    // Accesseurs
+    /**
+     * Getter on the simulation world.
+     * @return The world of the simulation.
+     */
+    public World getWorld()
+    {
+        return m_world;
     }
 }

@@ -4,18 +4,26 @@ import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.resources.Resource;
 
 /**
- *
+ * This class store data related to a small part of the world.
+ * World is a matrix of Platform.
+ * 
  * @author Alexandre Rabérin
+ * @see World class.
  */
 public class Platform
 {
-    private final int m_x;
-    private final int m_y;
+    private final int m_x;      /** Coordinate X of the platform. */
+    private final int m_y;      /** Coordinate Y of the platform. */
     
-    private Resource m_resource;
+    private Resource m_resource;/** Resource present on the platform. (null if there is no resource). */
     
-    private Entity m_entity;
-            
+    private Entity m_entity;    /** Entity present on the platform. (null if there is no entity). */
+    
+    /**
+     * Constructor.
+     * @param x Coordinate X of the platform.
+     * @param y Coordinate Y of the platform.
+     */
     public Platform(int x, int y)
     {
         this.m_x = x;

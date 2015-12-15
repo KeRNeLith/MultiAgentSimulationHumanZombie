@@ -17,7 +17,7 @@ import java.util.Map;
 public class CSVParser
 {
     /** Content of the last parsed CSV file. */
-    protected List< HashMap<String, String> > m_parsedContent = null;
+    private List< HashMap<String, String> > m_parsedContent = null;
     
     /**
      * Constructor
@@ -61,7 +61,6 @@ public class CSVParser
         return content;
     }
     
-    
     /**
      * Recupere l'ordre de disposition des donnees dans le fichier.
      * @param content Contenu du fichier.
@@ -97,8 +96,10 @@ public class CSVParser
             
             // Initialize recovering maps
             Map<String,String> map = new HashMap<String, String>();
-            for (int i = 0; i < order.length; i++)
-                map.put(order[i], "");
+            for (String orderS : order) 
+            {
+                map.put(orderS, "");
+            }
             
             // Parse content of the file
             for (int i = 1; i < content.size(); i++)

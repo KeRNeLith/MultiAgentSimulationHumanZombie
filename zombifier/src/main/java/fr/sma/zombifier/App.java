@@ -4,14 +4,16 @@ import fr.sma.zombifier.core.Simulation;
 import fr.sma.zombifier.ui.ConsoleDisplay;
 
 /**
- * Hello world!
- *
+ * Class containing the main function.
  */
 public class App 
 {
+    /**
+     * Main function.
+     * @param args Arguments of the program.
+     */
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
         Simulation simu = new Simulation();
         ConsoleDisplay.create(simu);
         
