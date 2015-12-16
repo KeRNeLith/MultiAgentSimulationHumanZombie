@@ -1,12 +1,13 @@
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.tools.CSVParser;
+import fr.sma.zombifier.utils.Constants;
+import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,8 +27,7 @@ public class Simulation extends Observable
     
     private List<Entity> m_entities;    /** List of entities */
     
-    private final static long SIMULATION_SEED = 1234;   /** Seed of the simulation. */
-    private final MersenneTwisterFast m_simulationMt;   /** Random generator of the simulation. */
+    private MersenneTwisterFast m_simulationMt;   /** Random generator of the simulation. */
     
     private boolean m_stop;
     private boolean m_end;
@@ -38,7 +38,6 @@ public class Simulation extends Observable
      */
     public Simulation()
     {
-        this.m_simulationMt = new MersenneTwisterFast(SIMULATION_SEED);
     }
     
     /**
@@ -74,10 +73,24 @@ public class Simulation extends Observable
         m_entities = new LinkedList<Entity>();
         
         // Load simulation params from file
-        readSimulationConfiguration();
+        Globals.readSimuProperties();
+        
+        // Initialize Random generator
+        if (Globals.USE_RANDOM_SEED)
+            this.m_simulationMt = new MersenneTwisterFast(System.currentTimeMillis());
+        else
+            this.m_simulationMt = new MersenneTwisterFast(Globals.SIMULATION_SEED);
         
         // Initialize world
         initWorld();
+    }
+    
+    /**
+     * Initialize the world environment.
+     */
+    private void initWorld()
+    {
+        m_world = new World(Globals.WORLD_WIDTH, Globals.WORLD_HEIGHT);
         
         // Spawn Zombies and Humans
         spawnEntities();
@@ -87,34 +100,16 @@ public class Simulation extends Observable
     }
     
     /**
-     * Read all properties of the simulation in the good configuration file.
-     * @see Based on configuration file simulation.properties.
-     */
-    private void readSimulationConfiguration()
-    {
-        // TODO read params
-    }
-    
-    /**
-     * Initialize the world environment.
-     */
-    private void initWorld()
-    {
-        // TODO init world
-        m_world = new World(20, 20);
-    }
-    
-    /**
      * Spawn all entities, only humans and zombies.
      * @see Based on configuration files humans.csv and zombies.csv.
      */
     private void spawnEntities()
     {
         // Spawn Humans
-        this.<Human>spawnEntites("./src/main/resources/humans.csv", Human.class);
+        this.<Human>spawnEntites(Constants.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
-        this.<Zombie>spawnEntites("./src/main/resources/zombies.csv", Zombie.class);
+        this.<Zombie>spawnEntites(Constants.ZOMBIE_CONFIG, Zombie.class);
     }
     
     /**
