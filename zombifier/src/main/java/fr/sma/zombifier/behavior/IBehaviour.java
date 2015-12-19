@@ -10,13 +10,14 @@ public interface IBehaviour
     public enum BehaviourType 
     {
         // TO COMPLETE
+        UNDEFINED
     }
     
     void analyze();
     
     void move();
     
-    IBehaviour next();
+    BaseBehaviour next();
 
     BehaviourType getType();
 }

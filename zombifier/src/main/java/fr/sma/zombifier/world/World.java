@@ -24,7 +24,7 @@ public class World extends ArrayList<ArrayList< Platform >>
             ArrayList<Platform> line = get(i);
             for (int j = 0 ; j < width ; j++)
             {
-                line.add(new Platform(i, j));
+                line.add(new Platform(this, i, j));
             }
         }
     }

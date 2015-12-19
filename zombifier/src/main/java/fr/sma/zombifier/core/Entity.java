@@ -1,5 +1,6 @@
 package fr.sma.zombifier.core;
 
+import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
@@ -21,7 +22,7 @@ public abstract class Entity
     
     private MersenneTwisterFast m_mt;       /** Random generator of the entity. */
     
-    private IBehaviour m_behaviour;         /** Current behaviour of the entity. */
+    private BaseBehaviour m_behaviour;      /** Current behaviour of the entity. */
     private BehaviourType m_behaviourType;  /** Current behaviour type of the entity. */
     
     private Platform m_position;            /** Platform on which the entity is on. */
@@ -39,14 +40,22 @@ public abstract class Entity
         this.m_position = p;
         this.m_direction = new Pair<Integer, Integer>(direction_x, direction_y); 
         this.m_mt = new MersenneTwisterFast(m_baseSeed++);
+        this.m_behaviour = null;
+        this.m_behaviourType = BehaviourType.UNDEFINED;
     }
 
+    /**
+     * Méthode principale d'une entité. Gère le déroulement des actions que celle-ci peut effectuer au temps t.
+     */
     void live()
     {
+        // Analyse the environnement to make a decision.
         m_behaviour.analyze();
         
+        // Move the entity
         m_behaviour.move();
         
+        // Reaffect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
         m_behaviourType = m_behaviour.getType();
     }

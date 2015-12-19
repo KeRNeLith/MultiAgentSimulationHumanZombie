@@ -14,6 +14,7 @@ public class Platform
 {
     private final int m_x;      /** Coordinate X of the platform. */
     private final int m_y;      /** Coordinate Y of the platform. */
+    private final World m_world;/** World in which is situated the platform. */
     
     private Resource m_resource;/** Resource present on the platform. (null if there is no resource). */
     
@@ -21,13 +22,15 @@ public class Platform
     
     /**
      * Constructor.
+     * @param w World in which is located the platform.
      * @param x Coordinate X of the platform.
      * @param y Coordinate Y of the platform.
      */
-    public Platform(int x, int y)
+    public Platform(World w, int x, int y)
     {
         this.m_x = x;
         this.m_y = y;
+        this.m_world = w;
         this.m_resource = null;
         this.m_entity = null;
     }
@@ -69,6 +72,37 @@ public class Platform
     }
     
     /**
+     * Add the given resource to the platform.
+     * @param r Resource to add to the platform.
+     * @return true if the resource has been added successfully.
+     */
+    public boolean addResource(Resource r)
+    {
+        boolean ret = false;
+        
+        if (m_resource == null)
+        {
+            m_resource = r;
+            ret = true;
+        }
+        
+        return  ret;
+    }
+    
+    /**
+     * Take the resource from the platform.
+     * Remove it from the platform.
+     * @return The taken resource. Null if there was no resource on the platform.
+     */
+    public Resource takeResource()
+    {               
+        Resource r = m_resource;
+        m_resource = null;
+        
+        return r;
+    }
+    
+    /**
      * Determine if the platform has a resource on it.
      * @return true if the plaform contains a resource, otherwise false.
      */
@@ -84,5 +118,32 @@ public class Platform
     public Resource getResource()
     {
         return m_resource;
+    }
+    
+    /**
+     * Get the X position of the platform.
+     * @return X coordinate.
+     */
+    public int getX()
+    {
+        return m_x;
+    }
+    
+    /**
+     * Get the Y position of the platform.
+     * @return Y coordinate.
+     */
+    public int getY()
+    {
+        return m_y;
+    }
+    
+    /**
+     * Get the world for which this platform belongs to.
+     * @return World of the platform.
+     */
+    public World getWorld()
+    {
+        return m_world;
     }
 }

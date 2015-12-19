@@ -8,24 +8,26 @@ import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * The Simulation class manage the run of all elements of the simulation.
- * 
+ *
  * @author Alexandre Rabérin
  */
 public class Simulation extends Observable
 {
     private World m_world;              /** World on which entities will evolve. */
     
-    private List<Entity> m_entities;    /** List of entities */
+    private List<Entity> m_entities;    /** List of entities. */
     
     private MersenneTwisterFast m_simulationMt;   /** Random generator of the simulation. */
     
@@ -50,12 +52,18 @@ public class Simulation extends Observable
         // Notify Changes
         this.setChanged();
         this.notifyObservers();
-            
+        
         System.out.println( "Begin Simulation..." );
         // Main Loop
-        //while (!m_end)
+        while (!m_end)
         {
-            // TODO
+            // Randomly select the order of entity activation
+            Collections.shuffle(m_entities, new Random());
+            
+            for (Entity e : m_entities)
+            {
+                e.live();
+            }
             
             // Notify Changes
             this.setChanged();
@@ -175,7 +183,7 @@ public class Simulation extends Observable
                     System.err.println("Not found X watching direction for the " + (i+1) + "th " + clazz.getSimpleName());
                     continue;
                 }
-
+                
                 // Get Y watching direction
                 int dirY;
                 if (entityData.containsKey("direction_y"))
@@ -201,7 +209,7 @@ public class Simulation extends Observable
                     
                     // Create and affect the entity
                     Entity e = constructor.newInstance(p, x, y);
-
+                    
                     // Try to add the entity
                     if (p.addEntity(e))
                     {
@@ -214,27 +222,27 @@ public class Simulation extends Observable
                         System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
                     }
                 }
-                catch (NoSuchMethodException ex) 
+                catch (NoSuchMethodException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                catch (SecurityException ex) 
+                }
+                catch (SecurityException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                catch (InstantiationException ex) 
+                }
+                catch (InstantiationException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                catch (IllegalAccessException ex) 
+                }
+                catch (IllegalAccessException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                catch (IllegalArgumentException ex) 
+                }
+                catch (IllegalArgumentException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                } 
-                catch (InvocationTargetException ex) 
+                }
+                catch (InvocationTargetException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
                 }

@@ -1,6 +1,7 @@
 package fr.sma.zombifier.utils;
 
 import java.io.Serializable;
+import java.util.Random;
 
 /**
  * <h3>Mersenne Twister and MersenneTwisterFast</h3>
@@ -105,7 +106,7 @@ import java.io.Serializable;
  * @version 3
  */
 
-public class MersenneTwisterFast implements Serializable
+public class MersenneTwisterFast extends Random implements Serializable
 {
     // Period parameters
     private static final int N = 624;
@@ -208,7 +209,6 @@ public class MersenneTwisterFast implements Serializable
      * 
      * @param array an array of 624 ints
      */
-
     public final void setSeed(final int[] array)
     {
 
@@ -228,7 +228,7 @@ public class MersenneTwisterFast implements Serializable
      * 
      * @param seed the seed to use
      */
-
+    @Override
     public final void setSeed(final long seed)
     {
         // seed needs to be casted into an int first for this to work
@@ -255,6 +255,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next int
      */
+    @Override
     public final int nextInt()
     {
         int y;
@@ -363,6 +364,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next boolean
      */
+    @Override
     public final boolean nextBoolean()
     {
         int y;
@@ -551,6 +553,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @param bytes the next bytes
      */
+    @Override
     public final void nextBytes(byte[] bytes)
     {
         int y;
@@ -590,6 +593,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next long
      */
+    @Override
     public final long nextLong()
     {
         int y;
@@ -653,6 +657,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next double
      */
+    @Override
     public final double nextDouble()
     {
         int y;
@@ -717,6 +722,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next Gaussian
      */
+    @Override
     public final double nextGaussian()
     {
         if (this.haveNextNextGaussian)
@@ -851,6 +857,7 @@ public class MersenneTwisterFast implements Serializable
     /**
      * @return the next float
      */
+    @Override
     public final float nextFloat()
     {
         int y;
@@ -891,6 +898,7 @@ public class MersenneTwisterFast implements Serializable
      * @param n the upper bound
      * @return the next int
      */
+    @Override
     public final int nextInt(final int n)
     {
         if (n <= 0)
