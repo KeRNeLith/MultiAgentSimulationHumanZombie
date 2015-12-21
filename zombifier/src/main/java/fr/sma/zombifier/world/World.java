@@ -1,9 +1,11 @@
 package fr.sma.zombifier.world;
 
+import fr.sma.zombifier.utils.Pair;
 import java.util.ArrayList;
 
 /**
  * The World class provide storage for the world formed with a matrix of Platform.
+ * Allow access to coordinates (X, Y) by the following way get(Y).get(X).
  * 
  * @author Alexandre Rabérin
  */
@@ -17,14 +19,14 @@ public class World extends ArrayList<ArrayList< Platform >>
     public World(int width, int height)
     {
         // Create the world map
-        for (int i = 0 ; i < height ; i++)
+        for (int y = 0 ; y < height ; y++)
         {
             add(new ArrayList<Platform>());
             
-            ArrayList<Platform> line = get(i);
-            for (int j = 0 ; j < width ; j++)
+            ArrayList<Platform> line = get(y);
+            for (int x = 0 ; x < width ; x++)
             {
-                line.add(new Platform(this, i, j));
+                line.add(new Platform(this, x, y));
             }
         }
     }
