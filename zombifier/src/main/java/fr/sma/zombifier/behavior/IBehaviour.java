@@ -9,7 +9,12 @@ public interface IBehaviour
 {
     public enum BehaviourType 
     {
-        // TO COMPLETE
+        // Human related
+        NORMAL_HUMAN,
+        
+        // Zombie related
+        NORMAL_ZOMBIE,
+        
         UNDEFINED
     }
     

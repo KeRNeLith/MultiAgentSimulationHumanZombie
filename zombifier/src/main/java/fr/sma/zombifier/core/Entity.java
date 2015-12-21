@@ -1,8 +1,8 @@
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.behavior.BaseBehaviour;
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
+import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
@@ -15,18 +15,26 @@ import fr.sma.zombifier.world.Platform;
  */
 public abstract class Entity
 {
-    private static long m_baseSeed = 1234;  /** Seed used to initialize all random generator for each entity. */
+    /** Seed used to initialize all random generator for each entity. */
+    private static long m_baseSeed = 1234;
  
-    private static int m_nextId = 1;        /** Class attribute to determine the ID of each constructed entity. */
-    private int m_id;                       /** ID of the entity. */
+    /** Class attribute to determine the ID of each constructed entity. */
+    private static int m_nextId = 1;
+    /** ID of the entity. */
+    private int m_id;
     
-    private MersenneTwisterFast m_mt;       /** Random generator of the entity. */
+    /** Random generator of the entity. */
+    private final MersenneTwisterFast m_mt;
     
-    private BaseBehaviour m_behaviour;      /** Current behaviour of the entity. */
-    private BehaviourType m_behaviourType;  /** Current behaviour type of the entity. */
+    /** Current behaviour of the entity. */
+    protected BaseBehaviour m_behaviour;
+    /** Current behaviour type of the entity. */
+    protected BehaviourType m_behaviourType;
     
-    private Platform m_position;            /** Platform on which the entity is on. */
-    private Pair<Integer, Integer> m_direction; /** Direction in which the entity is watching. */
+    /** Platform on which the entity is on. */
+    private Platform m_position;
+    /** Direction in which the entity is watching. */
+    private Pair<Integer, Integer> m_direction;
     
     /**
      * Constructor.
@@ -39,7 +47,13 @@ public abstract class Entity
         this.m_id = m_nextId++;
         this.m_position = p;
         this.m_direction = new Pair<>(direction_x, direction_y); 
-        this.m_mt = new MersenneTwisterFast(m_baseSeed++);
+        
+        // Initialize Random generator
+        if (Globals.USE_RANDOM_SEED)
+            this.m_mt = new MersenneTwisterFast(System.currentTimeMillis());
+        else
+            this.m_mt = new MersenneTwisterFast(m_baseSeed++);
+        
         this.m_behaviour = null;
         this.m_behaviourType = BehaviourType.UNDEFINED;
     }

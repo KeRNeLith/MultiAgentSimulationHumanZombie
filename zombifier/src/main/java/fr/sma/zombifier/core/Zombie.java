@@ -1,5 +1,7 @@
 package fr.sma.zombifier.core;
 
+import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
+import fr.sma.zombifier.behavior.zombie.NormalZombieBehaviour;
 import fr.sma.zombifier.world.Platform;
 
 /**
@@ -18,5 +20,8 @@ public class Zombie extends Entity
     public Zombie(final Platform p, final int direction_x, final int direction_y)
     {
         super(p, direction_x, direction_y);
+        
+        this.m_behaviour = new NormalZombieBehaviour(this);
+        this.m_behaviourType = BehaviourType.NORMAL_ZOMBIE;
     }
 }

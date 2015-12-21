@@ -25,11 +25,14 @@ import java.util.logging.Logger;
  */
 public class Simulation extends Observable
 {
-    private World m_world;              /** World on which entities will evolve. */
+    /** World on which entities will evolve. */
+    private World m_world;
     
-    private List<Entity> m_entities;    /** List of entities. */
+    /** List of entities. */
+    private List<Entity> m_entities;
     
-    private MersenneTwisterFast m_simulationMt;   /** Random generator of the simulation. */
+    /** Random generator of the simulation. */
+    private MersenneTwisterFast m_simulationMt;   
     
     private boolean m_stop;
     private boolean m_end;
@@ -60,10 +63,7 @@ public class Simulation extends Observable
             // Randomly select the order of entity activation
             Collections.shuffle(m_entities, new Random());
             
-            for (Entity e : m_entities)
-            {
-                e.live();
-            }
+            m_entities.stream().forEach(Entity::live);
             
             // Notify Changes
             this.setChanged();
@@ -78,7 +78,7 @@ public class Simulation extends Observable
     {
         m_stop = false;
         m_end = false;
-        m_entities = new LinkedList<Entity>();
+        m_entities = new LinkedList<>();
         
         // Load simulation params from file
         Globals.readSimuProperties();
@@ -222,27 +222,12 @@ public class Simulation extends Observable
                         System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
                     }
                 }
-                catch (NoSuchMethodException ex)
-                {
-                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (SecurityException ex)
-                {
-                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (InstantiationException ex)
-                {
-                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (IllegalAccessException ex)
-                {
-                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (IllegalArgumentException ex)
-                {
-                    Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                catch (InvocationTargetException ex)
+                catch ( NoSuchMethodException 
+                        | SecurityException 
+                        | InstantiationException 
+                        | IllegalAccessException 
+                        | IllegalArgumentException 
+                        | InvocationTargetException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
                 }
