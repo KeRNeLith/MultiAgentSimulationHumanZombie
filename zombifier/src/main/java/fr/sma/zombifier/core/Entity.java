@@ -38,7 +38,7 @@ public abstract class Entity
     {
         this.m_id = m_nextId++;
         this.m_position = p;
-        this.m_direction = new Pair<Integer, Integer>(direction_x, direction_y); 
+        this.m_direction = new Pair<>(direction_x, direction_y); 
         this.m_mt = new MersenneTwisterFast(m_baseSeed++);
         this.m_behaviour = null;
         this.m_behaviourType = BehaviourType.UNDEFINED;

@@ -1,6 +1,5 @@
 package fr.sma.zombifier.world;
 
-import fr.sma.zombifier.utils.Pair;
 import java.util.ArrayList;
 
 /**
@@ -21,7 +20,7 @@ public class World extends ArrayList<ArrayList< Platform >>
         // Create the world map
         for (int y = 0 ; y < height ; y++)
         {
-            add(new ArrayList<Platform>());
+            add(new ArrayList<>());
             
             ArrayList<Platform> line = get(y);
             for (int x = 0 ; x < width ; x++)

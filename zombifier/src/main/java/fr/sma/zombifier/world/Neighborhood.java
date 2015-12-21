@@ -1,5 +1,7 @@
 package fr.sma.zombifier.world;
 
+import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.Pair;
 import java.util.ArrayList;
@@ -30,7 +32,7 @@ public class Neighborhood
     {
         this.m_position = p;
         this.m_direction = dir;
-        this.m_neighborPlatforms = new ArrayList<Platform>();
+        this.m_neighborPlatforms = new ArrayList<>();
         
         generateNeighbors();
     }
@@ -122,10 +124,22 @@ public class Neighborhood
      */
     public List<Platform> getPlatformWithResources()
     {
-        //List<Platform> list = m_neighborPlatforms;
-        //list.removeIf(p -> p.hasResouce() == false);
+        List<Platform> list = new ArrayList<>(m_neighborPlatforms);
+        list.removeIf(p -> p.hasResource() == false);
         
-        return null;
+        return list;
+    }
+    
+    /**
+     * Get the list of platforms where there is an entity on it.
+     * @return List of platforms with an entity.
+     */
+    public List<Platform> getPlatformWithEntity()
+    {
+        List<Platform> list = new ArrayList<>(m_neighborPlatforms);
+        list.removeIf(p -> p.hasEntity() == false);
+        
+        return list;
     }
     
     /**
