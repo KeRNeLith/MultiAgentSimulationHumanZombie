@@ -21,9 +21,11 @@ import java.util.Observer;
  */
 public class ConsoleDisplay implements Observer
 {
-    private static ConsoleDisplay m_instance;   /** Instance of ConsoleDisplay (Singleton). */
+    /** Instance of ConsoleDisplay (Singleton). */
+    private static ConsoleDisplay m_instance;
     
-    private final Simulation m_simulation;      /** Simulation that progress will be dispalyed. */
+    /** Simulation that progress will be dispalyed. */
+    private final Simulation m_simulation;
     
     /**
      * Constructor.

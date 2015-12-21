@@ -9,8 +9,10 @@ package fr.sma.zombifier.utils;
  */
 public class Pair<F, S>
 {
-    private F first; 	// First member of pair
-    private S second; 	// Second member of pair
+    /** First member of pair. */
+    private F first;
+    /** Second member of pair. */
+    private S second;
     
     /**
      * Constructor.

@@ -12,13 +12,18 @@ import fr.sma.zombifier.resources.Resource;
  */
 public class Platform
 {
-    private final int m_x;      /** Coordinate X of the platform. */
-    private final int m_y;      /** Coordinate Y of the platform. */
-    private final World m_world;/** World in which is situated the platform. */
+    /** Coordinate X of the platform. */
+    private final int m_x;
+    /** Coordinate Y of the platform. */
+    private final int m_y;
+    /** World in which is situated the platform. */
+    private final World m_world;
     
-    private Resource m_resource;/** Resource present on the platform. (null if there is no resource). */
+    /** Resource present on the platform. (null if there is no resource). */
+    private Resource m_resource;
     
-    private Entity m_entity;    /** Entity present on the platform. (null if there is no entity). */
+    /** Entity present on the platform. (null if there is no entity). */
+    private Entity m_entity;
     
     /**
      * Constructor.

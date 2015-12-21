@@ -7,19 +7,19 @@ import java.util.List;
 
 /**
  * This class manage the neighborhood of a entity based on his position and orientation.
- * 
+ *
  * @author Alexandre Rabérin
  */
 public class Neighborhood
 {
     /** Position from which computing the neighborhood. */
-    private final Platform m_position;          
+    private final Platform m_position;
     
     /** Watching direction. */
     private final Pair<Integer, Integer> m_direction;
     
     /** Neighbor platform visible from the position with the given direction. */
-    private List<Platform> m_neighborPlatforms;
+    private final List<Platform> m_neighborPlatforms;
     
     /**
      * Constructor.
@@ -90,7 +90,7 @@ public class Neighborhood
         // Get neighborhood platforms
         for (int i = xb ; i <= xe && i >= 0 && i < w.size() ; i++)
         {
-            for (int j = yb ; j <= ye && j >= 0 && j < w.get(i).size() ; j++) 
+            for (int j = yb ; j <= ye && j >= 0 && j < w.get(i).size() ; j++)
             {
                 if (i != x || j != y)
                 {
@@ -105,7 +105,7 @@ public class Neighborhood
         
         int progress = 1;
         while (progress < Globals.VIEW_RANGE && y >= 0 && y < w.size() && x >= 0 && x < w.get(y).size())
-        {  
+        {
             // Add the platform to neighborhood
             m_neighborPlatforms.add(w.get(y).get(x));
             
@@ -122,7 +122,9 @@ public class Neighborhood
      */
     public List<Platform> getPlatformWithResources()
     {
-        // TODO
+        //List<Platform> list = m_neighborPlatforms;
+        //list.removeIf(p -> p.hasResouce() == false);
+        
         return null;
     }
     
