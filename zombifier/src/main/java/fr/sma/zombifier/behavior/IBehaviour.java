@@ -1,9 +1,13 @@
 package fr.sma.zombifier.behavior;
 
+import fr.sma.zombifier.core.Event;
+
+import java.util.List;
+
 /**
  * This interface declare all methods that should be implemented by all behaviour types.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin
  */
 public interface IBehaviour
 {
@@ -18,9 +22,9 @@ public interface IBehaviour
         UNDEFINED
     }
     
-    void analyze();
+    Event analyze();
     
-    void move();
+    void react();
     
     BaseBehaviour next();
 

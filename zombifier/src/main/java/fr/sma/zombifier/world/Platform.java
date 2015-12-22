@@ -7,7 +7,7 @@ import fr.sma.zombifier.resources.Resource;
  * This class store data related to a small part of the world.
  * World is a matrix of Platform.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  * @see World class.
  */
 public class Platform
@@ -150,5 +150,12 @@ public class Platform
     public World getWorld()
     {
         return m_world;
+    }
+
+    /**
+     * Remove an Entity on the platform
+     */
+    public void removeEntity() {
+        m_entity = null;
     }
 }

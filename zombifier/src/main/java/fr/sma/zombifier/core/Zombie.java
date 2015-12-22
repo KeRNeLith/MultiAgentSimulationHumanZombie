@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * The class represent a Zombie entity.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  */
 public class Zombie extends Entity
 {
@@ -24,4 +24,6 @@ public class Zombie extends Entity
         this.m_behaviour = new NormalZombieBehaviour(this);
         this.m_behaviourType = BehaviourType.NORMAL_ZOMBIE;
     }
+
+
 }

@@ -3,11 +3,12 @@ package fr.sma.zombifier.behavior.zombie;
 import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
+import fr.sma.zombifier.core.Event;
 
 /**
  * This class handle the normal behaviour for a zombie entity.
- * 
- * @author Alexandre Rabérin
+ *
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class NormalZombieBehaviour extends BaseBehaviour
 {
@@ -21,13 +22,13 @@ public class NormalZombieBehaviour extends BaseBehaviour
     }
 
     @Override
-    public void analyze()
+    public Event analyze()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void move()
+    public void react()
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

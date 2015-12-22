@@ -11,7 +11,7 @@ import fr.sma.zombifier.world.Platform;
  * The class is the base class for all entities. This class should be subclass to make sense.
  * This is an abstract class.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin, Adrien Pierreval
  */
 public abstract class Entity
 {
@@ -59,7 +59,7 @@ public abstract class Entity
     }
 
     /**
-     * Méthode principale d'une entité. Gère le déroulement des actions que celle-ci peut effectuer au temps t.
+     * MÃ©thode principale d'une entitÃ©. GÃ¨re le dÃ©roulement des actions que celle-ci peut effectuer au temps t.
      */
     void live()
     {
@@ -67,10 +67,24 @@ public abstract class Entity
         m_behaviour.analyze();
         
         // Move the entity
-        m_behaviour.move();
+        m_behaviour.react();
         
         // Reaffect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
         m_behaviourType = m_behaviour.getType();
     }
+
+    /**
+     * Get the position of an entity
+     * @return The platform on which the entity is
+     */
+    public Platform getPosition() { return m_position;  }
+
+    /**
+     * Get the direction the entity is looking at
+     * @return A pair of integer containing the direction
+     */
+    public Pair<Integer, Integer> getDirection() { return m_direction;   }
+
+
 }
