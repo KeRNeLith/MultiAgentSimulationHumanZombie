@@ -10,7 +10,9 @@ import junit.framework.TestCase;
  *
  * @author Alexandre Rabérin - Adrien Pierreval
  */
-public class NeighborhoodTest extends TestCase {
+public class NeighborhoodTest extends TestCase 
+{
+    private final static World WORLD = new World(20, 20);
     
     /**
      * Class dedicated to check neighborhood functionalities.
@@ -38,8 +40,7 @@ public class NeighborhoodTest extends TestCase {
      */
     public void testGetNeighborhood() throws Exception 
     {
-        World w = new World(20, 20);
-        Platform p = new Platform(w, 10, 10);
+        Platform p = new Platform(WORLD, 10, 10);
         NeighborhoodChecker checker = new NeighborhoodChecker();
         
         // Neighborhood 1 (watching direction (1, 0))
@@ -51,7 +52,7 @@ public class NeighborhoodTest extends TestCase {
         assertTrue(checker.containsPlatform(list1, 10, 11));
         assertTrue(checker.containsPlatform(list1, 11, 9));
         assertTrue(checker.containsPlatform(list1, 11, 11));
-        for (int i = 1 ; i <= Globals.VIEW_RANGE ; i++)
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (10 + i) < WORLD.size() ; i++)
         {
             assertTrue(checker.containsPlatform(list1, 10 + i, 10));
             count++;
@@ -67,7 +68,7 @@ public class NeighborhoodTest extends TestCase {
         assertTrue(checker.containsPlatform(list2, 9, 10));
         assertTrue(checker.containsPlatform(list2, 11, 9));
         assertTrue(checker.containsPlatform(list2, 11, 10));
-        for (int i = 1 ; i <= Globals.VIEW_RANGE ; i++)
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (10 - i) >= 0 ; i++)
         {
             assertTrue(checker.containsPlatform(list2, 10, 10 - i));
             count++;
@@ -83,7 +84,7 @@ public class NeighborhoodTest extends TestCase {
         assertTrue(checker.containsPlatform(list3, 10, 9));
         assertTrue(checker.containsPlatform(list3, 9, 11));
         assertTrue(checker.containsPlatform(list3, 10, 11));
-        for (int i = 1 ; i <= Globals.VIEW_RANGE ; i++)
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (10 - i) >= 0 ; i++)
         {
             assertTrue(checker.containsPlatform(list3, 10 - i, 10));
             count++;
@@ -99,7 +100,7 @@ public class NeighborhoodTest extends TestCase {
         assertTrue(checker.containsPlatform(list4, 9, 11));
         assertTrue(checker.containsPlatform(list4, 11, 10));
         assertTrue(checker.containsPlatform(list4, 11, 11));
-        for (int i = 1 ; i <= Globals.VIEW_RANGE ; i++)
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (10 + i) < WORLD.size() ; i++)
         {
             assertTrue(checker.containsPlatform(list4, 10, 10 + i));
             count++;
@@ -114,7 +115,73 @@ public class NeighborhoodTest extends TestCase {
      */
     public void testGetNeighborhoodOnSides() throws Exception 
     {
-        // TODO
+        NeighborhoodChecker checker = new NeighborhoodChecker();
+        
+        // Neighborhood 1 (watching direction (1, 0))
+        Platform p1 = new Platform(WORLD, 18, 10);
+        Neighborhood n1 = new Neighborhood(p1, new Pair<>(1, 0));
+        List<Platform> list1 = n1.getNeighborhood();
+        assertNotNull("Neighborhood 1", list1);
+        assertEquals("Neighborhood 1 has right number of platforms", 5, list1.size());
+        assertTrue(checker.containsPlatform(list1, 18, 9));
+        assertTrue(checker.containsPlatform(list1, 18, 11));
+        assertTrue(checker.containsPlatform(list1, 19, 9));
+        assertTrue(checker.containsPlatform(list1, 19, 10));
+        assertTrue(checker.containsPlatform(list1, 19, 11));
+        
+        // Neighborhood 2 (watching direction (1, 0))
+        Platform p2 = new Platform(WORLD, 19, 19);
+        Neighborhood n2 = new Neighborhood(p2, new Pair<>(1, 0));
+        List<Platform> list2 = n2.getNeighborhood();
+        assertNotNull("Neighborhood 2", list2);
+        assertEquals("Neighborhood 2 has right number of platforms", 1, list2.size());
+        assertTrue(checker.containsPlatform(list2, 19, 18));
+        
+        // Neighborhood 3 (watching direction (-1, 0))
+        int count = 2;
+        Neighborhood n3 = new Neighborhood(p2, new Pair<>(-1, 0));
+        List<Platform> list3 = n3.getNeighborhood();
+        assertNotNull("Neighborhood 3", list3);
+        assertTrue(checker.containsPlatform(list3, 18, 18));
+        assertTrue(checker.containsPlatform(list3, 19, 18));
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (19 - i) >= 0 ; i++)
+        {
+            assertTrue(checker.containsPlatform(list3, 19 - i, 19));
+            count++;
+        }
+        assertEquals("Neighborhood 3 has right number of platforms", count, list3.size());
+        
+        // Neighborhood 4 (watching direction (0, 1))
+        count = 2;
+        Platform p3 = new Platform(WORLD, 19, 10);
+        Neighborhood n4 = new Neighborhood(p3, new Pair<>(0, 1));
+        List<Platform> list4 = n4.getNeighborhood();
+        assertNotNull("Neighborhood 4", list4);
+        assertTrue(checker.containsPlatform(list4, 18, 10));
+        assertTrue(checker.containsPlatform(list4, 18, 9));
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (10 - i) >= 0 ; i++)
+        {
+            assertTrue(checker.containsPlatform(list4, 19, 10 - i));
+            count++;
+        }
+        assertEquals("Neighborhood 4 has right number of platforms", count, list4.size());
+        
+        // Neighborhood 5 (watching direction (0, -1))
+        count = 4;
+        Platform p4 = new Platform(WORLD, 10, 17);
+        Neighborhood n5 = new Neighborhood(p4, new Pair<>(0, -1));
+        List<Platform> list5 = n5.getNeighborhood();
+        assertNotNull("Neighborhood 5", list5);
+        assertTrue(checker.containsPlatform(list5, 9, 17));
+        assertTrue(checker.containsPlatform(list5, 9, 18));
+        assertTrue(checker.containsPlatform(list5, 11, 17));
+        assertTrue(checker.containsPlatform(list5, 11, 18));
+        for (int i = 1 ; i <= Globals.VIEW_RANGE && (17 + i) < WORLD.size() ; i++)
+        {
+            assertTrue(checker.containsPlatform(list5, 10, 17 + i));
+            count++;
+        }
+        assertEquals("Neighborhood 5 has right number of platforms", count, list5.size());
     }
     
     public void testGetPlatformWithResources() throws Exception 
