@@ -8,7 +8,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * The class represent a Human entity.
  * 
- * @author Alexandre Rabï¿½rin
+ * @author Alexandre Rabérin
  */
 public class Human extends Entity
 {

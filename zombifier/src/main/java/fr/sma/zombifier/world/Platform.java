@@ -7,7 +7,7 @@ import fr.sma.zombifier.resources.Resource;
  * This class store data related to a small part of the world.
  * World is a matrix of Platform.
  * 
- * @author Alexandre Rabï¿½rin
+ * @author Alexandre Rabérin
  * @see World class.
  */
 public class Platform

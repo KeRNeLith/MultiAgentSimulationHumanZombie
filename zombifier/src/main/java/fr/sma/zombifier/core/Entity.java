@@ -11,7 +11,7 @@ import fr.sma.zombifier.world.Platform;
  * The class is the base class for all entities. This class should be subclass to make sense.
  * This is an abstract class.
  * 
- * @author Alexandre RabÃ©rin, Adrien Pierreval
+ * @author Alexandre Rabérin, Adrien Pierreval
  */
 public abstract class Entity
 {

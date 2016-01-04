@@ -7,7 +7,7 @@ import fr.sma.zombifier.core.Event;
 /**
  * This class handle the normal behaviour for a human entity.
  * 
- * @author Alexandre RabÃ©rin
+ * @author Alexandre Rabérin
  */
 public class NormalHumanBehaviour extends BaseBehaviour
 {

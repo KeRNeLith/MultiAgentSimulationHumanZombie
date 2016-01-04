@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 /**
  * The Simulation class manage the run of all elements of the simulation.
  *
- * @author Alexandre RabÃ©rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class Simulation extends Observable
 {

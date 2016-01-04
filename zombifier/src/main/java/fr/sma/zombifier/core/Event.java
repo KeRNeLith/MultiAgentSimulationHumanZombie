@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
  * The Event class contains all informations spotted by the analysis of the entities.
  * The contained informations are location, type and priority of the event
  *
- * @author Ace Nanter
+ * @author Adrien Pierreval
  */
 
 public class Event

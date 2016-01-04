@@ -4,15 +4,11 @@ import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Event;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
-import fr.sma.zombifier.world.World;
-import sun.awt.PlatformFont;
-
-import java.util.List;
 
 /**
  * Base class for all behaviour.
  * 
- * @author Alexandre RabÃ©rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public abstract class BaseBehaviour implements IBehaviour
 {

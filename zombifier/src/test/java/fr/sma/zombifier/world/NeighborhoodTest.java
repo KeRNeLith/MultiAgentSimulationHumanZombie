@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Neighborhood class
  *
- * @author Alexandre RabÃ©rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class NeighborhoodTest extends TestCase {
 

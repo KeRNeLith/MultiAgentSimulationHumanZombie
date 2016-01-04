@@ -1,7 +1,5 @@
 package fr.sma.zombifier.world;
 
-import fr.sma.zombifier.resources.Resource;
-import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.Pair;
 import java.util.ArrayList;
@@ -10,7 +8,7 @@ import java.util.List;
 /**
  * This class manage the neighborhood of a entity based on his position and orientation.
  *
- * @author Alexandre RabÃ©rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class Neighborhood
 {

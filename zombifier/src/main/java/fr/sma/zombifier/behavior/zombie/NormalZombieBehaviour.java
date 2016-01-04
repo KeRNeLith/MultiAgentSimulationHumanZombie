@@ -8,7 +8,7 @@ import fr.sma.zombifier.core.Event;
 /**
  * This class handle the normal behaviour for a zombie entity.
  *
- * @author Alexandre RabÃ©rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class NormalZombieBehaviour extends BaseBehaviour
 {
