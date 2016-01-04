@@ -1,5 +1,8 @@
 package fr.sma.zombifier.world;
 
+import fr.sma.zombifier.core.Human;
+import fr.sma.zombifier.core.Zombie;
+import fr.sma.zombifier.resources.FireWeapon;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.Pair;
 import java.util.List;
@@ -184,13 +187,98 @@ public class NeighborhoodTest extends TestCase
         assertEquals("Neighborhood 5 has right number of platforms", count, list5.size());
     }
     
+    /**
+     * Test if platform with resources are visibles in the neighborhood.
+     * @throws Exception 
+     */
     public void testGetPlatformWithResources() throws Exception 
     {
-        // TODO
+        World w = new World(20, 20);
+        Platform p = new Platform(w, 10, 10);
+        NeighborhoodChecker checker = new NeighborhoodChecker();
+        
+        // Set up resources
+        FireWeapon r = new FireWeapon();
+        w.get(9).get(9).addResource(r);
+        w.get(9).get(11).addResource(r);
+        assertTrue("Check Resource is on platform 1", w.get(9).get(9).hasResource());
+        assertTrue("Check Resource is on platform 2", w.get(9).get(11).hasResource());
+        
+        // Neighborhood 1 (watching direction (1, 0))
+        Neighborhood n1 = new Neighborhood(p, new Pair<>(1, 0));
+        List<Platform> list1 = n1.getPlatformWithResources();
+        assertNotNull("Neighborhood 1", list1);
+        assertTrue(checker.containsPlatform(list1, 11, 9));
+        assertEquals("Neighborhood 1 has right number of platforms with resources", 1, list1.size());
+        
+        // Neighborhood 2 (watching direction (0, 1))
+        Neighborhood n2 = new Neighborhood(p, new Pair<>(0, 1));
+        List<Platform> list2 = n2.getPlatformWithResources();
+        assertNotNull("Neighborhood 2", list2);
+        assertTrue(checker.containsPlatform(list2, 9, 9));
+        assertTrue(checker.containsPlatform(list2, 11, 9));
+        assertEquals("Neighborhood 2 has right number of platforms with resources", 2, list2.size());
+        
+        // Neighborhood 3 (watching direction (-1, 0))
+        Neighborhood n3 = new Neighborhood(p, new Pair<>(-1, 0));
+        List<Platform> list3 = n3.getPlatformWithResources();
+        assertNotNull("Neighborhood 3", list3);
+        assertTrue(checker.containsPlatform(list3, 9, 9));
+        assertEquals("Neighborhood 3 has right number of platforms with resources", 1, list3.size());
+        
+        // Neighborhood 4 (watching direction (0, -1))
+        Neighborhood n4 = new Neighborhood(p, new Pair<>(0, -1));
+        List<Platform> list4 = n4.getPlatformWithResources();
+        assertNotNull("Neighborhood 4", list4);
+        assertTrue("Neighborhood 4 has right number of platforms with resources", list4.isEmpty());
     }
 
+    /**
+     * Test if platform with entities are visibles in the neighborhood.
+     * @throws Exception 
+     */
     public void testGetPlatformWithEntity() throws Exception 
     {
-        // TODO
+        World w = new World(20, 20);
+        Platform p = new Platform(w, 10, 10);
+        NeighborhoodChecker checker = new NeighborhoodChecker();
+        
+        // Set up entites
+        Platform p1 = w.get(9).get(9);
+        Platform p2 = w.get(9).get(11);
+        Zombie z = new Zombie(p1, 1, 0);
+        Human h = new Human(p1, 1, 0);
+        p1.addEntity(z);
+        p2.addEntity(h);
+        assertTrue("Check zombie is on platform 1", p1.hasEntity());
+        assertTrue("Check human is on platform 2", p2.hasEntity());
+        
+        // Neighborhood 1 (watching direction (1, 0))
+        Neighborhood n1 = new Neighborhood(p, new Pair<>(1, 0));
+        List<Platform> list1 = n1.getPlatformWithEntity();
+        assertNotNull("Neighborhood 1", list1);
+        assertTrue(checker.containsPlatform(list1, 11, 9));
+        assertEquals("Neighborhood 1 has right number of platforms with resources", 1, list1.size());
+        
+        // Neighborhood 2 (watching direction (0, 1))
+        Neighborhood n2 = new Neighborhood(p, new Pair<>(0, 1));
+        List<Platform> list2 = n2.getPlatformWithEntity();
+        assertNotNull("Neighborhood 2", list2);
+        assertTrue(checker.containsPlatform(list2, 9, 9));
+        assertTrue(checker.containsPlatform(list2, 11, 9));
+        assertEquals("Neighborhood 2 has right number of platforms with resources", 2, list2.size());
+        
+        // Neighborhood 3 (watching direction (-1, 0))
+        Neighborhood n3 = new Neighborhood(p, new Pair<>(-1, 0));
+        List<Platform> list3 = n3.getPlatformWithEntity();
+        assertNotNull("Neighborhood 3", list3);
+        assertTrue(checker.containsPlatform(list3, 9, 9));
+        assertEquals("Neighborhood 3 has right number of platforms with resources", 1, list3.size());
+        
+        // Neighborhood 4 (watching direction (0, -1))
+        Neighborhood n4 = new Neighborhood(p, new Pair<>(0, -1));
+        List<Platform> list4 = n4.getPlatformWithEntity();
+        assertNotNull("Neighborhood 4", list4);
+        assertTrue("Neighborhood 4 has right number of platforms with resources", list4.isEmpty());
     }
 }
