@@ -17,6 +17,23 @@ public class NeighborhoodTest extends TestCase
 {
     private final static World WORLD = new World(20, 20);
     
+    public NeighborhoodTest(String testName)
+    {
+        super(testName);
+    }
+    
+    @Override
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+    }
+    
+    @Override
+    protected void tearDown() throws Exception
+    {
+        super.tearDown();
+    }
+    
     /**
      * Class dedicated to check neighborhood functionalities.
      * 
@@ -39,9 +56,8 @@ public class NeighborhoodTest extends TestCase
     
     /**
      * Test neighborhoods on each cardinal direction.
-     * @throws Exception 
      */
-    public void testGetNeighborhood() throws Exception 
+    public void testGetNeighborhood()
     {
         Platform p = new Platform(WORLD, 10, 10);
         NeighborhoodChecker checker = new NeighborhoodChecker();
@@ -114,9 +130,8 @@ public class NeighborhoodTest extends TestCase
     
     /**
      * Test neighborhoods on each cardinal direction (on world sides).
-     * @throws Exception 
      */
-    public void testGetNeighborhoodOnSides() throws Exception 
+    public void testGetNeighborhoodOnSides()
     {
         NeighborhoodChecker checker = new NeighborhoodChecker();
         
@@ -189,9 +204,8 @@ public class NeighborhoodTest extends TestCase
     
     /**
      * Test if platform with resources are visibles in the neighborhood.
-     * @throws Exception 
      */
-    public void testGetPlatformWithResources() throws Exception 
+    public void testGetPlatformWithResources()
     {
         World w = new World(20, 20);
         Platform p = new Platform(w, 10, 10);
@@ -235,9 +249,8 @@ public class NeighborhoodTest extends TestCase
 
     /**
      * Test if platform with entities are visibles in the neighborhood.
-     * @throws Exception 
      */
-    public void testGetPlatformWithEntity() throws Exception 
+    public void testGetPlatformWithEntity() 
     {
         World w = new World(20, 20);
         Platform p = new Platform(w, 10, 10);

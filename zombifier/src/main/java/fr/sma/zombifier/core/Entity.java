@@ -32,21 +32,21 @@ public abstract class Entity
     protected BehaviourType m_behaviourType;
     
     /** Platform on which the entity is on. */
-    private Platform m_position;
+    protected Platform m_position;
     /** Direction in which the entity is watching. */
-    private Pair<Integer, Integer> m_direction;
+    protected Pair<Integer, Integer> m_direction;
     
     /**
      * Constructor.
      * @param p Platform on which the entity begin the simulation.
-     * @param direction_x Watching direction on X axis.
-     * @param direction_y Watching direction on Y axis.
+     * @param directionX Watching direction on X axis.
+     * @param directionY Watching direction on Y axis.
      */
-    public Entity(final Platform p, final int direction_x, final int direction_y)
+    public Entity(final Platform p, final int directionX, final int directionY)
     {
         this.m_id = m_nextId++;
         this.m_position = p;
-        this.m_direction = new Pair<>(direction_x, direction_y); 
+        this.m_direction = new Pair<>(directionX, directionY); 
         
         // Initialize Random generator
         if (Globals.USE_RANDOM_SEED)
@@ -59,7 +59,7 @@ public abstract class Entity
     }
 
     /**
-     * Méthode principale d'une entité. Gère le déroulement des actions que celle-ci peut effectuer au temps t.
+     * Main method of an entity. Manage all actions that are allowed to be done at a given time t.
      */
     void live()
     {
@@ -78,13 +78,19 @@ public abstract class Entity
      * Get the position of an entity
      * @return The platform on which the entity is
      */
-    public Platform getPosition() { return m_position;  }
+    public Platform getPosition() 
+    { 
+        return m_position;  
+    }
 
     /**
      * Get the direction the entity is looking at
      * @return A pair of integer containing the direction
      */
-    public Pair<Integer, Integer> getDirection() { return m_direction;   }
+    public Pair<Integer, Integer> getDirection() 
+    { 
+        return m_direction;   
+    }
 
 
 }

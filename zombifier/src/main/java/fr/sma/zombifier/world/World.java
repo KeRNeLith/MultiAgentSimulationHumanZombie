@@ -17,6 +17,12 @@ public class World extends ArrayList<ArrayList< Platform >>
      */
     public World(int width, int height)
     {
+        // Check if size are corrects
+        if (width <= 0)
+            width = 1;
+        if (height <= 0)
+            height = 1;
+        
         // Create the world map
         for (int y = 0 ; y < height ; y++)
         {

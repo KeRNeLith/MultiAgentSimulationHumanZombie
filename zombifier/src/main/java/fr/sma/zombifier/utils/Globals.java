@@ -15,6 +15,21 @@ import java.util.logging.Logger;
  */
 public class Globals
 {
+    /**
+     * Path to the simulation configuration properties file.
+     */
+    public static String SIMULATION_PROPERTIES = "src/main/resources/simulation.properties";
+    
+    /**
+     * Path to the humans configuration file.
+     */
+    public static String HUMAN_CONFIG = "src/main/resources/humans.csv";
+    
+    /**
+     * Path to the zombie configuration file.
+     */
+    public static String ZOMBIE_CONFIG = "src/main/resources/zombies.csv";
+    
     /** 
      * Seed of the simulation. 
      */
@@ -51,7 +66,7 @@ public class Globals
         
         try 
         {
-            InputStream is = new FileInputStream(Constants.SIMULATION_PROPERTIES);
+            InputStream is = new FileInputStream(SIMULATION_PROPERTIES);
             Properties propFile = new Properties();
             propFile.load(is);
             

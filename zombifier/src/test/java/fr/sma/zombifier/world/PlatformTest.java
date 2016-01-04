@@ -11,15 +11,30 @@ import junit.framework.TestCase;
  */
 public class PlatformTest extends TestCase 
 {
-
     private static final World WORLD = new World(20, 20);
     private static final Platform PLATFORM = new Platform(WORLD, 5, 5);
 
+    public PlatformTest(String testName)
+    {
+        super(testName);
+    }
+    
+    @Override
+    protected void setUp() throws Exception
+    {
+        super.setUp();
+    }
+    
+    @Override
+    protected void tearDown() throws Exception
+    {
+        super.tearDown();
+    }
+    
     /**
      * Test about adding Entities.
-     * @throws Exception
      */
-    public void testAddingEntity() throws Exception 
+    public void testAddingEntity()
     {
         Platform platform = new Platform(WORLD, 5, 5);
         
@@ -35,9 +50,8 @@ public class PlatformTest extends TestCase
     
     /**
      * Test about adding Entities 2.
-     * @throws Exception
      */
-    public void testAddingEntity2() throws Exception 
+    public void testAddingEntity2()
     {
         Platform platform = new Platform(WORLD, 5, 5);
         
@@ -56,9 +70,8 @@ public class PlatformTest extends TestCase
     
     /**
      * Test about removing Entities.
-     * @throws Exception
      */
-    public void testRemovingEntity() throws Exception 
+    public void testRemovingEntity()
     {
         Platform platform = new Platform(WORLD, 5, 5);
         
@@ -78,9 +91,8 @@ public class PlatformTest extends TestCase
 
     /**
      * Test all about Resources.
-     * @throws Exception
      */
-    public void testResource() throws Exception 
+    public void testResource()
     {
         Platform platform = new Platform(WORLD, 5, 5);
         
@@ -101,9 +113,8 @@ public class PlatformTest extends TestCase
 
     /**
      * Test Position getters.
-     * @throws Exception
      */
-    public void testPosition() throws Exception 
+    public void testPosition() 
     {
         assertEquals("testGetX", 5, PLATFORM.getX());
         assertEquals("testGetY", 5, PLATFORM.getY());

@@ -1,7 +1,6 @@
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.tools.CSVParser;
-import fr.sma.zombifier.utils.Constants;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.world.Platform;
@@ -74,7 +73,7 @@ public class Simulation extends Observable
     /**
      * Initialize the simulation data.
      */
-    private void initSimultation()
+    public void initSimultation()
     {
         m_stop = false;
         m_end = false;
@@ -114,10 +113,10 @@ public class Simulation extends Observable
     private void spawnEntities()
     {
         // Spawn Humans
-        this.<Human>spawnEntites(Constants.HUMAN_CONFIG, Human.class);
+        this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
-        this.<Zombie>spawnEntites(Constants.ZOMBIE_CONFIG, Zombie.class);
+        this.<Zombie>spawnEntites(Globals.ZOMBIE_CONFIG, Zombie.class);
     }
     
     /**
@@ -208,7 +207,7 @@ public class Simulation extends Observable
                     Constructor<T> constructor = clazz.getConstructor(Platform.class, int.class, int.class);
                     
                     // Create and affect the entity
-                    Entity e = constructor.newInstance(p, x, y);
+                    Entity e = constructor.newInstance(p, dirX, dirY);
                     
                     // Try to add the entity
                     if (p.addEntity(e))
@@ -256,5 +255,14 @@ public class Simulation extends Observable
     public World getWorld()
     {
         return m_world;
+    }
+    
+    /**
+     * Getter on the simulation entities.
+     * @return The list of entities managed by the simulation.
+     */
+    public List<Entity> getEntities()
+    {
+        return m_entities;
     }
 }

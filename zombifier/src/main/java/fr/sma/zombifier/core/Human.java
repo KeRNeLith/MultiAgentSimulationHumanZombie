@@ -21,12 +21,12 @@ public class Human extends Entity
     /**
      * Constructor.
      * @param p Platform on which the entity begin the simulation.
-     * @param direction_x Watching direction on X axis.
-     * @param direction_y Watching direction on Y axis.
+     * @param directionX Watching direction on X axis.
+     * @param directionY Watching direction on Y axis.
      */
-    public Human(final Platform p, final int direction_x, final int direction_y)
+    public Human(final Platform p, final int directionX, final int directionY)
     {
-        super(p, direction_x, direction_y);
+        super(p, directionX, directionY);
 
         this.m_isGrouped = false;
         this.m_group = null;
