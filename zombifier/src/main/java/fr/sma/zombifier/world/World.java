@@ -1,5 +1,6 @@
 package fr.sma.zombifier.world;
 
+import fr.sma.zombifier.utils.Pair;
 import java.util.ArrayList;
 
 /**
@@ -28,5 +29,7 @@ public class World extends ArrayList<ArrayList< Platform >>
                 line.add(new Platform(this, x, y));
             }
         }
+        
+        Neighborhood n2 = new Neighborhood(new Platform(this, 10, 10), new Pair<>(0, 1));
     }
 }

@@ -101,7 +101,7 @@ public class Neighborhood
         
         // Add the view cone range to the neighborhood
         x += 2*m_direction.getFirst();
-        y += 2*m_direction.getSecond();
+        y += -2*m_direction.getSecond();
         
         int progress = 1;
         while (progress < Globals.VIEW_RANGE && y >= 0 && y < w.size() && x >= 0 && x < w.get(y).size())
@@ -111,7 +111,7 @@ public class Neighborhood
             
             // Progress in the watching cone
             x += m_direction.getFirst();
-            y += m_direction.getSecond();
+            y += -m_direction.getSecond();
             progress++;
         }
     }
