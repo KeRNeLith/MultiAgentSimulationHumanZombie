@@ -16,7 +16,7 @@ public class FireWeapon extends Weapon
      * @param power Power of the weapon.
      * @param ammo Ammo of the weapon.
      */
-    public FireWeapon(int breakRate, int power, int ammo)
+    public FireWeapon(float breakRate, int power, int ammo)
     {
         super(breakRate, power);
         this.m_ammo = ammo;

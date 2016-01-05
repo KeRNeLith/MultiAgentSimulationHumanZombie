@@ -8,7 +8,7 @@ package fr.sma.zombifier.resources;
 public class Weapon extends Resource
 {
     /** Break rate o the weapon. */
-    private final int m_breakRate;
+    private final float m_breakRate;
     /** Power of the weapon. */
     private final int m_power;
     
@@ -17,7 +17,7 @@ public class Weapon extends Resource
      * @param breakRate Break rate.
      * @param power Power of the weapon.
      */
-    public Weapon(int breakRate, int power)
+    public Weapon(float breakRate, int power)
     {
         super();
         this.m_breakRate = breakRate;
@@ -28,7 +28,7 @@ public class Weapon extends Resource
      * Get the break rate of the weapon.
      * @return Break rate of the weapon.
      */
-    public int getBreakRate()
+    public float getBreakRate()
     {
         return m_breakRate;
     }
