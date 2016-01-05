@@ -1,6 +1,5 @@
 package fr.sma.zombifier.core;
 
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.behavior.human.NormalHumanBehaviour;
 import fr.sma.zombifier.world.Platform;
@@ -35,11 +34,21 @@ public class Human extends Entity
         this.m_behaviourType = BehaviourType.NORMAL_HUMAN;
     }
 
-    public boolean isGrouped() {
+    /**
+     * Check if the entity is part of a human group.
+     * @return true if the human is part of a group, otherwise false.
+     */
+    public boolean isGrouped() 
+    {
         return m_isGrouped;
     }
 
-    public HumanGroup getGroup() {
+    /**
+     * Get the group in which the entity is in.
+     * @return Human group.
+     */
+    public HumanGroup getGroup() 
+    {
         return m_group;
     }
 

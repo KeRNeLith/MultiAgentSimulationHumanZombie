@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.utils.Constants;
 import fr.sma.zombifier.utils.Globals;
-import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.World;
 import java.util.List;
 import junit.framework.TestCase;
