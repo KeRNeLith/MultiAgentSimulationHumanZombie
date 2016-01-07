@@ -30,6 +30,11 @@ public class Globals
      */
     public static String ZOMBIE_CONFIG = "src/main/resources/zombies.csv";
     
+    /**
+     * Path to the resources configuration file.
+     */
+    public static String RESOURCES_CONFIG = "src/main/resources/resources.conf";
+    
     /** 
      * Seed of the simulation. 
      */

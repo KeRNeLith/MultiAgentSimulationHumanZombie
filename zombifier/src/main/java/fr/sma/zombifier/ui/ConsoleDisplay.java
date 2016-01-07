@@ -70,13 +70,13 @@ public class ConsoleDisplay implements Observer
                 {
                     // Check resource type
                     Resource r = platform.getResource();
-                    if (r instanceof Weapon)
-                    {
-                        System.out.print('K');
-                    }
-                    else if (r instanceof FireWeapon)
+                    if (r instanceof FireWeapon)
                     {
                         System.out.print('F');
+                    }
+                    else if (r instanceof Weapon)
+                    {
+                        System.out.print('K');
                     }
                 }
                 else

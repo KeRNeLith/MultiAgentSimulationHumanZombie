@@ -1,8 +1,11 @@
 package fr.sma.zombifier.core;
 
+import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.tools.CSVParser;
+import fr.sma.zombifier.tools.ResourceLoader;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
+import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
 import java.lang.reflect.Constructor;
@@ -244,7 +247,33 @@ public class Simulation extends Observable
      */
     private void spawnResources()
     {
-        // TODO
+        // Parse and load resources
+        ResourceLoader loader = new ResourceLoader();
+        List<  Pair< Pair<Integer, Integer>, Resource > > resources = loader.loadFromFile(Globals.RESOURCES_CONFIG);
+        
+        // Try to add resources on the map
+        for (Pair< Pair<Integer, Integer>, Resource > elem : resources)
+        {
+            int x = elem.getFirst().getFirst();
+            int y = elem.getFirst().getSecond();
+            // Check if resource is in the world
+            if (    y >= 0 && y < m_world.size()        // Check Y position
+                &&
+                    x >= 0 && x < m_world.get(y).size() // Check X position
+                )
+            {
+                Platform p = m_world.get(y).get(x);
+                // Add resource if possible, otherwise ignore it
+                if (!p.hasResource())
+                {
+                    p.addResource(elem.getSecond());
+                }
+                else
+                {
+                    System.err.println("Trying to add a second resource on platform (" + x + ", " + y + ") that already contains one.");
+                }
+            }
+        }
     }
     
     // Accesseurs

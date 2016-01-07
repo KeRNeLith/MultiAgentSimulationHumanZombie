@@ -35,7 +35,7 @@ public class FireWeapon extends Weapon
      * Use the fire weapon.
      * @return true if the weapon got ammo and has been used successfully.
      */
-    public boolean useWeapon()
+    public boolean fire()
     {
         boolean ret = false;
         
