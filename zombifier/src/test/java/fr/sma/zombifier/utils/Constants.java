@@ -26,4 +26,9 @@ public class Constants
      * Path to the zombie test configuration file.
      */
     public final static String ZOMBIE_CONFIG_TEST = "src/test/resources/zombies.csv";
+    
+    /**
+     * Path to the resources test configuration file.
+     */
+    public static String RESOURCES_CONFIG_TEST = "src/test/resources/resources.conf";
 }

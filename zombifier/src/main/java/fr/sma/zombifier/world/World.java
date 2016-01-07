@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * The World class provide storage for the world formed with a matrix of Platform.
  * Allow access to coordinates (X, Y) by the following way get(Y).get(X).
- * 
+ *
  * @author Alexandre Rabérin
  */
 public class World extends ArrayList<ArrayList< Platform >>
@@ -34,5 +34,45 @@ public class World extends ArrayList<ArrayList< Platform >>
                 line.add(new Platform(this, x, y));
             }
         }
+    }
+    
+    /**
+     * Get the number of entities present in the world.
+     * @return Number of entities present in this world.
+     */
+    public int getNbEntities()
+    {
+        int count = 0;
+        
+        for (ArrayList<Platform> line : this)
+        {
+            for (Platform platform : line)
+            {
+                if (platform.hasEntity())
+                    count++;
+            }
+        }
+        
+        return count;
+    }
+    
+    /**
+     * Get the number of resources present in the world.
+     * @return Number of resources present in this world.
+     */
+    public int getNbResources()
+    {
+        int count = 0;
+        
+        for (ArrayList<Platform> line : this)
+        {
+            for (Platform platform : line)
+            {
+                if (platform.hasResource())
+                    count++;
+            }
+        }
+        
+        return count;
     }
 }

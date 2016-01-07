@@ -1,5 +1,8 @@
 package fr.sma.zombifier.core;
 
+import fr.sma.zombifier.resources.FireWeapon;
+import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.utils.Constants;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.World;
@@ -21,6 +24,7 @@ public class SimulationTest extends TestCase
         Globals.HUMAN_CONFIG = Constants.HUMAN_CONFIG_TEST;
         Globals.ZOMBIE_CONFIG = Constants.ZOMBIE_CONFIG_TEST;
         Globals.SIMULATION_PROPERTIES = Constants.SIMULATION_PROPERTIES_TEST;
+        Globals.RESOURCES_CONFIG = Constants.RESOURCES_CONFIG_TEST;
     }
     
     @Override
@@ -116,8 +120,42 @@ public class SimulationTest extends TestCase
         assertEquals((int)z.getDirection().getFirst(), 0);
         assertEquals((int)z.getDirection().getSecond(), 1);
 
+        // Check the number of entities
+        assertEquals(w.getNbEntities(), 8);
+        
+        
         // Check resources positions
-        // TODO 
+        Resource r;
+        Weapon we;
+        FireWeapon f;
+        
+        // Check resource 1
+        r = w.get(6).get(5).getResource();
+        assertNotNull(r);
+        assertTrue(r instanceof FireWeapon);
+        f = (FireWeapon)r;
+        assertEquals(f.getBreakRate(), 0.1f);
+        assertEquals(f.getPower(), 10);
+        assertEquals(f.getAmmo(), 5);
+        
+        // Check resource 2
+        r = w.get(11).get(19).getResource();
+        assertNotNull(r);
+        assertTrue(r instanceof Weapon);
+        we = (Weapon)r;
+        assertEquals(we.getBreakRate(), 0.2f);
+        assertEquals(we.getPower(), 11);
+        
+        // Check resource 3
+        r = w.get(19).get(11).getResource();
+        assertNotNull(r);
+        assertTrue(r instanceof Weapon);
+        we = (Weapon)r;
+        assertEquals(we.getBreakRate(), 0.4f);
+        assertEquals(we.getPower(), 13);
+        
+        // Check nb resources
+        assertEquals(w.getNbResources(), 3);
     }
 
     /**
