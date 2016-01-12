@@ -2,16 +2,19 @@ package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
+import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
 
+import java.util.List;
+
 /**
  * The class is the base class for all entities. This class should be subclass to make sense.
  * This is an abstract class.
  * 
- * @author Alexandre Rabérin, Adrien Pierreval
+ * @author Alexandre RabÃ©rin, Adrien Pierreval
  */
 public abstract class Entity
 {
@@ -61,17 +64,20 @@ public abstract class Entity
     /**
      * Main method of an entity. Manage all actions that are allowed to be done at a given time t.
      */
-    void live()
+    List<Event> live()
     {
+
         // Analyse the environnement to make a decision.
         m_behaviour.analyze();
-        
+
         // Move the entity
-        m_behaviour.react();
+        List<Event> eventList = m_behaviour.react();
         
         // Reaffect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
         m_behaviourType = m_behaviour.getType();
+
+        return eventList;
     }
 
     /**
@@ -92,5 +98,20 @@ public abstract class Entity
         return m_direction;   
     }
 
+    /**
+     * Return the number of deplacements to do to go to p
+     * @param p Platform to go
+     * @return Number of deplacements to do to go at p.
+     */
+    public int getDistance(Platform p) {
+        return Math.abs(this.m_position.getX() - p.getX()) + Math.abs(this.m_position.getY() - p.getY());
+    }
 
+    /**
+     * Move the entity to the platform p
+     * @param p Platform to go
+     */
+    public void move(Platform p) {
+        m_position = p;
+    }
 }

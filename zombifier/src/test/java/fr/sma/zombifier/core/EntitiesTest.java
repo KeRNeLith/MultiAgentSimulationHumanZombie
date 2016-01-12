@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Entities subclasses.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class EntitiesTest extends TestCase
 {
