@@ -103,7 +103,7 @@ public abstract class Entity
      * @return Number of deplacements to do to go at p.
      */
     public int getDistance(Platform p) {
-        return Math.abs(this.m_position.getX() - p.getX()) + Math.abs(this.m_position.getY() - p.getY());
+        return m_position.getDistance(p);
     }
 
     /**
@@ -113,4 +113,14 @@ public abstract class Entity
     public void move(Platform p) {
         m_position = p;
     }
+
+    public Platform randomMove() {
+        Platform p = null;
+
+        // TODO : à finir, utiliser l'aléatoire
+
+        return p;
+    }
+
+    public abstract int attack(Entity e);
 }

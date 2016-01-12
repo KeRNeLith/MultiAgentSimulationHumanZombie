@@ -14,6 +14,7 @@ public abstract class BaseBehaviour implements IBehaviour
 {
     /** Entity using this behaviour. */
     protected final Entity m_entity;
+    protected BaseBehaviour m_nextBehaviour;
 
     /**
      * Constructor.
@@ -22,5 +23,6 @@ public abstract class BaseBehaviour implements IBehaviour
     public BaseBehaviour(Entity e)
     {
         this.m_entity = e;
+        m_nextBehaviour = null;
     }
 }
