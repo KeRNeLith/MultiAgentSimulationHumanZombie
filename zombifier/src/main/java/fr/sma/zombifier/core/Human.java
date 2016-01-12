@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * The class represent a Human entity.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  */
 public class Human extends Entity
 {
@@ -50,6 +50,13 @@ public class Human extends Entity
     public HumanGroup getGroup() 
     {
         return m_group;
+    }
+
+    @Override
+    public int attack(Entity e)
+    {
+        // TODO 
+       throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

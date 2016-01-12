@@ -5,8 +5,10 @@ import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
+import java.util.ArrayList;
 
 import java.util.List;
 
@@ -56,12 +58,17 @@ public class NormalZombieBehaviour extends BaseBehaviour
     @Override
     public List<Event> react()
     {
-        if(m_target == null) {
+        List<Event> listEvent = new ArrayList<>();
+        
+        if(m_target == null) 
+        {
             // TODO : event personnalisé : event move
-            new Event(m_entity.getPosition(), m_entity.randomMove());
+            listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         }
-        else {
-            if(m_target.getDistance(m_entity.getPosition()) <= 1) {
+        else 
+        {
+            if(m_target.getDistance(m_entity.getPosition()) <= 1) 
+            {
                 m_entity.attack(m_target.getEntity());
                 // TODO : new event personnalisé : death
             }
@@ -79,7 +86,7 @@ public class NormalZombieBehaviour extends BaseBehaviour
 
         // TODO : traitement sur m_nextBehaviour
 
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return listEvent;
     }
 
     @Override

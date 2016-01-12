@@ -102,7 +102,8 @@ public abstract class Entity
      * @param p Platform to go
      * @return Number of deplacements to do to go at p.
      */
-    public int getDistance(Platform p) {
+    public int getDistance(Platform p) 
+    {
         return m_position.getDistance(p);
     }
 
@@ -110,11 +111,13 @@ public abstract class Entity
      * Move the entity to the platform p
      * @param p Platform to go
      */
-    public void move(Platform p) {
+    public void move(Platform p) 
+    {
         m_position = p;
     }
 
-    public Platform randomMove() {
+    public Platform randomMove() 
+    {
         Platform p = null;
 
         // TODO : à finir, utiliser l'aléatoire

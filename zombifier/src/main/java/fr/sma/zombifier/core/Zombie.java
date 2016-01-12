@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * The class represent a Zombie entity.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  */
 public class Zombie extends Entity
 {
@@ -25,5 +25,10 @@ public class Zombie extends Entity
         this.m_behaviourType = BehaviourType.NORMAL_ZOMBIE;
     }
 
-
+    @Override
+    public int attack(Entity e)
+    {
+        // TODO
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
