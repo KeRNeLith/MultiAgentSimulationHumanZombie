@@ -1,9 +1,6 @@
 package fr.sma.zombifier.behavior;
 
 import fr.sma.zombifier.core.Entity;
-import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.world.Neighborhood;
-import fr.sma.zombifier.world.Platform;
 
 /**
  * Base class for all behaviour.
@@ -23,6 +20,6 @@ public abstract class BaseBehaviour implements IBehaviour
     public BaseBehaviour(Entity e)
     {
         this.m_entity = e;
-        m_nextBehaviour = null;
+        m_nextBehaviour = this;
     }
 }
