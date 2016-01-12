@@ -158,4 +158,8 @@ public class Platform
     public void removeEntity() {
         m_entity = null;
     }
+
+    public int getDistance(Platform p) {
+        return Math.abs(getX() - p.getX()) + Math.abs(getY() - p.getY());
+    }
 }
