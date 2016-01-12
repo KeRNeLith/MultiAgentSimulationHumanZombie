@@ -7,7 +7,6 @@ import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
-import java.util.List;
 
 import java.util.List;
 
@@ -67,7 +66,6 @@ public abstract class Entity
      */
     List<Event> live()
     {
-
         // Analyse the environnement to make a decision.
         m_behaviour.analyze();
 

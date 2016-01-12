@@ -1,30 +1,26 @@
 package fr.sma.zombifier.event;
 
 
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Simulation;
-import fr.sma.zombifier.world.Platform;
 
 /**
  * The event class defines what is spotted by entities and is used to set their futures reactions.
  *
  * @author Adrien Pierreval - Alexandre Rabérin
  */
-
 public abstract class Event
 {
 
-    public Event() {
-    }
-
     /**
-     * Entity reaction
+     * Constructor.
      */
-    public abstract void react(Entity e);
-
+    public Event() 
+    {
+    }
+    
     /**
-     * Simulation update
-     * @param s : Simulation
+     * Apply the event on the simultation.
+     * @param s Simulation on which apply the event.
      */
     public abstract void exec(Simulation s);
 }

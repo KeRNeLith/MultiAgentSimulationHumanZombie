@@ -1,7 +1,7 @@
 package fr.sma.zombifier.behavior.event;
 
-import fr.sma.zombifier.core.Event;
 import fr.sma.zombifier.core.Simulation;
+import fr.sma.zombifier.event.Event;
 import java.util.List;
 
 /**

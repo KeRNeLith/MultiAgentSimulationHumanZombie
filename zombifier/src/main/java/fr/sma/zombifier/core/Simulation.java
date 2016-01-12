@@ -1,6 +1,7 @@
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.behavior.event.EventHandler;
+import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.tools.CSVParser;
 import fr.sma.zombifier.tools.ResourceLoader;
