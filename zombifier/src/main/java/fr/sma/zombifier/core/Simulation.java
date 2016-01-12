@@ -1,5 +1,6 @@
 package fr.sma.zombifier.core;
 
+import fr.sma.zombifier.behavior.event.EventHandler;
 import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.tools.CSVParser;
 import fr.sma.zombifier.tools.ResourceLoader;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 /**
  * The Simulation class manage the run of all elements of the simulation.
  *
- * @author Alexandre Rabérin - Adrien Pierreval
+ * @author Alexandre Rabï¿½rin - Adrien Pierreval
  */
 public class Simulation extends Observable
 {
@@ -32,6 +33,9 @@ public class Simulation extends Observable
     
     /** List of entities. */
     private List<Entity> m_entities;
+    
+    /** Event handler. */
+    private final EventHandler m_eventHandler;
     
     /** Random generator of the simulation. */
     private MersenneTwisterFast m_simulationMt;   
@@ -45,6 +49,7 @@ public class Simulation extends Observable
      */
     public Simulation()
     {
+        this.m_eventHandler = new EventHandler(this);
     }
     
     /**
@@ -66,7 +71,12 @@ public class Simulation extends Observable
             Collections.shuffle(m_entities, new Random());
             
             m_entities.stream().forEach(Entity::live);
-            
+            for (Entity e : m_entities)
+            {
+                List<Event> events = e.live();
+                m_eventHandler.handleEvents(events);
+            }
+          
             // Notify Changes
             this.setChanged();
             this.notifyObservers();
