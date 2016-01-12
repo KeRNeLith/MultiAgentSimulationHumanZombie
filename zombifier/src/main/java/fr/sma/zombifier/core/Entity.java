@@ -6,6 +6,7 @@ import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
+import java.util.List;
 
 /**
  * The class is the base class for all entities. This class should be subclass to make sense.
@@ -61,7 +62,7 @@ public abstract class Entity
     /**
      * Main method of an entity. Manage all actions that are allowed to be done at a given time t.
      */
-    void live()
+    List<Event> live()
     {
         // Analyse the environnement to make a decision.
         m_behaviour.analyze();
@@ -72,6 +73,8 @@ public abstract class Entity
         // Reaffect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
         m_behaviourType = m_behaviour.getType();
+        
+        return null;
     }
 
     /**
