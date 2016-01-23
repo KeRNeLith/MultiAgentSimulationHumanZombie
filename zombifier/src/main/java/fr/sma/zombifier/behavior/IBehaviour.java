@@ -20,6 +20,7 @@ public interface IBehaviour
         
         // Zombie related
         NORMAL_ZOMBIE,
+        ATTACK_ZOMBIE,
         
         UNDEFINED
     }

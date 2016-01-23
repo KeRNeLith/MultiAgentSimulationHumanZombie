@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * Globals variables for this project.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  */
 public class Globals
 {
@@ -59,7 +59,12 @@ public class Globals
      * Maximum distance in which an entity can see something.
      */
     public static int VIEW_RANGE = 5;
-    
+
+    /**
+     * Time before a entity give up to reach a target
+     */
+    public static int GIVE_UP = 3;
+
     /**
      * Read the simulation properties and load its values into globals variables.
      * @see The file simulation.properties to have all properties and edit them.
@@ -104,6 +109,14 @@ public class Globals
             WORLD_HEIGHT = Integer.parseInt(prop.getProperty("WORLD_HEIGHT"));
             VIEW_RANGE = Integer.parseInt(prop.getProperty("VIEW_RANGE"));
             USE_RANDOM_SEED = Boolean.parseBoolean(prop.getProperty("USE_RANDOM_SEED"));
+            GIVE_UP = Integer.parseInt(prop.getProperty("GIVE_UP"));
+
+            // Verification of the values
+            if(GIVE_UP >= VIEW_RANGE) {
+                Logger.getLogger(Globals.class.getName()).log(Level.WARNING, null, "GIVE UP higher than VIEW RANGE !");
+                GIVE_UP = VIEW_RANGE;
+            }
+
         }
         catch (NumberFormatException ex)
         {
