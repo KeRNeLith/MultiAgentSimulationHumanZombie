@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The World class provide storage for the world formed with a matrix of Platform.
  * Allow access to coordinates (X, Y) by the following way get(Y).get(X).
  *
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class World extends ArrayList<ArrayList< Platform >>
 {
@@ -72,7 +72,22 @@ public class World extends ArrayList<ArrayList< Platform >>
                     count++;
             }
         }
-        
         return count;
+    }
+
+    /**
+     * Return the Platform near the one given in parameter with
+     * @param p Platform to start
+     * @param x Horizontal direction and distance
+     * @param y Vertical direction and distance
+     * @return The Platform near to p, or p if the parameters are wrong
+     */
+    public Platform getNeighbour(Platform p, int x, int y) {
+        // Checking parameters
+        if(p != null && p.getX() + x >= 0 && p.getX() + x < this.size()
+            && p.getY() + y >= 0 && p.getY() + y < this.get(x + p.getX()).size())
+            return this.get(p.getX() + x).get(p.getY() - y);
+        else
+            return p;
     }
 }

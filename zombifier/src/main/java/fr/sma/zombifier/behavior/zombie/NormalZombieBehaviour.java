@@ -5,6 +5,7 @@ import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventEntityDie;
 import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
@@ -60,28 +61,23 @@ public class NormalZombieBehaviour extends BaseBehaviour
     {
         List<Event> listEvent = new ArrayList<>();
         
-        if(m_target == null) 
+        if(m_target == null)                                            // No target
         {
-            // TODO : event personnalisé : event move
             listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
+            // L'event met à jour la simulation, randomMove déplace l'entité
         }
-        else 
+        else                                                            // Target to attack
         {
-            if(m_target.getDistance(m_entity.getPosition()) <= 1) 
+            if(m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable
             {
                 m_entity.attack(m_target.getEntity());
-                // TODO : new event personnalisé : death
+                listEvent.add(new EventEntityDie(m_target.getEntity()));
+            }
+            else {                                                      // Need to move to attack
+                listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
             }
         }
-        // Va avoir les coordonnées d'une cible, ou pas
-        // Si cible
-            // Il y va
-                // move entity
-                // move simulation
-            // Ou il attaque
-                // Succès : mises à jours entité ET simulation
-                // (un zombie ne peut échouer)
-        // Si pas de cible : move aléatoire ==> calculer l'aléatoire
+
         // Définir le next : instancier
 
         // TODO : traitement sur m_nextBehaviour

@@ -7,6 +7,7 @@ import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
+import fr.sma.zombifier.world.World;
 
 import java.util.List;
 
@@ -107,22 +108,97 @@ public abstract class Entity
         return m_position.getDistance(p);
     }
 
-    /**
-     * Move the entity to the platform p
-     * @param p Platform to go
-     */
-    public void move(Platform p) 
-    {
-        m_position = p;
-    }
-
     public Platform randomMove() 
     {
+        Platform dest = null;
+        World world = m_position.getWorld();
+        int random = m_mt.nextInt(4);
+
+        switch(random) {
+            case(0):
+                dest = world.getNeighbour(m_position, 0, 1);
+                break;
+            case(1):
+                dest = world.getNeighbour(m_position, 0, -1);
+                break;
+            case(2):
+                dest = world.getNeighbour(m_position, 1, 0);
+                break;
+            case(3):
+                dest = world.getNeighbour(m_position, -1, 0);
+                break;
+            default:
+                dest = m_position;              // Do nothing
+
+        }
+
+        m_position = dest;
+
+        // Define a random direction :
+        random = m_mt.nextInt(4);
+
+        switch(random) {
+            case(0):
+                m_direction.setFirst(0);
+                m_direction.setSecond(1);
+                break;
+            case(1):
+                m_direction.setFirst(0);
+                m_direction.setSecond(-1);
+                break;
+            case(2):
+                m_direction.setFirst(1);
+                m_direction.setSecond(0);
+                break;
+            case(3):
+                m_direction.setFirst(-1);
+                m_direction.setSecond(0);
+                break;
+            default:
+                // Do nothing
+        }
+
+        return dest;
+    }
+
+    /**
+     * Move the entity in a direction of a platform
+     * @param dest Platform where the entity should move
+     * @return Platform where the entity stand at the end of the moving
+     */
+    public Platform moveTo(Platform dest) {
+        Platform orig = this.getPosition();
         Platform p = null;
+        int dirX = 0;   int dirY = 0;
 
-        // TODO : à finir, utiliser l'aléatoire
+        if(dest == m_position) {                    // It is still at the good place
+            p = m_position;
+            // We don't change direction
+        }
+        else {
+            if (dest.getX() == orig.getX())          // Same abscissa
+                dirX = (dest.getX() > orig.getX()) ? 1 : -1;
+            else if (dest.getY() == orig.getY())     // Same ordinate
+                dirY = (dest.getY() > orig.getY()) ? 1 : -1;
+            else {
+                if (m_mt.nextBoolean()) {            // Horizontal
+                    dirX = (dest.getX() > orig.getX()) ? 1 : -1;
+                } else {                             // Vertical
+                    dirY = (dest.getY() > orig.getY()) ? 1 : -1;
+                }
+            }
 
-        return p;
+            p = orig.getWorld().getNeighbour(orig, dirX, dirY);
+            if (p.getEntity() == null) {
+                m_position = p;
+            }
+
+            // Update direction
+            m_direction.setFirst(dirX);
+            m_direction.setSecond(dirY);
+        }
+
+        return m_position;
     }
 
     public abstract int attack(Entity e);

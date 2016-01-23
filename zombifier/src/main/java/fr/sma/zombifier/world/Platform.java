@@ -54,7 +54,6 @@ public class Platform
             m_entity = e;
             ret = true;
         }
-        
         return  ret;
     }
     
