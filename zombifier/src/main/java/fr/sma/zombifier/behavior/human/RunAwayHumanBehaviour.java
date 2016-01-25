@@ -1,33 +1,43 @@
 package fr.sma.zombifier.behavior.human;
 
-import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.event.EventMove;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class handle the normal behaviour for a human entity.
- * 
- * @author Alexandre Rabérin - Adrien Pierreval
+ * @author Adrien Pierreval - Alexandre Rabérin
+ * @date 25/01/2016
  */
-public class NormalHumanBehaviour extends BaseHumanBehaviour
-{
+
+public class RunAwayHumanBehaviour extends BaseHumanBehaviour {
+
+    private Entity m_knownThreat = null;
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
+     * @param threat Entity to run away from
+     * @param time Time before stopping running
      */
-    public NormalHumanBehaviour(Human e)
+    public RunAwayHumanBehaviour(Human e, Entity threat, int time)
     {
         super(e);
+        m_knownThreat = threat;
     }
 
-
+    /**
+     * Default Reaction in case of nothing else happen
+     * @param listEvent Reference to the Event(s) to add one or more
+     */
     protected void defaultReaction(List<Event> listEvent) {
+
+        // TODO : runaway from threat
+        // TODO : decrease time
+
+
+
         // TODO : not implemented
         throw new UnsupportedOperationException();
     }
@@ -37,4 +47,5 @@ public class NormalHumanBehaviour extends BaseHumanBehaviour
     {
         return BehaviourType.NORMAL_HUMAN;
     }
+
 }

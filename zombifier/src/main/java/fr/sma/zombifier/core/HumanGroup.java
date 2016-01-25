@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin - Adrien Pierreval
  */
 public class HumanGroup extends Human
 {

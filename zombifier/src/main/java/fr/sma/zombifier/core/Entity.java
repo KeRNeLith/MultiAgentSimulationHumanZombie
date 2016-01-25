@@ -201,5 +201,5 @@ public abstract class Entity
         return m_position;
     }
 
-    public abstract int attack(Entity e);
+    public abstract boolean attack(Entity e);
 }

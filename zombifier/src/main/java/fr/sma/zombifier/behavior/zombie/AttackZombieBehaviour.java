@@ -1,18 +1,11 @@
 package fr.sma.zombifier.behavior.zombie;
 
-import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour;
-import fr.sma.zombifier.behavior.human.NormalHumanBehaviour;
-import fr.sma.zombifier.core.Entity;
-import fr.sma.zombifier.core.Human;
+import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.event.EventEntityDie;
 import fr.sma.zombifier.event.EventMove;
-import fr.sma.zombifier.utils.Globals;
-import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +23,7 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour {
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      */
-    public AttackZombieBehaviour(Entity e, Platform p, int giveUp)
+    public AttackZombieBehaviour(Zombie e, Platform p, int giveUp)
     {
         super(e);
         this.m_oldTarget = p;
@@ -38,38 +31,17 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour {
     }
 
     /**
-     * Define the reaction of the zombies.
-     * @return the next behaviour the entity will have
+     * Happen if the zombie have nothing to do
+     * @param listEvent Reference to the Event(s) to add one or more
      */
-    @Override
-    public List<Event> react()
-    {
-        List<Event> listEvent = new ArrayList<>();
+    protected void defaultReaction(List<Event> listEvent) {
+        // Try to go to the last position known of the target
+        listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_oldTarget)));
 
-        m_giveUp--;                                                     // Time before give up decreasing
-        if(m_target == null)                                            // No target repaired
-        {
-            // Try to go to the last position known of the target
-            listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_oldTarget)));
-            m_nextBehaviour = (m_giveUp == 0)? new NormalZombieBehaviour(m_entity)
-                    : new AttackZombieBehaviour(m_entity, m_oldTarget, m_giveUp);
-        }
-        else                                                            // Target to attack
-        {
-            if(m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable
-            {
-                m_entity.attack(m_target.getEntity());
-                listEvent.add(new EventEntityDie(m_target.getEntity()));
-                m_nextBehaviour = new NormalZombieBehaviour(m_entity);
-            }
-            else {                                                      // Need to move to attack
-                listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
-                m_nextBehaviour = new AttackZombieBehaviour(m_entity, m_target, Globals.GIVE_UP);
-            }
-        }
-
-        return listEvent;
+        m_nextBehaviour = (m_giveUp == 0)? new NormalZombieBehaviour(m_entity)
+            : new AttackZombieBehaviour(m_entity, m_oldTarget, m_giveUp);
     }
+
 
     @Override
     public IBehaviour.BehaviourType getType()

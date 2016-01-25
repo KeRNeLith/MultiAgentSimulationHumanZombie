@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This class manage the neighborhood of a entity based on his position and orientation.
  *
- * @author Alexandre Rabérin - Adrien Pierreval
+ * @author Alexandre Rabï¿½rin - Adrien Pierreval
  */
 public class Neighborhood
 {
@@ -92,7 +92,7 @@ public class Neighborhood
         {
             for (int j = yb ; j <= ye && j >= 0 && j < w.get(i).size() ; j++)
             {
-                if (i != x || j != y)
+                if (i != x || j != y)               // TODO : Ã  modifier ?
                 {
                     m_neighborPlatforms.add(w.get(j).get(i));
                 }

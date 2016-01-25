@@ -3,11 +3,11 @@ package fr.sma.zombifier.resources;
 /**
  * The class is the class that reprent a weapon resource like a knife.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class Weapon extends Resource
 {
-    /** Break rate o the weapon. */
+    /** Break rate of the weapon. */
     private final float m_breakRate;
     /** Power of the weapon. */
     private final int m_power;
@@ -40,5 +40,13 @@ public class Weapon extends Resource
     public int getPower()
     {
         return m_power;
+    }
+
+    /**
+     * Say if a weapon is able to attack
+     * @return true if yes, otherwise false
+     */
+    public boolean canAttack() {
+        return true;
     }
 }

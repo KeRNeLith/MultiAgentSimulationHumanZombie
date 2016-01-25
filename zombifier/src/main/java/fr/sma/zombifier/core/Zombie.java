@@ -26,9 +26,8 @@ public class Zombie extends Entity
     }
 
     @Override
-    public int attack(Entity e)
+    public boolean attack(Entity e)
     {
-        // TODO
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return true;
     }
 }

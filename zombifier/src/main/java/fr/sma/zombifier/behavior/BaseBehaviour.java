@@ -11,7 +11,6 @@ import fr.sma.zombifier.world.Platform;
 public abstract class BaseBehaviour implements IBehaviour
 {
     /** Entity using this behaviour. */
-    protected final Entity m_entity;
     protected Platform m_target;
     protected BaseBehaviour m_nextBehaviour;
 
@@ -19,9 +18,8 @@ public abstract class BaseBehaviour implements IBehaviour
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      */
-    public BaseBehaviour(Entity e)
+    public BaseBehaviour()
     {
-        this.m_entity = e;
         this.m_target = null;
         m_nextBehaviour = null;             // m_nextBehaviour will be to defined
     }

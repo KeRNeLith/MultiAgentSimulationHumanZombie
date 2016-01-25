@@ -3,23 +3,26 @@ package fr.sma.zombifier.resources;
 /**
  * The class is the class that reprent a fire weapon resource.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabï¿½rin
  */
 public class FireWeapon extends Weapon
 {
     /** Ammo available with the fire weapon. */
     private int m_ammo;
+    private int m_range;
     
     /**
      * Constructor of a fire weapon.
      * @param breakRate reak rate.
      * @param power Power of the weapon.
      * @param ammo Ammo of the weapon.
+     * @param range Range of the weapon.
      */
-    public FireWeapon(float breakRate, int power, int ammo)
+    public FireWeapon(float breakRate, int power, int ammo, int range)
     {
         super(breakRate, power);
         this.m_ammo = ammo;
+        this.m_range = range;
     }
     
     /**
@@ -55,5 +58,15 @@ public class FireWeapon extends Weapon
     public int getAmmo()
     {
         return m_ammo;
+    }
+
+    public int getRange() { return m_range; }
+    /**
+     * Say if a weapon is able to attack
+     * @return true if yes, otherwise false
+     */
+    @Override
+    public boolean canAttack() {
+        return(m_ammo > 0);
     }
 }

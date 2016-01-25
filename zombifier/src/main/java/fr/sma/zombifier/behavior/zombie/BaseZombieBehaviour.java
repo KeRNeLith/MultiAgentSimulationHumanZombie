@@ -3,10 +3,15 @@ package fr.sma.zombifier.behavior.zombie;
 import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
+import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventEntityDie;
+import fr.sma.zombifier.event.EventMove;
+import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,14 +23,19 @@ import java.util.List;
  */
 public abstract class BaseZombieBehaviour extends BaseBehaviour {
 
+    protected final Zombie m_entity;
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      */
-    public BaseZombieBehaviour(Entity e) {
-        super(e);
+    public BaseZombieBehaviour(Zombie e) {
+        super();
+        m_entity = e;
     }
 
+    /**
+     * Analyse of the environnement of the zombie.
+     */
     @Override
     public void analyze()
     {
@@ -49,5 +59,39 @@ public abstract class BaseZombieBehaviour extends BaseBehaviour {
         }
     }
 
-    public abstract List<Event> react();
+    /**
+     * Define the reaction of the zombies.
+     * @return the Event(s) produced by the entities
+     */
+    @Override
+    public List<Event> react()
+    {
+        List<Event> listEvent = new ArrayList<>();
+
+        if(m_target == null)                                            // No target : Random move
+        {
+            defaultReaction(listEvent);
+        }
+        else                                                            // Target known
+        {
+            if(m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable : attack
+            {
+                m_entity.attack(m_target.getEntity());
+                listEvent.add(new EventEntityDie(m_target.getEntity()));
+                m_nextBehaviour = new NormalZombieBehaviour(m_entity);
+            }
+            else {                                                      // Need to move to attack
+                listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
+                m_nextBehaviour = new AttackZombieBehaviour(m_entity, m_target, Globals.GIVE_UP);
+            }
+        }
+
+        return listEvent;
+    }
+
+    /**
+     * Happen if the zombie have nothing to do
+     * @param listEvent Reference to the Event(s) to add one or more
+     */
+    protected abstract void defaultReaction(List<Event> listEvent);
 }
