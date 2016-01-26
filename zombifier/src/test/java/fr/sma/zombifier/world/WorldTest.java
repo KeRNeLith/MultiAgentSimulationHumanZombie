@@ -65,5 +65,37 @@ public class WorldTest extends TestCase
         assertEquals("World 7 width", 1, w7.get(0).size());
     }
     
-    // TODO test getNeighbor
+    /**
+     * Test getting neighbour or platform.
+     */
+    public void testGetNeighbour()
+    {
+        World w = new World(20, 20);
+        
+        // Platform (10, 10)
+        Platform startPlatform = w.get(10).get(10);
+        
+        // Test all Offsets (i, j)
+        for (int i = -20 ; i < 20 ; i++)
+        {
+            for (int j = -20 ; j < 20 ; j++)
+            {
+                // Get Platform
+                Platform p = w.getNeighbour(startPlatform, i, j);
+
+                if ((i == 0 && j == 0) || i < -10 || i >= 10 || j < -10 || j >= 10)
+                {
+                    assertSame(startPlatform, p);
+                    assertEquals(p.getX(), 10);
+                    assertEquals(p.getY(), 10);
+                }
+                else
+                {
+                    assertNotSame(startPlatform, p);
+                    assertEquals(p.getX(), 10 + i);
+                    assertEquals(p.getY(), 10 + j);
+                }
+            }
+        }
+    }
 }
