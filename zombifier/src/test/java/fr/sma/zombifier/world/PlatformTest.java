@@ -7,7 +7,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Platform class.
  *
- * @author Alexandre Rab�rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class PlatformTest extends TestCase 
 {
