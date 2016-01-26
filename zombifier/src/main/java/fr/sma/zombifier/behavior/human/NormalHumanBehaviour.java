@@ -1,13 +1,8 @@
 package fr.sma.zombifier.behavior.human;
 
-import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.behavior.IBehaviour;
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.event.EventMove;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,8 +21,9 @@ public class NormalHumanBehaviour extends BaseHumanBehaviour
         super(e);
     }
 
-
-    protected void defaultReaction(List<Event> listEvent) {
+    @Override
+    protected void defaultReaction(List<Event> listEvent) 
+    {
         // TODO : not implemented
         throw new UnsupportedOperationException();
     }

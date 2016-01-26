@@ -8,11 +8,12 @@ import fr.sma.zombifier.event.Event;
 import java.util.List;
 
 /**
+ * 
+ * 
  * @author Adrien Pierreval - Alexandre Rabérin
- * @date 25/01/2016
  */
-
-public class RunAwayHumanBehaviour extends BaseHumanBehaviour {
+public class RunAwayHumanBehaviour extends BaseHumanBehaviour 
+{
 
     private Entity m_knownThreat = null;
     /**
@@ -31,7 +32,9 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour {
      * Default Reaction in case of nothing else happen
      * @param listEvent Reference to the Event(s) to add one or more
      */
-    protected void defaultReaction(List<Event> listEvent) {
+    @Override
+    protected void defaultReaction(List<Event> listEvent) 
+    {
 
         // TODO : runaway from threat
         // TODO : decrease time

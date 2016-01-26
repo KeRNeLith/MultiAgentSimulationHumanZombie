@@ -10,7 +10,6 @@ import java.util.List;
  * 
  * @author Alexandre Rabérin - Adrien Pierreval
  */
-
 public interface IBehaviour
 {
     public enum BehaviourType 
