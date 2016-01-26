@@ -54,7 +54,17 @@ public class Human extends Entity
      * Get the resource of a human
      * @return Resource of the human
      */
-    public Resource getResource() { return m_resource; }
+    public Resource getResource() {
+        return m_resource;
+    }
+
+    /**
+     * Give a resource to the entity
+     * @param r resource to give
+     */
+    public void setResource(Resource r) {
+        m_resource = r;
+    }
 
     /**
      * Say if a human has a weapon or not
@@ -80,18 +90,15 @@ public class Human extends Entity
 
         if(m_resource instanceof FireWeapon) {
             FireWeapon weapon = (FireWeapon) m_resource;
-            // If it's reacheable and he got ammo : OK
+            // If it's reachable and he got ammo : OK
             if((weapon.getRange() >= distance) && (weapon.getAmmo() > 0))
                 b = true;
         }
         else if(m_resource instanceof Weapon
-            && !(m_resource instanceof FireWeapon)
             && (distance <= 1)) b = true;
 
         return b;
     }
-
-    public void setResource(Resource r) { m_resource = r; }
 
     /**
      * Get the group in which the entity is in.
@@ -107,10 +114,71 @@ public class Human extends Entity
      * @param e Entity attacked
      * @return true if the ennemy is dead, otherwise false
      */
+
     @Override
     public boolean attack(Entity e)
     {
        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Escape from a danger located at p.
+     * @param p : Place of the danger.
+     * @return the position of the entity after moving.
+     */
+    public Platform runAwayFrom(Platform p) {
+
+        // TODO : vérifier la destination : empty ?
+
+        int x = p.getX();
+        int y = p.getY();
+
+        int dirX = 0;
+        int dirY = 0;
+
+        int deltaX = Math.abs(x - m_position.getX());
+        int deltaY = Math.abs(y - m_position.getY());
+
+        if(deltaX > deltaY)
+        {
+            dirX = 0;
+            dirY = (y > m_position.getY()) ? 1 : -1;
+        }
+        else if(deltaX < deltaY)
+        {
+            dirX = (x > m_position.getX()) ? 1 : -1;
+            dirY = 0;
+        }
+        else {
+            if (m_position != p)
+            {
+                if(m_mt.nextBoolean())              // Horizontal
+                {
+                    dirX = (x > m_position.getX()) ? 1 : -1;
+                    dirY = 0;
+                }
+                else                                // Vertical
+                {
+                    dirX = 0;
+                    dirY = (y > m_position.getY()) ? 1 : -1;
+                }
+            }
+            else
+            {
+                // If the threat is at the same place than the entity there is a problem
+                // So the entity will stay at place
+                dirX = 0;
+                dirY = 0;
+                // TODO : un petit log ?
+            }
+        }
+
+        m_position = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
+
+        // The entity look the direction he has moved to
+        m_direction.setFirst(dirX);
+        m_direction.setSecond(dirY);
+
+        return m_position;
+    }
 }

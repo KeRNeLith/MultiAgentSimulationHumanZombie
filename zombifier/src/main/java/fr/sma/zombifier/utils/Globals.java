@@ -61,9 +61,14 @@ public class Globals
     public static int VIEW_RANGE = 5;
 
     /**
-     * Time before a entity give up to reach a target
+     * Time before an entity give up to reach a target
      */
     public static int GIVE_UP = 3;
+
+    /**
+     * Time before an entity stop to run away
+     */
+    public static int RUN_AWAY_TIME = 3;
 
     /**
      * Read the simulation properties and load its values into globals variables.
@@ -110,6 +115,7 @@ public class Globals
             VIEW_RANGE = Integer.parseInt(prop.getProperty("VIEW_RANGE"));
             USE_RANDOM_SEED = Boolean.parseBoolean(prop.getProperty("USE_RANDOM_SEED"));
             GIVE_UP = Integer.parseInt(prop.getProperty("GIVE_UP"));
+            RUN_AWAY_TIME = Integer.parseInt(prop.getProperty("RUN_AWAY_TIME"));
 
             // Verification of the values
             if(GIVE_UP >= VIEW_RANGE) {

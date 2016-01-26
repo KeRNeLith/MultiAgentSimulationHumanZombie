@@ -4,7 +4,7 @@ import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.event.EventEntityDie;
+import fr.sma.zombifier.event.EventEntityConvert;
 import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Neighborhood;
@@ -81,7 +81,7 @@ public abstract class BaseZombieBehaviour extends BaseBehaviour
             if(m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable : attack
             {
                 m_entity.attack(m_target.getEntity());
-                listEvent.add(new EventEntityDie(m_target.getEntity()));
+                listEvent.add(new EventEntityConvert(m_target.getEntity()));
                 m_nextBehaviour = new NormalZombieBehaviour(m_entity);
             }
             else                                                        // Need to move to attack

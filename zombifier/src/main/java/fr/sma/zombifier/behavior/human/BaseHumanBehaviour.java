@@ -7,6 +7,7 @@ import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventEntityDie;
 import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
 
@@ -94,13 +95,13 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
     {
         List<Event> listEvent = new ArrayList<>();
 
-        if(m_target == null) // No target : random move
+        if(m_target == null)            // No target : random move
         {                              
             listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         }
-        else                // Target defined
+        else                            // Target defined
         {
-            if(m_target.hasEntity()) // Zombie spotted
+            if(m_target.hasEntity())    // Zombie spotted
             {                      
                 if(m_entity.haveWeapon() && m_entity.canAttack(m_target)) 
                 {
@@ -117,47 +118,29 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                     }
                 }
                 else    // Human can't attack, he must runaway
-                {                                      
-                    // TODO : implémenter la fuite
+                {
+                    listEvent.add(new EventMove(m_entity.getPosition(), m_entity.runAwayFrom(m_target)));
+                    m_nextBehaviour = new RunAwayHumanBehaviour(m_entity, m_target, Globals.RUN_AWAY_TIME);
                 }
             }
             else if (m_target.hasResource())    // Resource spotted
             {              
                 if(m_target.getDistance(m_entity.getPosition()) <= 1) 
                 {
-                    // TODO : give resource to Entity
-                    // TODO : make resource disappear
-                    // TODO : inform the simulation ?
+                    m_entity.setResource(m_target.takeResource());
+                    m_nextBehaviour = new NormalHumanBehaviour(m_entity);
                 }
                 else    // Need to move
                 {                                      
                     listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
+                    m_nextBehaviour = new NormalHumanBehaviour(m_entity);               // A resource don't move !
                 }
             }
             else    // Error
             {                                         
-//                TODO : error log
-//                throw new Exception("Error, target defined but empty !");
+                throw new IllegalStateException(this.getClass().getSimpleName() + " : Target empty !");
             }
         }
-        /*  Target == null  -> Rien à faire
-                Randommove, ou follow behaviour
-            Target == zombie
-                Arme = yes
-                    Reachable
-                        Attack
-                    NonReachable
-                        Fuite
-                Pas d'armes
-                    Fuite
-            Target == ressource
-                Go to
-
-
-        */
-
-        // TODO : ramasser la ressource ?
-        // TODO : penser à mettre à jour le next_behaviour à chaque cas
 
         return listEvent;
     }
