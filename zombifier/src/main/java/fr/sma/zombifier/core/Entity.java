@@ -28,7 +28,7 @@ public abstract class Entity
     private int m_id;
     
     /** Random generator of the entity. */
-    private final MersenneTwisterFast m_mt;
+    protected final MersenneTwisterFast m_mt;
     
     /** Current behaviour of the entity. */
     protected BaseBehaviour m_behaviour;

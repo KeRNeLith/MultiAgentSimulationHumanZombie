@@ -76,11 +76,11 @@ public class World extends ArrayList<ArrayList< Platform >>
     }
 
     /**
-     * Return the Platform near the one given in parameter with
-     * @param p Platform to start
-     * @param x Horizontal direction and distance
-     * @param y Vertical direction and distance
-     * @return The Platform near to p, or p if the parameters are wrong
+     * Return the Platform near the one given in parameter.
+     * @param p Platform to start.
+     * @param x Horizontal direction and distance.
+     * @param y Vertical direction and distance.
+     * @return The Platform near to p, or p if the parameters are wrong.
      */
     public Platform getNeighbour(Platform p, int x, int y) {
         // Checking parameters

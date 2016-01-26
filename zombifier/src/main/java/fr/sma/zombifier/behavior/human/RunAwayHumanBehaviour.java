@@ -18,8 +18,8 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour {
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
-     * @param threat Entity to run away from
-     * @param time Time before stopping running
+     * @param threat Entity to run away from.
+     * @param time Time before stopping running.
      */
     public RunAwayHumanBehaviour(Human e, Entity threat, int time)
     {
@@ -28,8 +28,8 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour {
     }
 
     /**
-     * Default Reaction in case of nothing else happen
-     * @param listEvent Reference to the Event(s) to add one or more
+     * Default Reaction in case of nothing else happen.
+     * @param listEvent Reference to the Event(s) to add one or more.
      */
     protected void defaultReaction(List<Event> listEvent) {
 

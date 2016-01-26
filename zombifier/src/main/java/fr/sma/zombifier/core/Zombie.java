@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * The class represent a Zombie entity.
  * 
- * @author Alexandre Rab�rin
+ * @author Alexandre Rabérin
  */
 public class Zombie extends Entity
 {
