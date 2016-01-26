@@ -1,12 +1,12 @@
-package fr.sma.zombifier.behavior.event;
+package fr.sma.zombifier.event;
 
 import fr.sma.zombifier.core.Simulation;
-import fr.sma.zombifier.event.Event;
 import java.util.List;
 
 /**
- *
- * @author Alexandre Rab�rin
+ * This class manage the handling of all events added to it by the handleEvents function.
+ * 
+ * @author Alexandre Rabérin
  */
 public class EventHandler
 {
@@ -28,7 +28,9 @@ public class EventHandler
      */
     public void handleEvents(List<Event> events)
     {
-        //for (Event e : events)
-        //    e.exec(m_simulation);
+        events.stream().forEach((e) -> 
+        {
+            e.exec(m_simulation);
+        });
     }
 }
