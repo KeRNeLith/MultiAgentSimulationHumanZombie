@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for World class.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin
  */
 public class WorldTest extends TestCase
 {
@@ -65,4 +65,5 @@ public class WorldTest extends TestCase
         assertEquals("World 7 width", 1, w7.get(0).size());
     }
     
+    // TODO test getNeighbor
 }

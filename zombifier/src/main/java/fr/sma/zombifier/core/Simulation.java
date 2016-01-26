@@ -71,7 +71,7 @@ public class Simulation extends Observable
             // Randomly select the order of entity activation
             Collections.shuffle(m_entities, new Random());
             
-            m_entities.stream().forEach(Entity::live);
+            // Entities live
             for (Entity e : m_entities)
             {
                 List<Event> events = e.live();

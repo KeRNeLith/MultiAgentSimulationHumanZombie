@@ -76,17 +76,24 @@ public class World extends ArrayList<ArrayList< Platform >>
     }
 
     /**
-     * Return the Platform near the one given in parameter with
-     * @param p Platform to start
-     * @param x Horizontal direction and distance
-     * @param y Vertical direction and distance
-     * @return The Platform near to p, or p if the parameters are wrong
+     * Return the Platform near the one given in parameter.
+     * @param p Platform to start.
+     * @param x Horizontal direction and distance.
+     * @param y Vertical direction and distance.
+     * @return The Platform near to p, or p if the parameters are wrong.
      */
-    public Platform getNeighbour(Platform p, int x, int y) {
+    public Platform getNeighbour(Platform p, int x, int y) 
+    {
+        if (p == null)
+            return p;
+        
+        int pX = p.getX();
+        int pY = p.getY();
+        
         // Checking parameters
-        if(p != null && p.getX() + x >= 0 && p.getX() + x < this.size()
-            && p.getY() + y >= 0 && p.getY() + y < this.get(x + p.getX()).size())
-            return this.get(p.getX() + x).get(p.getY() - y);
+        if(pY + y >= 0 && pY + y < this.size()
+           && pX + x >= 0 && pX + x < this.get(pY + y).size())
+            return this.get(pY + y).get(pX + x);
         else
             return p;
     }

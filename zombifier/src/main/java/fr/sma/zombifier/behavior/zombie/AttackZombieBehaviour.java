@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class AttackZombieBehaviour extends NormalZombieBehaviour 
 {
-
     private Platform m_oldTarget;
     private int m_giveUp;
+    
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.

@@ -87,6 +87,8 @@ public class ConsoleDisplay implements Observer
             
             System.out.println();
         }
+        
+        System.out.println();
     }
 
     /**
