@@ -4,6 +4,7 @@ import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.world.Platform;
 
 import java.util.List;
 
@@ -15,14 +16,14 @@ import java.util.List;
 public class RunAwayHumanBehaviour extends BaseHumanBehaviour 
 {
 
-    private Entity m_knownThreat = null;
+    private Platform m_knownThreat = null;
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      * @param threat Entity to run away from.
      * @param time Time before stopping running.
      */
-    public RunAwayHumanBehaviour(Human e, Entity threat, int time)
+    public RunAwayHumanBehaviour(Human e, Platform threat, int time)
     {
         super(e);
         m_knownThreat = threat;

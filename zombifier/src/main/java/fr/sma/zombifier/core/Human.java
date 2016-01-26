@@ -128,6 +128,8 @@ public class Human extends Entity
      */
     public Platform runAwayFrom(Platform p) {
 
+        // TODO : vérifier la destination : empty ?
+
         int x = p.getX();
         int y = p.getY();
 

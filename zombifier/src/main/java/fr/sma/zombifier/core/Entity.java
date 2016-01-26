@@ -110,6 +110,8 @@ public abstract class Entity
 
     public Platform randomMove() 
     {
+
+        // TODO : Vérifier si entité ou pas : ptit while
         World world = m_position.getWorld();
         int random = m_mt.nextInt(4);
 
@@ -167,6 +169,7 @@ public abstract class Entity
      */
     public Platform moveTo(Platform dest) 
     {
+        // TODO : vérifier si destination non occupée
         Platform orig = this.getPosition();
         int dirX = 0;   int dirY = 0;
 
