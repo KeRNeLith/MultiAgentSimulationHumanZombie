@@ -8,12 +8,12 @@ import fr.sma.zombifier.event.Event;
 import java.util.List;
 
 /**
+ * 
+ * 
  * @author Adrien Pierreval - Alexandre Rabérin
- * @date 25/01/2016
  */
-
-
-public class AttackHumanBehaviour extends BaseHumanBehaviour {
+public class AttackHumanBehaviour extends BaseHumanBehaviour 
+{
     
     private Entity m_knownTarget = null;
     /**
@@ -26,8 +26,9 @@ public class AttackHumanBehaviour extends BaseHumanBehaviour {
         m_knownTarget = target;
     }
 
-
-    protected void defaultReaction(List<Event> listEvent) {
+    @Override
+    protected void defaultReaction(List<Event> listEvent) 
+    {
 
         // TODO : vérifier si toujours en état d'attaquer
 

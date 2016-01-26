@@ -24,10 +24,12 @@ public class NormalZombieBehaviour extends BaseZombieBehaviour
     }
 
     /**
-     * Happen if the zombie have nothing to do
-     * @param listEvent Reference to the Event(s) to add one or more
+     * Happen if the zombie have nothing to do.
+     * @param listEvent Reference to the Event(s) to add one or more.
      */
-    protected void defaultReaction(List<Event> listEvent) {
+    @Override
+    protected void defaultReaction(List<Event> listEvent) 
+    {
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         m_nextBehaviour = new NormalZombieBehaviour(m_entity);
     }

@@ -1,10 +1,5 @@
 package fr.sma.zombifier.behavior.human;
 
-/**
- * @author Adrien Pierreval
- * @date 23/01/2016
- */
-
 import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.Zombie;
@@ -19,9 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base abstract class for human behaviour
+ * Base abstract class for human behaviour.
+ * 
+ * @author Adrien Pierreval
  */
-public abstract class BaseHumanBehaviour extends BaseBehaviour {
+public abstract class BaseHumanBehaviour extends BaseBehaviour 
+{
 
     private final Human m_entity;
 
@@ -29,13 +27,14 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour {
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      */
-    public BaseHumanBehaviour(Human e) {
+    public BaseHumanBehaviour(Human e) 
+    {
         super();
         m_entity = e;
     }
 
     /**
-     * Analyse of the environment of the human
+     * Analyse of the environment of the human.
      */
     @Override
     public void analyze()
@@ -44,14 +43,19 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour {
         Neighborhood neighborhood = new Neighborhood(m_entity.getPosition(), m_entity.getDirection());
 
         // First analyse the entities
-        for(Platform platform : neighborhood.getPlatformWithEntity()) {
+        for(Platform platform : neighborhood.getPlatformWithEntity()) 
+        {
             // Compute the nearest target
-            if(platform.getEntity() instanceof Zombie) {
-                if(m_target == null) {
+            if(platform.getEntity() instanceof Zombie) 
+            {
+                if(m_target == null) 
+                {
                     m_target = platform;
                 }
-                else {
-                    if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) {
+                else 
+                {
+                    if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
+                    {
                         m_target = platform;
                     }
                 }
@@ -59,14 +63,20 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour {
         }
 
         // If there is no ennemies, scan for ressources
-        if(m_target == null) {
-            for (Platform platform : neighborhood.getPlatformWithResources()) {
-                if(platform.getResource() instanceof Resource) {
-                    if(m_target == null) {
+        if(m_target == null) 
+        {
+            for (Platform platform : neighborhood.getPlatformWithResources()) 
+            {
+                if(platform.getResource() instanceof Resource) 
+                {
+                    if(m_target == null) 
+                    {
                         m_target = platform;
                     }
-                    else {
-                        if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) {
+                    else 
+                    {
+                        if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
+                        {
                             m_target = platform;
                         }
                     }
@@ -77,44 +87,55 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour {
 
     /**
      * Define the reaction of the human.
-     * @return the Event produced by the entity
+     * @return the Event produced by the entity.
      */
     @Override
     public List<Event> react()
     {
         List<Event> listEvent = new ArrayList<>();
 
-        if(m_target == null) {                              // No target : random move
+        if(m_target == null) // No target : random move
+        {                              
             listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         }
-        else {                                              // Target defined
-            if(m_target.hasEntity()) {                      // Zombie spotted
-                if(m_entity.haveWeapon() && m_entity.canAttack(m_target)) {
-                    if (m_entity.attack(m_target.getEntity())) {
+        else                // Target defined
+        {
+            if(m_target.hasEntity()) // Zombie spotted
+            {                      
+                if(m_entity.haveWeapon() && m_entity.canAttack(m_target)) 
+                {
+                    if (m_entity.attack(m_target.getEntity())) 
+                    {
                         // Success
                         listEvent.add(new EventEntityDie(m_target.getEntity()));
                         m_nextBehaviour = new NormalHumanBehaviour(m_entity);
                     }
-                    else {
+                    else 
+                    {
                         // Failure but he will continue to attack
                         m_nextBehaviour = new AttackHumanBehaviour(m_entity, m_target.getEntity());
                     }
                 }
-                else {                                      // Human can't attack, he must runaway
+                else    // Human can't attack, he must runaway
+                {                                      
                     // TODO : implémenter la fuite
                 }
             }
-            else if (m_target.hasResource()) {              // Resource spotted
-                if(m_target.getDistance(m_entity.getPosition()) <= 1) {
+            else if (m_target.hasResource())    // Resource spotted
+            {              
+                if(m_target.getDistance(m_entity.getPosition()) <= 1) 
+                {
                     // TODO : give resource to Entity
                     // TODO : make resource disappear
                     // TODO : inform the simulation ?
                 }
-                else {                                      // Need to move
+                else    // Need to move
+                {                                      
                     listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
                 }
             }
-            else {                                          // Error
+            else    // Error
+            {                                         
 //                TODO : error log
 //                throw new Exception("Error, target defined but empty !");
             }
@@ -142,8 +163,8 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour {
     }
 
     /**
-     * Happen if the human have nothing to do
-     * @param listEvent Reference to the Event(s) to add one or more
+     * Happen if the human have nothing to do.
+     * @param listEvent Reference to the Event(s) to add one or more.
      */
     protected abstract void defaultReaction(List<Event> listEvent);
 }

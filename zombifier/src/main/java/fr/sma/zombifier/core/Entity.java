@@ -110,34 +110,33 @@ public abstract class Entity
 
     public Platform randomMove() 
     {
-        Platform dest = null;
         World world = m_position.getWorld();
         int random = m_mt.nextInt(4);
 
-        switch(random) {
+        switch(random) 
+        {
             case(0):
-                dest = world.getNeighbour(m_position, 0, 1);
+                m_position = world.getNeighbour(m_position, 0, 1);
                 break;
             case(1):
-                dest = world.getNeighbour(m_position, 0, -1);
+                m_position = world.getNeighbour(m_position, 0, -1);
                 break;
             case(2):
-                dest = world.getNeighbour(m_position, 1, 0);
+                m_position = world.getNeighbour(m_position, 1, 0);
                 break;
             case(3):
-                dest = world.getNeighbour(m_position, -1, 0);
+                m_position = world.getNeighbour(m_position, -1, 0);
                 break;
             default:
-                dest = m_position;              // Do nothing
+                // Do nothing
 
         }
-
-        m_position = dest;
 
         // Define a random direction :
         random = m_mt.nextInt(4);
 
-        switch(random) {
+        switch(random) 
+        {
             case(0):
                 m_direction.setFirst(0);
                 m_direction.setSecond(1);
@@ -158,40 +157,42 @@ public abstract class Entity
                 // Do nothing
         }
 
-        return dest;
+        return m_position;
     }
 
     /**
-     * Move the entity in a direction of a platform
-     * @param dest Platform where the entity should move
-     * @return Platform where the entity stand at the end of the moving
+     * Move the entity in a direction of a platform.
+     * @param dest Platform where the entity should move.
+     * @return Platform where the entity stand at the end of the moving.
      */
-    public Platform moveTo(Platform dest) {
+    public Platform moveTo(Platform dest) 
+    {
         Platform orig = this.getPosition();
-        Platform p = null;
         int dirX = 0;   int dirY = 0;
 
-        if(dest == m_position) {                    // It is still at the good place
-            p = m_position;
+        if(dest == m_position)  // It is still at the good place
+        {                    
             // We don't change direction
         }
-        else {
+        else 
+        {
             if (dest.getX() == orig.getX())          // Same abscissa
                 dirX = (dest.getX() > orig.getX()) ? 1 : -1;
             else if (dest.getY() == orig.getY())     // Same ordinate
                 dirY = (dest.getY() > orig.getY()) ? 1 : -1;
-            else {
-                if (m_mt.nextBoolean()) {            // Horizontal
+            else 
+            {
+                if (m_mt.nextBoolean())     // Horizontal
+                {            
                     dirX = (dest.getX() > orig.getX()) ? 1 : -1;
-                } else {                             // Vertical
+                } 
+                else                        // Vertical
+                {    
                     dirY = (dest.getY() > orig.getY()) ? 1 : -1;
                 }
             }
 
-            p = orig.getWorld().getNeighbour(orig, dirX, dirY);
-            if (p.getEntity() == null) {
-                m_position = p;
-            }
+            m_position = orig.getWorld().getNeighbour(orig, dirX, dirY);
 
             // Update direction
             m_direction.setFirst(dirX);

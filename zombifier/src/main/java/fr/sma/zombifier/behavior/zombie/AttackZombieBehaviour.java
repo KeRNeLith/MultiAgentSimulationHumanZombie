@@ -9,13 +9,12 @@ import fr.sma.zombifier.world.Platform;
 import java.util.List;
 
 /**
+ * This class handle the attack behaviour for a zombie entity.
+ * 
  * @author Adrien Pierreval - Alexandre Rabérin
  */
-
-/**
- * This class handle the attack behaviour for a zombie entity
- */
-public class AttackZombieBehaviour extends NormalZombieBehaviour {
+public class AttackZombieBehaviour extends NormalZombieBehaviour 
+{
 
     private Platform m_oldTarget;
     private int m_giveUp;
@@ -31,15 +30,17 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour {
     }
 
     /**
-     * Happen if the zombie have nothing to do
-     * @param listEvent Reference to the Event(s) to add one or more
+     * Happen if the zombie have nothing to do.
+     * @param listEvent Reference to the Event(s) to add one or more.
      */
-    protected void defaultReaction(List<Event> listEvent) {
+    @Override
+    protected void defaultReaction(List<Event> listEvent) 
+    {
         // Try to go to the last position known of the target
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_oldTarget)));
 
-        m_nextBehaviour = (m_giveUp == 0)? new NormalZombieBehaviour(m_entity)
-            : new AttackZombieBehaviour(m_entity, m_oldTarget, m_giveUp);
+        m_nextBehaviour = (m_giveUp == 0) ? 
+                        new NormalZombieBehaviour(m_entity) : new AttackZombieBehaviour(m_entity, m_oldTarget, m_giveUp);
     }
 
 

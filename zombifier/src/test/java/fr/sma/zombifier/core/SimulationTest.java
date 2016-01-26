@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Simulation class.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin
  */
 public class SimulationTest extends TestCase
 {
@@ -137,6 +137,7 @@ public class SimulationTest extends TestCase
         assertEquals(f.getBreakRate(), 0.1f);
         assertEquals(f.getPower(), 10);
         assertEquals(f.getAmmo(), 5);
+        assertEquals(f.getRange(), 5);
         
         // Check resource 2
         r = w.get(11).get(19).getResource();
@@ -189,6 +190,4 @@ public class SimulationTest extends TestCase
         // Check only 8 entities because there are dublons and incompatible positions in test config
         assertEquals(8, result.size());
     }
-    
-    
 }

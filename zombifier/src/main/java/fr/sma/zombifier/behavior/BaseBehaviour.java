@@ -1,6 +1,5 @@
 package fr.sma.zombifier.behavior;
 
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.world.Platform;
 
 /**
@@ -16,7 +15,6 @@ public abstract class BaseBehaviour implements IBehaviour
 
     /**
      * Constructor.
-     * @param e Entity concerned by the current behaviour.
      */
     public BaseBehaviour()
     {
@@ -25,8 +23,12 @@ public abstract class BaseBehaviour implements IBehaviour
     }
 
     /**
-     * Return the next Behaviour of the entity
-     * @return the next Behaviour
+     * Return the next Behaviour of the entity.
+     * @return the next Behaviour.
      */
-    public BaseBehaviour next() { return m_nextBehaviour; }
+    @Override
+    public BaseBehaviour next() 
+    { 
+        return m_nextBehaviour; 
+    }
 }
