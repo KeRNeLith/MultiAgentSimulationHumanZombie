@@ -110,29 +110,43 @@ public abstract class Entity
 
     public Platform randomMove() 
     {
+        int random = -1;
+        int dirX = 0;
+        int dirY = 0;
 
-        // TODO : Vérifier si entité ou pas : ptit while
+        Platform nextPosition;
         World world = m_position.getWorld();
-        int random = m_mt.nextInt(4);
 
-        switch(random) 
+        // Find a place
+        do
         {
-            case(0):
-                m_position = world.getNeighbour(m_position, 0, 1);
-                break;
-            case(1):
-                m_position = world.getNeighbour(m_position, 0, -1);
-                break;
-            case(2):
-                m_position = world.getNeighbour(m_position, 1, 0);
-                break;
-            case(3):
-                m_position = world.getNeighbour(m_position, -1, 0);
-                break;
-            default:
-                // Do nothing
+            random = m_mt.nextInt(4);
+            switch(random)
+            {
+                case(0):
+                    dirX = 0;
+                    dirY = 1;
+                    break;
+                case(1):
+                    dirX = 0;
+                    dirY = -1;
+                    break;
+                case(2):
+                    dirX = 0;
+                    dirX = 0;
 
-        }
+                    break;
+                case(3):
+                    dirX = 0;
+                    dirX = 0;
+                    break;
+                default:
+                    // Do nothing
+            }
+            nextPosition = world.getNeighbour(m_position, dirX, dirY);
+        } while(nextPosition.getEntity() != null);
+        // Find a place
+
 
         // Define a random direction :
         random = m_mt.nextInt(4);
