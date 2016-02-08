@@ -111,6 +111,7 @@ public abstract class Entity
     public Platform randomMove() 
     {
         int random = -1;
+        int nbTry = 0;
         int dirX = 0;
         int dirY = 0;
 
@@ -144,9 +145,9 @@ public abstract class Entity
                     // Do nothing
             }
             nextPosition = world.getNeighbour(m_position, dirX, dirY);
-        } while(nextPosition.getEntity() != null);
-        // Find a place
+        } while(nbTry++ < 5 && (nextPosition.getEntity() != null && nextPosition.getResource() != null));
 
+        m_position = nextPosition;
 
         // Define a random direction :
         random = m_mt.nextInt(4);
@@ -183,8 +184,8 @@ public abstract class Entity
      */
     public Platform moveTo(Platform dest) 
     {
-        // TODO : vérifier si destination non occupée
         Platform orig = this.getPosition();
+        Platform next = null;                                           // Next platform for the entity
         int dirX = 0;   int dirY = 0;
 
         if(dest == m_position)  // It is still at the good place
@@ -197,19 +198,24 @@ public abstract class Entity
                 dirX = (dest.getX() > orig.getX()) ? 1 : -1;
             else if (dest.getY() == orig.getY())     // Same ordinate
                 dirY = (dest.getY() > orig.getY()) ? 1 : -1;
-            else 
+            else
             {
                 if (m_mt.nextBoolean())     // Horizontal
-                {            
+                {
                     dirX = (dest.getX() > orig.getX()) ? 1 : -1;
-                } 
+                }
                 else                        // Vertical
-                {    
+                {
                     dirY = (dest.getY() > orig.getY()) ? 1 : -1;
                 }
             }
 
-            m_position = orig.getWorld().getNeighbour(orig, dirX, dirY);
+            next = orig.getWorld().getNeighbour(orig, dirX, dirY);
+
+            // Verify there is nothing on the next platform
+            if(next.getEntity() == null && next.getResource() == null) {
+                m_position = orig.getWorld().getNeighbour(orig, dirX, dirY);
+            }
 
             // Update direction
             m_direction.setFirst(dirX);
@@ -217,6 +223,8 @@ public abstract class Entity
         }
 
         return m_position;
+
+        // TODO : si entité sur la platforme on ne bouge ? Autre règle ?
     }
 
     public abstract boolean attack(Entity e);

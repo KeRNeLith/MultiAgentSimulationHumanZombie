@@ -139,6 +139,8 @@ public class Human extends Entity
         int deltaX = Math.abs(x - m_position.getX());
         int deltaY = Math.abs(y - m_position.getY());
 
+        Platform next;                                          // To compute the next platform
+
         if(deltaX > deltaY)
         {
             dirX = 0;
@@ -173,7 +175,10 @@ public class Human extends Entity
             }
         }
 
-        m_position = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
+        next = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
+        if(next.getEntity() == null && next.getResource() != null) {
+            m_position = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
+        }
 
         // The entity look the direction he has moved to
         m_direction.setFirst(dirX);
