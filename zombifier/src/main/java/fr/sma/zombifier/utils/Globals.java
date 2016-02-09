@@ -118,7 +118,8 @@ public class Globals
             RUN_AWAY_TIME = Integer.parseInt(prop.getProperty("RUN_AWAY_TIME"));
 
             // Verification of the values
-            if(GIVE_UP >= VIEW_RANGE) {
+            if(GIVE_UP >= VIEW_RANGE) 
+            {
                 Logger.getLogger(Globals.class.getName()).log(Level.WARNING, null, "GIVE UP higher than VIEW RANGE !");
                 GIVE_UP = VIEW_RANGE;
             }

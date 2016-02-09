@@ -1,4 +1,4 @@
-package fr.sma.zombifier.ui;
+package fr.sma.zombifier.ui.console;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;

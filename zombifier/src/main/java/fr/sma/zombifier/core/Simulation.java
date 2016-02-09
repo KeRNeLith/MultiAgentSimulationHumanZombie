@@ -76,11 +76,11 @@ public class Simulation extends Observable
             {
                 List<Event> events = e.live();
                 m_eventHandler.handleEvents(events);
+                
+                // Notify Changes
+                this.setChanged();
+                this.notifyObservers();
             }
-          
-            // Notify Changes
-            this.setChanged();
-            this.notifyObservers();
         }
     }
     
@@ -127,7 +127,7 @@ public class Simulation extends Observable
     private void spawnEntities()
     {
         // Spawn Humans
-        this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
+        //this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
         this.<Zombie>spawnEntites(Globals.ZOMBIE_CONFIG, Zombie.class);

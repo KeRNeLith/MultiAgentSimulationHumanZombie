@@ -2,6 +2,7 @@ package fr.sma.zombifier.world;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.resources.Resource;
+import java.util.Observable;
 
 /**
  * This class store data related to a small part of the world.
@@ -10,7 +11,7 @@ import fr.sma.zombifier.resources.Resource;
  * @author Alexandre Rab�rin
  * @see World class.
  */
-public class Platform
+public class Platform extends Observable
 {
     /** Coordinate X of the platform. */
     private final int m_x;
@@ -41,6 +42,15 @@ public class Platform
     }
     
     /**
+     * Notify platform observers.
+     */
+    private void notifyObs()
+    {
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    /**
      * Add the given entity to the platform.
      * @param e Entity to add to the platform.
      * @return true if the entity has been added successfully.
@@ -53,6 +63,8 @@ public class Platform
         {
             m_entity = e;
             ret = true;
+            
+            notifyObs();
         }
         return  ret;
     }
@@ -88,6 +100,8 @@ public class Platform
         {
             m_resource = r;
             ret = true;
+            
+            notifyObs();
         }
         
         return  ret;
@@ -102,6 +116,8 @@ public class Platform
     {               
         Resource r = m_resource;
         m_resource = null;
+        
+        notifyObs();
         
         return r;
     }
@@ -152,13 +168,20 @@ public class Platform
     }
 
     /**
-     * Remove an Entity on the platform
+     * Remove the Entity on the platform.
      */
-    public void removeEntity() {
+    public void removeEntity() 
+    {
         m_entity = null;
     }
 
-    public int getDistance(Platform p) {
+    /**
+     * Get the distance from another platform.
+     * @param p Platform to get distance from.
+     * @return Distance value.
+     */
+    public int getDistance(Platform p) 
+    {
         return Math.abs(getX() - p.getX()) + Math.abs(getY() - p.getY());
     }
 }
