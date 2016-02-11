@@ -123,7 +123,7 @@ public class Simulation extends Observable
     private void spawnEntities()
     {
         // Spawn Humans
-        //this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
+        this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
         this.<Zombie>spawnEntites(Globals.ZOMBIE_CONFIG, Zombie.class);

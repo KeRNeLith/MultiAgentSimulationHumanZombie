@@ -134,13 +134,13 @@ public abstract class Entity
                     dirY = -1;
                     break;
                 case(2):
-                    dirX = 0;
-                    dirX = 0;
+                    dirX = -1;
+                    dirY = 0;
 
                     break;
                 case(3):
-                    dirX = 0;
-                    dirX = 0;
+                    dirX = 1;
+                    dirY = 0;
                     break;
                 default:
                     // Do nothing
