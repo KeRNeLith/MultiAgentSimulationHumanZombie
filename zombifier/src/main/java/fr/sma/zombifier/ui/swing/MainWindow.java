@@ -1,7 +1,10 @@
 package fr.sma.zombifier.ui.swing;
 
-import fr.sma.zombifier.core.Simulation;
 import java.awt.BorderLayout;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javax.swing.JFrame;
 
 /**
@@ -11,14 +14,27 @@ import javax.swing.JFrame;
  */
 public class MainWindow extends JFrame
 {
+    /** World grid view panel. */
     private WorldGridView m_gridWorld;
+    /** Option panel. */
     private OptionsPanel m_optionsPanel;
     
-    private Simulation m_simulatation;
+    /** Simulation. */
+    private GUISimulation m_simulation;
     
+    /** Thread pool. */
+    private final ExecutorService m_pool;
+    /** Async task to execute the Simulation. */
+    private Future<Void> m_future;
+    
+    /**
+     * Constructor.
+     */
     public MainWindow()
     {
         super("Zombifier");
+        
+        m_pool = Executors.newSingleThreadExecutor();
         
         initWindow();
     }
@@ -29,13 +45,13 @@ public class MainWindow extends JFrame
     private void initWindow()
     {
         // Create simulation
-        m_simulatation = new Simulation();
+        m_simulation = new GUISimulation(500); /* 40 - 1000 */
         
         // Set up layout
         getContentPane().setLayout(new BorderLayout());
         
         // Initialize JPanels
-        m_gridWorld = new WorldGridView(m_simulatation);
+        m_gridWorld = new WorldGridView(m_simulation);
         m_optionsPanel = new OptionsPanel();
         
         // Layout positions
@@ -43,7 +59,7 @@ public class MainWindow extends JFrame
         getContentPane().add(m_optionsPanel, BorderLayout.EAST);
         
         // Initialize Simulation
-        load();
+        initialize();
     }
     
     /**
@@ -53,17 +69,40 @@ public class MainWindow extends JFrame
     {
         pack();
         setVisible(true);
-        
-        // Thread to execute simulation
-        Thread simuThread = new Thread(() -> {
-            m_simulatation.launch();
-        });
-        simuThread.start();
     }
     
-    public void load()
+    /**
+     * Load simulation data from scratch and initialize GUI components.
+     */
+    public void initialize()
     {
-        m_simulatation.initSimultation();
+        m_simulation.initSimultation();
         m_gridWorld.loadGrid();
+    }
+    
+    /**
+     * Start the simulation execution.
+     */
+    public void start()
+    {
+        // Thread to execute simulation
+        m_future = m_pool.submit(m_simulation);
+    }
+    
+    /**
+     * Stop the simulation execution.
+     */
+    public void stop()
+    {
+        m_simulation.stop();
+        
+        try 
+        {
+            m_future.get();
+        } 
+        catch (InterruptedException | ExecutionException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
     }
 }

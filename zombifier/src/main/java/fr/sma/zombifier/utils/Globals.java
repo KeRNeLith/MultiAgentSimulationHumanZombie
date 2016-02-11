@@ -60,6 +60,7 @@ public class Globals
      */
     public static int VIEW_RANGE = 5;
 
+    
     /**
      * Time before an entity give up to reach a target
      */
@@ -69,6 +70,12 @@ public class Globals
      * Time before an entity stop to run away
      */
     public static int RUN_AWAY_TIME = 3;
+    
+    
+    /**
+     * Time interval for GUI refresh.
+     */
+    public static final double TIME_INTERVAL = 0.100;
 
     /**
      * Read the simulation properties and load its values into globals variables.

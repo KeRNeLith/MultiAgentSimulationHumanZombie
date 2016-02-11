@@ -17,6 +17,7 @@ public class GUIApp
         SwingUtilities.invokeLater(() -> {
             MainWindow window = new MainWindow();
             window.display();
+            window.start();
         });
     }
 }

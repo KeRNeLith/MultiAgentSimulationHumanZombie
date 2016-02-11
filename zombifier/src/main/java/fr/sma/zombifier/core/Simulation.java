@@ -18,7 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,16 +32,15 @@ public class Simulation extends Observable
     private World m_world;
     
     /** List of entities. */
-    private List<Entity> m_entities;
+    protected List<Entity> m_entities;
     
     /** Event handler. */
-    private final EventHandler m_eventHandler;
+    protected final EventHandler m_eventHandler;
     
     /** Random generator of the simulation. */
-    private MersenneTwisterFast m_simulationMt;
+    protected MersenneTwisterFast m_simulationMt;
     
-    private boolean m_stop;
-    private boolean m_end;
+    protected boolean m_stop;
     
     /**
      * Constructor.
@@ -54,7 +52,7 @@ public class Simulation extends Observable
     }
     
     /**
-     * Launch the simulation (initialize it) and the main loop.
+     * Launch the simulation (main loop).
      */
     public void launch()
     {
@@ -63,31 +61,23 @@ public class Simulation extends Observable
         this.notifyObservers();
         
         System.out.println( "Begin Simulation..." );
-        try {
-            // Main Loop
-            int i = 0;
-            while (!m_end)
-            {
-                System.out.println("Loop " + i++);
-                // Randomly select the order of entity activation
-                Collections.shuffle(m_entities, new Random());
-                
-                // Entities live
-                for (Entity e : m_entities)
-                {
-                    List<Event> events = e.live();
-                    m_eventHandler.handleEvents(events);
-                }
-                
-                // Notify Changes
-                this.setChanged();
-                this.notifyObservers();
-                
-                Thread.sleep(500);
-            }
-        } catch (InterruptedException ex)
+        // Main Loop
+        int i = 0;
+        while (!m_stop)
         {
-            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+            // Randomly select the order of entity activation
+            Collections.shuffle(m_entities, m_simulationMt);
+            
+            // Entities live
+            for (Entity e : m_entities)
+            {
+                List<Event> events = e.live();
+                m_eventHandler.handleEvents(events);
+            }
+            
+            // Notify Changes
+            this.setChanged();
+            this.notifyObservers();
         }
     }
     
@@ -97,7 +87,6 @@ public class Simulation extends Observable
     public void initSimultation()
     {
         m_stop = false;
-        m_end = false;
         m_entities = new LinkedList<>();
         
         // Load simulation params from file
@@ -292,6 +281,12 @@ public class Simulation extends Observable
                 }
             }
         }
+    }
+    
+    // Setter
+    public void stop()
+    {
+        m_stop = true;
     }
     
     // Accesseurs
