@@ -39,7 +39,7 @@ public class Simulation extends Observable
     private final EventHandler m_eventHandler;
     
     /** Random generator of the simulation. */
-    private MersenneTwisterFast m_simulationMt;   
+    private MersenneTwisterFast m_simulationMt;
     
     private boolean m_stop;
     private boolean m_end;
@@ -58,29 +58,36 @@ public class Simulation extends Observable
      */
     public void launch()
     {
-        initSimultation();
-        
         // Notify Changes
         this.setChanged();
         this.notifyObservers();
         
         System.out.println( "Begin Simulation..." );
-        // Main Loop
-        while (!m_end)
-        {
-            // Randomly select the order of entity activation
-            Collections.shuffle(m_entities, new Random());
-            
-            // Entities live
-            for (Entity e : m_entities)
+        try {
+            // Main Loop
+            int i = 0;
+            while (!m_end)
             {
-                List<Event> events = e.live();
-                m_eventHandler.handleEvents(events);
+                System.out.println("Loop " + i++);
+                // Randomly select the order of entity activation
+                Collections.shuffle(m_entities, new Random());
+                
+                // Entities live
+                for (Entity e : m_entities)
+                {
+                    List<Event> events = e.live();
+                    m_eventHandler.handleEvents(events);
+                }
                 
                 // Notify Changes
                 this.setChanged();
                 this.notifyObservers();
+                
+                Thread.sleep(500);
             }
+        } catch (InterruptedException ex)
+        {
+            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -235,11 +242,11 @@ public class Simulation extends Observable
                         System.err.println("Impossible to add the " + (i+1) + "th " + clazz.getSimpleName() + " because there is already an entity in (" + x + ", " + y + ").");
                     }
                 }
-                catch ( NoSuchMethodException 
-                        | SecurityException 
-                        | InstantiationException 
-                        | IllegalAccessException 
-                        | IllegalArgumentException 
+                catch ( NoSuchMethodException
+                        | SecurityException
+                        | InstantiationException
+                        | IllegalAccessException
+                        | IllegalArgumentException
                         | InvocationTargetException ex)
                 {
                     Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
@@ -269,9 +276,9 @@ public class Simulation extends Observable
             int y = elem.getFirst().getSecond();
             // Check if resource is in the world
             if (    y >= 0 && y < m_world.size()        // Check Y position
-                &&
+                    &&
                     x >= 0 && x < m_world.get(y).size() // Check X position
-                )
+                    )
             {
                 Platform p = m_world.get(y).get(x);
                 // Add resource if possible, otherwise ignore it

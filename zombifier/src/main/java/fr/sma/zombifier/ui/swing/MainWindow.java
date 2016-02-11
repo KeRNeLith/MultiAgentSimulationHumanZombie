@@ -53,14 +53,17 @@ public class MainWindow extends JFrame
     {
         pack();
         setVisible(true);
-        //m_simulatation.launch();
+        
+        // Thread to execute simulation
+        Thread simuThread = new Thread(() -> {
+            m_simulatation.launch();
+        });
+        simuThread.start();
     }
     
     public void load()
     {
         m_simulatation.initSimultation();
         m_gridWorld.loadGrid();
-        
-        display();
     }
 }

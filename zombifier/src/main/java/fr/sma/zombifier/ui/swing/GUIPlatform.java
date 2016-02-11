@@ -11,10 +11,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Observable;
 import java.util.Observer;
-import javafx.scene.layout.Border;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.text.html.CSS;
 
 /**
  *
@@ -27,13 +25,26 @@ public class GUIPlatform extends JPanel implements Observer
     public GUIPlatform(Platform p)
     {
         this.m_platform = p;
-        this.m_platform.addObserver(this);
+        p.addObserver(this);
+        
+        initPanel();
+        
+        updateDisplay();
+    }
+
+    private void initPanel()
+    {
         this.setPreferredSize(new Dimension(30, 30));
         this.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
     }
-
+    
     @Override
     public void update(Observable o, Object arg)
+    {
+        updateDisplay();
+    }
+    
+    private void updateDisplay()
     {
         if (m_platform.hasEntity())
         {

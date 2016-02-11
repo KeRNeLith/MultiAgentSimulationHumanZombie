@@ -28,8 +28,6 @@ public class WorldGridView extends JPanel
     private void initPanel()
     {
         setLayout(new GridBagLayout());
-        //applyComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-        
         setBackground(Color.darkGray);
     }
     

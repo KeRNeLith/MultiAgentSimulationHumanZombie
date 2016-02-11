@@ -70,6 +70,16 @@ public class Platform extends Observable
     }
     
     /**
+     * Remove the Entity on the platform.
+     */
+    public void removeEntity() 
+    {
+        m_entity = null;
+        
+        notifyObs();
+    }
+    
+    /**
      * Determine if the platform has an entity on it.
      * @return true if the plaform contains an entity, otherwise false.
      */
@@ -165,14 +175,6 @@ public class Platform extends Observable
     public World getWorld()
     {
         return m_world;
-    }
-
-    /**
-     * Remove the Entity on the platform.
-     */
-    public void removeEntity() 
-    {
-        m_entity = null;
     }
 
     /**

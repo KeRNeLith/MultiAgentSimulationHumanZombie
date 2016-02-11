@@ -1,12 +1,12 @@
 package fr.sma.zombifier;
 
 import fr.sma.zombifier.core.Simulation;
-import fr.sma.zombifier.ui.ConsoleDisplay;
+import fr.sma.zombifier.ui.console.ConsoleDisplay;
 
 /**
- * Class containing the main function.
+ * Class containing the main function for the console application.
  */
-public class App 
+public class ConsoleApp 
 {
     /**
      * Main function.
@@ -17,6 +17,7 @@ public class App
         Simulation simu = new Simulation();
         ConsoleDisplay.create(simu);
         
+        simu.initSimultation();
         simu.launch();
     }
 }
