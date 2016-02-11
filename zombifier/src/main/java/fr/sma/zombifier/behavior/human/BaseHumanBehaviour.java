@@ -22,7 +22,7 @@ import java.util.List;
 public abstract class BaseHumanBehaviour extends BaseBehaviour 
 {
 
-    private final Human m_entity;
+    protected final Human m_entity;
 
     /**
      * Constructor.
@@ -61,6 +61,10 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                     }
                 }
             }
+            else if(platform.getEntity() instanceof Human)
+            {
+                // TODO : to implement
+            }
         }
 
         // If there is no ennemies, scan for ressources
@@ -97,11 +101,11 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
 
         if(m_target == null)            // No target : random move
         {                              
-            listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
+            defaultReaction(listEvent);
         }
         else                            // Target defined
         {
-            if(m_target.hasEntity())    // Zombie spotted
+            if(m_target.hasEntity() && m_target.getEntity() instanceof Zombie)          // Zombie spotted
             {                      
                 if(m_entity.haveWeapon() && m_entity.canAttack(m_target)) 
                 {
@@ -114,7 +118,7 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                     else 
                     {
                         // Failure but he will continue to attack
-                        m_nextBehaviour = new AttackHumanBehaviour(m_entity, m_target.getEntity());
+                        m_nextBehaviour = new AttackHumanBehaviour(m_entity, m_target, Globals.GIVE_UP);
                     }
                 }
                 else    // Human can't attack, he must runaway
@@ -122,6 +126,11 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                     listEvent.add(new EventMove(m_entity.getPosition(), m_entity.runAwayFrom(m_target)));
                     m_nextBehaviour = new RunAwayHumanBehaviour(m_entity, m_target, Globals.RUN_AWAY_TIME);
                 }
+            }
+            else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
+            {
+                throw new UnsupportedOperationException();
+                // TODO : Go to create or join a group
             }
             else if (m_target.hasResource())    // Resource spotted
             {              
@@ -134,6 +143,7 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                 {                                      
                     listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
                     m_nextBehaviour = new NormalHumanBehaviour(m_entity);               // A resource don't move !
+                    // TODO : implement a resourceSpottedBehaviour ?
                 }
             }
             else    // Error

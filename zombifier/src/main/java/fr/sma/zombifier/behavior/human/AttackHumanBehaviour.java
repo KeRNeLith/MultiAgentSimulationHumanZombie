@@ -4,6 +4,9 @@ import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventMove;
+import fr.sma.zombifier.world.Neighborhood;
+import fr.sma.zombifier.world.Platform;
 
 import java.util.List;
 
@@ -15,26 +18,33 @@ import java.util.List;
 public class AttackHumanBehaviour extends BaseHumanBehaviour 
 {
     
-    private Entity m_knownTarget = null;
+    private Platform m_oldTarget = null;
+    private int m_giveUp;
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
      */
-    public AttackHumanBehaviour(Human e, Entity target)
+    public AttackHumanBehaviour(Human e, Platform target, int giveUp)
     {
         super(e);
-        m_knownTarget = target;
+        m_oldTarget = target;
+        m_giveUp = giveUp--;                                        // Decrease the giveUp time
     }
 
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
-
-        // TODO : vérifier si toujours en état d'attaquer
-
-
-        // TODO : not implemented
-        throw new UnsupportedOperationException();
+        if(m_entity.canAttack())
+        {
+            m_nextBehaviour = (m_giveUp == 0) ?
+                    new NormalHumanBehaviour(m_entity)
+                    : new AttackHumanBehaviour(m_entity, m_oldTarget, m_giveUp);
+        }
+        else
+        {
+            listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
+            m_nextBehaviour = new NormalHumanBehaviour(m_entity);
+        }
     }
 
     @Override

@@ -99,7 +99,7 @@ public class PlatformTest extends TestCase
         assertFalse("HasResource before adding", platform.hasResource());
         assertNull("GetResource before adding", platform.getResource());
 
-        FireWeapon r = new FireWeapon(0.3f, 10, 5, 5);
+        FireWeapon r = new FireWeapon(0.3f, 80f, 10, 5, 5);
         platform.addResource(r);
 
         assertTrue("HasResources after adding", platform.hasResource());

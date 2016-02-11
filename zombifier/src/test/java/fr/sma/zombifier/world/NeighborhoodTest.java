@@ -212,7 +212,7 @@ public class NeighborhoodTest extends TestCase
         NeighborhoodChecker checker = new NeighborhoodChecker();
         
         // Set up resources
-        FireWeapon r = new FireWeapon(0.3f, 10, 5, 5);
+        FireWeapon r = new FireWeapon(0.3f, 80f, 10, 5, 5);
         w.get(9).get(9).addResource(r);
         w.get(9).get(11).addResource(r);
         assertTrue("Check Resource is on platform 1", w.get(9).get(9).hasResource());

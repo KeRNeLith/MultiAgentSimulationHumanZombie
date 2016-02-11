@@ -3,6 +3,8 @@ package fr.sma.zombifier.behavior.human;
 import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventMove;
+
 import java.util.List;
 
 /**
@@ -24,8 +26,8 @@ public class NormalHumanBehaviour extends BaseHumanBehaviour
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
-        // TODO : not implemented
-        throw new UnsupportedOperationException();
+        listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
+        m_nextBehaviour = new NormalHumanBehaviour(m_entity);
     }
 
     @Override

@@ -4,6 +4,7 @@ import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.world.Platform;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
 {
 
     private Platform m_knownThreat = null;
+    private int m_time;
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
@@ -27,6 +29,7 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
     {
         super(e);
         m_knownThreat = threat;
+        m_time = time--;                                                        // Decrease the time
     }
 
     /**
@@ -36,14 +39,13 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
+        // Run away from the oldThreat
+        listEvent.add(new EventMove(m_entity.getPosition(), m_entity.runAwayFrom(m_knownThreat)));
 
-        // TODO : runaway from threat
-        // TODO : decrease time
-
-
-
-        // TODO : not implemented
-        throw new UnsupportedOperationException();
+        // Define the next behaviour
+        m_nextBehaviour = (m_time == 0) ?
+                new NormalHumanBehaviour(m_entity)
+                : new RunAwayHumanBehaviour(m_entity, m_knownThreat, m_time);
     }
 
     @Override

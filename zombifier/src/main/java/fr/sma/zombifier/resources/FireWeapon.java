@@ -13,14 +13,15 @@ public class FireWeapon extends Weapon
     
     /**
      * Constructor of a fire weapon.
-     * @param breakRate reak rate.
+     * @param breakRate break rate.
+     * @param efficiency efficiency of the weapon.
      * @param power Power of the weapon.
      * @param ammo Ammo of the weapon.
      * @param range Range of the weapon.
      */
-    public FireWeapon(float breakRate, int power, int ammo, int range)
+    public FireWeapon(float breakRate, float efficiency, int power, int ammo, int range)
     {
-        super(breakRate, power);
+        super(breakRate, efficiency, power);
         this.m_ammo = ammo;
         this.m_range = range;
     }
