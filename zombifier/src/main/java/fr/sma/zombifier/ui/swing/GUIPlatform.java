@@ -15,13 +15,20 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 /**
- *
+ * The GUIPlatform class provide interactions especially dedicated to a use in GUI application.
+ * It manage display of what is present on the model platform.
+ * 
  * @author Alexandre Rabérin
  */
 public class GUIPlatform extends JPanel implements Observer
 {
+    /** Platform watched. */
     private final Platform m_platform;
     
+    /**
+     * Constructor.
+     * @param p Platform to watch.
+     */
     public GUIPlatform(Platform p)
     {
         this.m_platform = p;
@@ -32,6 +39,9 @@ public class GUIPlatform extends JPanel implements Observer
         updateDisplay();
     }
 
+    /**
+     * Initialize the GUIPlatform panel components.
+     */
     private void initPanel()
     {
         this.setPreferredSize(new Dimension(30, 30));
@@ -44,6 +54,9 @@ public class GUIPlatform extends JPanel implements Observer
         updateDisplay();
     }
     
+    /**
+     * Update the rendering of the GUIPlatform based on the model platform content.
+     */
     private void updateDisplay()
     {
         if (m_platform.hasEntity())

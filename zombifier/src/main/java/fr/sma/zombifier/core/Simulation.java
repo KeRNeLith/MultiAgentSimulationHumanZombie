@@ -40,7 +40,11 @@ public class Simulation extends Observable
     /** Random generator of the simulation. */
     protected MersenneTwisterFast m_simulationMt;
     
+    /** Boolean that indicate if the simulation should be stopped. */
     protected boolean m_stop;
+ 
+    /** Counter of simulation loops. */
+    protected int m_simulationLoops;
     
     /**
      * Constructor.
@@ -56,29 +60,39 @@ public class Simulation extends Observable
      */
     public void launch()
     {
+        m_stop = false;
+        
         // Notify Changes
         this.setChanged();
         this.notifyObservers();
-        
-        System.out.println( "Begin Simulation..." );
+
         // Main Loop
-        int i = 0;
         while (!m_stop)
         {
-            // Randomly select the order of entity activation
-            Collections.shuffle(m_entities, m_simulationMt);
-            
-            // Entities live
-            for (Entity e : m_entities)
-            {
-                List<Event> events = e.live();
-                m_eventHandler.handleEvents(events);
-            }
-            
-            // Notify Changes
-            this.setChanged();
-            this.notifyObservers();
+            step();
         }
+    }
+    
+    /**
+     * Run a step of the simulation process.
+     */
+    public void step()
+    {
+        // Randomly select the order of entity activation
+        Collections.shuffle(m_entities, m_simulationMt);
+
+        // Entities live
+        for (Entity e : m_entities)
+        {
+            List<Event> events = e.live();
+            m_eventHandler.handleEvents(events);
+        }
+
+        m_simulationLoops++;
+
+        // Notify Changes
+        this.setChanged();
+        this.notifyObservers();
     }
     
     /**
@@ -87,6 +101,7 @@ public class Simulation extends Observable
     public void initSimultation()
     {
         m_stop = false;
+        m_simulationLoops = 0;
         m_entities = new LinkedList<>();
         
         // Load simulation params from file
@@ -123,7 +138,7 @@ public class Simulation extends Observable
     private void spawnEntities()
     {
         // Spawn Humans
-        this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
+        //this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
         this.<Zombie>spawnEntites(Globals.ZOMBIE_CONFIG, Zombie.class);
@@ -306,5 +321,14 @@ public class Simulation extends Observable
     public List<Entity> getEntities()
     {
         return m_entities;
+    }
+    
+    /**
+     * Getter on the number of simulation loops.
+     * @return Number of simulation loops..
+     */
+    public int getNbSimulationLoops()
+    {
+        return m_simulationLoops;
     }
 }
