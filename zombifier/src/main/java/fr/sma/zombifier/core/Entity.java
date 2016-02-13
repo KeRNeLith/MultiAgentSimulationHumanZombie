@@ -111,8 +111,8 @@ public abstract class Entity
 
     public Platform randomMove() 
     {
-        int nbTry = 10;
-        int random = -1;
+        int nbTry = 10;                                                     // Ten try before giving up
+        int random;
         int dirX = 0;
         int dirY = 0;
 
@@ -143,11 +143,15 @@ public abstract class Entity
                     dirY = 0;
                     break;
                 default:
-                    // Do nothing
+                    // Should not happen
             }
+
             nextPosition = world.getNeighbour(m_position, dirX, dirY);
-            nbTry--;
-        } while(nbTry > 0 && nextPosition.getEntity() != null && nextPosition == m_position);
+            if(nextPosition.getEntity() != null) {
+                nextPosition = m_position;
+            }
+
+        } while(nbTry-- > 0 && nextPosition != m_position);
         // Find a place
 
         m_position = nextPosition;
