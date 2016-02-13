@@ -9,15 +9,22 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 /**
- *
+ * This class is the panel that handle displaying the simulation content like a grid.
+ * 
  * @author Alexandre Rabérin
  */
 public class WorldGridView extends JPanel
 {
+    /** Simulation to watch. */
     private final Simulation m_simulation;
     
+    /** Displayed grid representing the simulation content. */
     private GUIPlatform[][] m_grid;
     
+    /**
+     * Constructor.
+     * @param simu Simulation to watch.
+     */
     public WorldGridView(Simulation simu)
     {
         m_simulation = simu;
@@ -25,12 +32,18 @@ public class WorldGridView extends JPanel
         initPanel();
     }
     
+    /**
+     * Initialize the WorldGridView components.
+     */
     private void initPanel()
     {
         setLayout(new GridBagLayout());
         setBackground(Color.darkGray);
     }
     
+    /**
+     * Initialize the grid with simulation datas.
+     */
     public void loadGrid()
     {
         m_grid = new GUIPlatform[Globals.WORLD_HEIGHT][Globals.WORLD_WIDTH];
@@ -51,5 +64,7 @@ public class WorldGridView extends JPanel
                 this.add(m_grid[i][j], gbc);
             }
         }
+        
+        repaint();
     }
 }

@@ -22,19 +22,12 @@ public class MainWindow extends JFrame
     /** Simulation. */
     private GUISimulation m_simulation;
     
-    /** Thread pool. */
-    private final ExecutorService m_pool;
-    /** Async task to execute the Simulation. */
-    private Future<Void> m_future;
-    
     /**
      * Constructor.
      */
     public MainWindow()
     {
         super("Zombifier");
-        
-        m_pool = Executors.newSingleThreadExecutor();
         
         initWindow();
     }
@@ -45,14 +38,14 @@ public class MainWindow extends JFrame
     private void initWindow()
     {
         // Create simulation
-        m_simulation = new GUISimulation(500); /* 40 - 1000 */
+        m_simulation = new GUISimulation(700); /* 40 - 1000 */
         
         // Set up layout
         getContentPane().setLayout(new BorderLayout());
         
         // Initialize JPanels
         m_gridWorld = new WorldGridView(m_simulation);
-        m_optionsPanel = new OptionsPanel();
+        m_optionsPanel = new OptionsPanel(m_simulation);
         
         // Layout positions
         getContentPane().add(m_gridWorld);
@@ -85,8 +78,7 @@ public class MainWindow extends JFrame
      */
     public void start()
     {
-        // Thread to execute simulation
-        m_future = m_pool.submit(m_simulation);
+        m_simulation.start();
     }
     
     /**
@@ -95,14 +87,5 @@ public class MainWindow extends JFrame
     public void stop()
     {
         m_simulation.stop();
-        
-        try 
-        {
-            m_future.get();
-        } 
-        catch (InterruptedException | ExecutionException ex) 
-        {
-            System.out.println(ex.getMessage());
-        }
     }
 }

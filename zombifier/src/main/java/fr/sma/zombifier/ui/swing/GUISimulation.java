@@ -1,12 +1,12 @@
 package fr.sma.zombifier.ui.swing;
 
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Simulation;
-import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.utils.Globals;
-import java.util.Collections;
-import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,6 +23,11 @@ public class GUISimulation extends Simulation implements Callable<Void>
     /** Determine simulation speed for display. */
     private int m_tick;
     
+    /** Thread pool. */
+    private final ExecutorService m_pool;
+    /** Async task to execute the Simulation. */
+    private Future<Void> m_future;
+    
     /**
      * Constructor.
      * @param tick Number of ticks.
@@ -31,36 +36,22 @@ public class GUISimulation extends Simulation implements Callable<Void>
     {
         super();
         this.m_tick = tick;
+        
+        m_pool = Executors.newSingleThreadExecutor();
     }
     
     @Override
     public void launch()
     {
-        // Notify Changes
-        this.setChanged();
-        this.notifyObservers();
+        m_stop = false;
         
-        System.out.println( "Begin Simulation..." );
-        try {
+        try 
+        {
             // Main Loop
-            int i = 0;
             while (!m_stop)
             {
-                System.out.println("Loop " + i++);
-                // Randomly select the order of entity activation
-                Collections.shuffle(m_entities, m_simulationMt);
-                
-                // Entities live
-                for (Entity e : m_entities)
-                {
-                    List<Event> events = e.live();
-                    m_eventHandler.handleEvents(events);
-                }
-                
-                // Notify Changes
-                this.setChanged();
-                this.notifyObservers();
-                
+                step();
+                System.out.println("L " + m_simulationLoops);
                 Thread.sleep((int)(Globals.TIME_INTERVAL * this.m_tick));
             }
         } 
@@ -77,7 +68,31 @@ public class GUISimulation extends Simulation implements Callable<Void>
         
         return null;
     }
+    
+    /**
+     * Start the simulation execution.
+     */
+    public void start()
+    {
+        // Thread to execute simulation
+        m_future = m_pool.submit(this);
+    }
 
+    @Override
+    public void stop()
+    {
+        super.stop();
+        
+        try 
+        {
+            m_future.get();
+        } 
+        catch (InterruptedException | ExecutionException ex) 
+        {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     // Getters / Setters
     /**
      * @return The number of tick.
