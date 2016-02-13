@@ -1,5 +1,6 @@
 package fr.sma.zombifier.ui.swing;
 
+import fr.sma.zombifier.ui.swing.world.GUISimulation;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;

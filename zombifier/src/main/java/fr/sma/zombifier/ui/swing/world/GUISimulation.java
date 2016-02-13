@@ -1,4 +1,4 @@
-package fr.sma.zombifier.ui.swing;
+package fr.sma.zombifier.ui.swing.world;
 
 import fr.sma.zombifier.core.Simulation;
 import fr.sma.zombifier.utils.Globals;

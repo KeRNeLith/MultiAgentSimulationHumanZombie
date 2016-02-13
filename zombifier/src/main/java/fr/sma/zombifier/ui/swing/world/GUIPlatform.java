@@ -1,4 +1,4 @@
-package fr.sma.zombifier.ui.swing;
+package fr.sma.zombifier.ui.swing.world;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;

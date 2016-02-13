@@ -1,5 +1,6 @@
 package fr.sma.zombifier.ui.swing;
 
+import fr.sma.zombifier.ui.swing.world.GUIPlatform;
 import fr.sma.zombifier.core.Simulation;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.World;
