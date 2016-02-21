@@ -2,6 +2,8 @@ package fr.sma.zombifier.world;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.resources.Resource;
+
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -185,5 +187,27 @@ public class Platform extends Observable
     public int getDistance(Platform p) 
     {
         return Math.abs(getX() - p.getX()) + Math.abs(getY() - p.getY());
+    }
+
+    /**
+     * Get the possible locations where an entity can go.
+     * @return An array which contains the possible locations.
+     */
+    public ArrayList<Platform> getAvailableLocations() {
+        World world = this.getWorld();
+        ArrayList<Platform> locations = new ArrayList<>();
+
+        locations.add(world.getNeighbour(this, 1, 0));
+        locations.add(world.getNeighbour(this, -1, 0));
+        locations.add(world.getNeighbour(this, 0, 1));
+        locations.add(world.getNeighbour(this, 0, -1));
+
+        for(int i = 0 ; i < locations.size() ; i++) {
+            if(locations.get(i).getEntity() != null) {
+                locations.remove(i);
+            }
+        }
+
+        return locations;
     }
 }

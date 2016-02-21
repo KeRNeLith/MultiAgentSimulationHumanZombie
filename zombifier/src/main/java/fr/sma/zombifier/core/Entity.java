@@ -9,6 +9,7 @@ import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -109,57 +110,24 @@ public abstract class Entity
         return m_position.getDistance(p);
     }
 
-    public Platform randomMove() 
+    public Platform randomMove()
     {
-        int nbTry = 10;                                                     // Ten try before giving up
         int random;
         int dirX = 0;
         int dirY = 0;
 
-        Platform nextPosition;
-        World world = m_position.getWorld();
+        ArrayList<Platform> possibleLocations = m_position.getAvailableLocations();
 
         // Find a place
-        do
-        {
-            random = m_mt.nextInt(4);
-            switch(random)
-            {
-                case(0):
-                    dirX = 0;
-                    dirY = 1;
-                    break;
-                case(1):
-                    dirX = 0;
-                    dirY = -1;
-                    break;
-                case(2):
-                    dirX = 1;
-                    dirY = 0;
+        if(!possibleLocations.isEmpty()) {                                   // The entity is stuck
+            random = m_mt.nextInt(possibleLocations.size());
+            m_position = possibleLocations.get(random);
+        }
 
-                    break;
-                case(3):
-                    dirX = -1;
-                    dirY = 0;
-                    break;
-                default:
-                    // Should not happen
-            }
-
-            nextPosition = world.getNeighbour(m_position, dirX, dirY);
-            if(nextPosition.getEntity() != null) {
-                nextPosition = m_position;
-            }
-
-        } while(nbTry-- > 0 && nextPosition != m_position);
-        // Find a place
-
-        m_position = nextPosition;
-
-        // Define a random direction :
+        // Define a random direction
         random = m_mt.nextInt(4);
 
-        switch(random) 
+        switch(random)
         {
             case(0):
                 m_direction.setFirst(0);
