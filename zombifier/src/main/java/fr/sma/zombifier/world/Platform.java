@@ -194,17 +194,19 @@ public class Platform extends Observable
      * @return An array which contains the possible locations.
      */
     public ArrayList<Platform> getAvailableLocations() {
+        Platform tmp = null;
         World world = this.getWorld();
+        ArrayList<Platform> possibilities = new ArrayList<>();
         ArrayList<Platform> locations = new ArrayList<>();
 
-        locations.add(world.getNeighbour(this, 1, 0));
-        locations.add(world.getNeighbour(this, -1, 0));
-        locations.add(world.getNeighbour(this, 0, 1));
-        locations.add(world.getNeighbour(this, 0, -1));
+        possibilities.add(world.getNeighbour(this, 1, 0));
+        possibilities.add(world.getNeighbour(this, -1, 0));
+        possibilities.add(world.getNeighbour(this, 0, 1));
+        possibilities.add(world.getNeighbour(this, 0, -1));
 
-        for(int i = 0 ; i < locations.size() ; i++) {
-            if(locations.get(i).getEntity() != null) {
-                locations.remove(i);
+        for(Platform p : possibilities) {
+            if(!p.hasEntity()) {
+                locations.add(p);
             }
         }
 

@@ -47,7 +47,9 @@ public class ConsoleDisplay implements Observer
     {
         World w = m_simulation.getWorld();
 
+        // Display the time
         System.out.println("Time : " + m_simulation.getNbSimulationLoops() + "\n");
+
         // Display the world in the console
         for (ArrayList<Platform> line : w)
         {

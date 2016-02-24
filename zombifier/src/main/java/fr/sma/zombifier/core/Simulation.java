@@ -84,8 +84,16 @@ public class Simulation extends Observable
         // Entities live
         for (Entity e : m_entities)
         {
-            List<Event> events = e.live();
-            m_eventHandler.handleEvents(events);
+            if(e.is_active()) {
+                List<Event> events = e.live();
+                m_eventHandler.handleEvents(events);
+            }
+        }
+
+        // Cleaning
+        for(int i = 0 ; i < m_entities.size() ; i++) {
+            if(!m_entities.get(i).is_active())
+                m_entities.remove(i);
         }
 
         m_simulationLoops++;
@@ -138,7 +146,7 @@ public class Simulation extends Observable
     private void spawnEntities()
     {
         // Spawn Humans
-        //this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
+        this.<Human>spawnEntites(Globals.HUMAN_CONFIG, Human.class);
         
         // Spawn Zombies
         this.<Zombie>spawnEntites(Globals.ZOMBIE_CONFIG, Zombie.class);

@@ -40,6 +40,8 @@ public abstract class Entity
     protected Platform m_position;
     /** Direction in which the entity is watching. */
     protected Pair<Integer, Integer> m_direction;
+    /** Is the entity active ? */
+    protected boolean m_active;
     
     /**
      * Constructor.
@@ -51,7 +53,8 @@ public abstract class Entity
     {
         this.m_id = m_nextId++;
         this.m_position = p;
-        this.m_direction = new Pair<>(directionX, directionY); 
+        this.m_direction = new Pair<>(directionX, directionY);
+        this.m_active = true;
         
         // Initialize Random generator
         if (Globals.USE_RANDOM_SEED)
@@ -203,4 +206,15 @@ public abstract class Entity
     }
 
     public abstract boolean attack(Entity e);
+
+    /**
+     * Return if the entity is active or not.
+     * @return True if it is, Otherwise false.
+     */
+    public boolean is_active() { return m_active; }
+
+    /**
+     * Disable an entity. Is equivalent to kill it
+     */
+    public void disable() { m_active = false; }
 }

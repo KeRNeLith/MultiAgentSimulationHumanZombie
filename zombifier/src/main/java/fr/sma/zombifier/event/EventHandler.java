@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * This class manage the handling of all events added to it by the handleEvents function.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class EventHandler
 {
