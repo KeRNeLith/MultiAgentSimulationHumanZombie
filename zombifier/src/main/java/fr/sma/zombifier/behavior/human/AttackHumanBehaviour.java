@@ -50,7 +50,7 @@ public class AttackHumanBehaviour extends BaseHumanBehaviour
     @Override
     public IBehaviour.BehaviourType getType()
     {
-        return BehaviourType.NORMAL_HUMAN;
+        return BehaviourType.ATTACK_HUMAN;
     }
 
 }

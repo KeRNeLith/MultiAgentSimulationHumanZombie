@@ -70,17 +70,17 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
         // If there is no ennemies, scan for ressources
         if(m_target == null) 
         {
-            for (Platform platform : neighborhood.getPlatformWithResources()) 
+            for (Platform platform : neighborhood.getPlatformWithResources())
             {
-                if(platform.getResource() instanceof Resource) 
+                if(platform.getResource() instanceof Resource)
                 {
-                    if(m_target == null) 
+                    if(m_target == null)
                     {
                         m_target = platform;
                     }
-                    else 
+                    else
                     {
-                        if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
+                        if(platform.getDistance(cur_position) < m_target.getDistance(cur_position))
                         {
                             m_target = platform;
                         }

@@ -51,7 +51,7 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
     @Override
     public IBehaviour.BehaviourType getType()
     {
-        return BehaviourType.NORMAL_HUMAN;
+        return BehaviourType.RUNAWAY_HUMAN;
     }
 
 }

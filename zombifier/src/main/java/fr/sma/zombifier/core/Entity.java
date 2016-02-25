@@ -7,9 +7,9 @@ import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
-import fr.sma.zombifier.world.World;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -121,6 +121,8 @@ public abstract class Entity
 
         ArrayList<Platform> possibleLocations = m_position.getAvailableLocations();
 
+        Collections.shuffle(possibleLocations, m_mt);
+
         // Find a place
         if(!possibleLocations.isEmpty()) {                                   // The entity is stuck
             random = m_mt.nextInt(possibleLocations.size());
@@ -162,47 +164,27 @@ public abstract class Entity
      */
     public Platform moveTo(Platform dest) 
     {
-        Platform orig = this.getPosition();
-        Platform next = null;                                           // Next platform for the entity
-        int dirX = 0;   int dirY = 0;
+        int min = Integer.MAX_VALUE;
+        Platform currentPosition = m_position;
+        ArrayList<Platform> possibilities = currentPosition.getAvailableLocations();
 
-        if(dest == m_position)  // It is still at the good place
-        {                    
-            // We don't change direction
-        }
-        else 
-        {
-            if (dest.getX() == orig.getX())          // Same abscissa
-                dirX = (dest.getX() > orig.getX()) ? 1 : -1;
-            else if (dest.getY() == orig.getY())     // Same ordinate
-                dirY = (dest.getY() > orig.getY()) ? 1 : -1;
-            else
-            {
-                if (m_mt.nextBoolean())     // Horizontal
-                {
-                    dirX = (dest.getX() > orig.getX()) ? 1 : -1;
-                }
-                else                        // Vertical
-                {
-                    dirY = (dest.getY() > orig.getY()) ? 1 : -1;
+        Collections.shuffle(possibilities, m_mt);
+
+        // If there is possibilities
+        if(possibilities.size() > 0) {
+            // Get the further platform
+            for(Platform p : possibilities) {
+                int distance = p.getDistance(dest);
+                if(p.getEntity() == null && distance < min) {
+                    min = distance;
+                    m_position = p;
                 }
             }
-
-            next = orig.getWorld().getNeighbour(orig, dirX, dirY);
-
-            // Verify there is nothing on the next platform
-            if(next.getEntity() == null && next.getResource() == null) {
-                m_position = orig.getWorld().getNeighbour(orig, dirX, dirY);
-            }
-
-            // Update direction
-            m_direction.setFirst(dirX);
-            m_direction.setSecond(dirY);
         }
+
+        // If there is no possibilities, the entity stays at place
 
         return m_position;
-
-        // TODO : si entité sur la platforme on ne bouge ? Autre règle ?
     }
 
     public abstract boolean attack(Entity e);

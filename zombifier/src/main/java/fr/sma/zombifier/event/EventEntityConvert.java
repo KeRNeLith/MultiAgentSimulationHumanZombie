@@ -4,6 +4,7 @@ import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.Simulation;
 import fr.sma.zombifier.core.Zombie;
+import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.world.Platform;
 
 /**
@@ -37,12 +38,21 @@ public class EventEntityConvert extends Event
             {
                 Platform p = m_entityToConvert.getPosition();
 
+                // If the human as a Resource, he drop it
+                if(((Human) m_entityToConvert).hasResource()) {
+                    System.out.println("Lapin !");
+                    Resource r = ((Human) m_entityToConvert).getResource();
+                    p.addResource(r);
+                }
+
                 // Converted entity
                 Zombie z = new Zombie(  p, 
                                         m_entityToConvert.getDirection().getFirst(),
                                         m_entityToConvert.getDirection().getSecond());
                 // Replace the entity with a Zombie
                 s.getEntities().set(index, z);
+
+
 
                 // Remove the entity from the world and replace it
                 p.removeEntity();

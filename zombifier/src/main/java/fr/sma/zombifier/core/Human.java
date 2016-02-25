@@ -7,6 +7,9 @@ import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.world.Platform;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * The class represent a Human entity.
  * 
@@ -49,6 +52,12 @@ public class Human extends Entity
     {
         return m_isGrouped;
     }
+
+    /**
+     * Check if a human has a resource.
+     * @return True if he has otherwise false.
+     */
+    public boolean hasResource() { return m_resource != null; }
 
     /**
      * Get the resource of a human
@@ -124,11 +133,8 @@ public class Human extends Entity
             if((weapon.getRange() >= distance) && (weapon.getAmmo() > 0))
                 b = true;
         }
-        else if(m_resource instanceof Weapon
-            && (distance <= 1)) b = true;
-
-        else
-            b = false;
+        else b = m_resource instanceof Weapon
+                && (distance <= 1);
 
         return b;
     }
@@ -150,7 +156,6 @@ public class Human extends Entity
     @Override
     public boolean attack(Entity e)
     {
-        boolean check_breaking = false;
         boolean success = false;
 
         if(m_resource != null && m_resource instanceof Weapon)      // If Human has a weapon
@@ -199,66 +204,30 @@ public class Human extends Entity
 
     /**
      * Escape from a danger located at p.
-     * @param p : Place of the danger.
+     * @param target : Place of the danger.
      * @return the position of the entity after moving.
      */
-    public Platform runAwayFrom(Platform p) {
+    public Platform runAwayFrom(Platform target) {
 
-        // TODO : vérifier la destination : empty ?
+        int max = -1;
+        Platform currentPosition = m_position;
+        ArrayList<Platform> possibilities = currentPosition.getAvailableLocations();
 
-        int x = p.getX();
-        int y = p.getY();
+        Collections.shuffle(possibilities, m_mt);
 
-        int dirX = 0;
-        int dirY = 0;
-
-        int deltaX = Math.abs(x - m_position.getX());
-        int deltaY = Math.abs(y - m_position.getY());
-
-        Platform next;                                          // To compute the next platform
-
-        if(deltaX > deltaY)
-        {
-            dirX = 0;
-            dirY = (y > m_position.getY()) ? 1 : -1;
-        }
-        else if(deltaX < deltaY)
-        {
-            dirX = (x > m_position.getX()) ? 1 : -1;
-            dirY = 0;
-        }
-        else {
-            if (m_position != p)
-            {
-                if(m_mt.nextBoolean())              // Horizontal
-                {
-                    dirX = (x > m_position.getX()) ? 1 : -1;
-                    dirY = 0;
-                }
-                else                                // Vertical
-                {
-                    dirX = 0;
-                    dirY = (y > m_position.getY()) ? 1 : -1;
+        // If there is possibilities
+        if(possibilities.size() > 0) {
+            // Get the further platform
+            for(Platform p : possibilities) {
+                int distance = p.getDistance(target);
+                if(p.getEntity() == null && distance > max) {
+                    max = distance;
+                    m_position = p;
                 }
             }
-            else
-            {
-                // If the threat is at the same place than the entity there is a problem
-                // So the entity will stay at place
-                dirX = 0;
-                dirY = 0;
-                // TODO : un petit log ?
-            }
         }
 
-        next = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
-        if(next.getEntity() == null && next.getResource() != null) {
-            m_position = m_position.getWorld().getNeighbour(m_position, dirX, dirY);
-        }
-
-        // The entity look the direction he has moved to
-        m_direction.setFirst(dirX);
-        m_direction.setSecond(dirY);
+        // If there is no possibilities, the entity stays at place
 
         return m_position;
     }

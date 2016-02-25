@@ -16,6 +16,8 @@ public interface IBehaviour
     {
         // Human related
         NORMAL_HUMAN,
+        RUNAWAY_HUMAN,
+        ATTACK_HUMAN,
         
         // Zombie related
         NORMAL_ZOMBIE,
