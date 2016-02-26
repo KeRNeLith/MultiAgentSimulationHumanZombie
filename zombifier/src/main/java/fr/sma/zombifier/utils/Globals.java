@@ -18,22 +18,22 @@ public class Globals
     /**
      * Path to the simulation configuration properties file.
      */
-    public static String SIMULATION_PROPERTIES = "src/main/resources/simulation.properties";
+    public static String SIMULATION_PROPERTIES = "resources/simulation.properties";
     
     /**
      * Path to the humans configuration file.
      */
-    public static String HUMAN_CONFIG = "src/main/resources/humans.csv";
+    public static String HUMAN_CONFIG = "resources/humans.csv";
     
     /**
      * Path to the zombie configuration file.
      */
-    public static String ZOMBIE_CONFIG = "src/main/resources/zombies.csv";
+    public static String ZOMBIE_CONFIG = "resources/zombies.csv";
     
     /**
      * Path to the resources configuration file.
      */
-    public static String RESOURCES_CONFIG = "src/main/resources/resources.conf";
+    public static String RESOURCES_CONFIG = "resources/resources.conf";
     
     /** 
      * Seed of the simulation. 
