@@ -83,15 +83,17 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                 }
                 // A resource has been spotted
                 else {
-                    // TODO : add a method to know if someone can hold something
-
-                    if(m_target == null || m_target.getEntity() == null) {
-                        m_target = target;
-                    }
-                    // If a resource has already been spotted
-                    else if(m_target.getEntity() == null
-                            && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) {
-                        m_target = target;
+                    // Can the group take one more resource ?
+                    if(m_group.canTakeResource()) {
+                        // If the group has no human or zombie target
+                        if(m_target == null || m_target.getEntity() == null) {
+                            m_target = target;
+                        }
+                        // If a resource has already been spotted
+                        else if(m_target.getEntity() == null
+                                && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) {
+                            m_target = target;
+                        }
                     }
                 }
             }

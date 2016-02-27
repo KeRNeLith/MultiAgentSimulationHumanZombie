@@ -88,11 +88,25 @@ public class HumanGroup extends Entity
     }
 
     /**
-     * Say if a group has a place available or not
-     * @return True if the group is not completed otherwise false
+     * Say if a group has a place available or not.
+     * @return True if the group is not completed otherwise false.
      */
     public boolean canBeJoined() {
         return (m_members.size() < 4);
+    }
+
+    /**
+     * Say if the group is able to take one more resource.
+     * @return True if the group can otherwise false.
+     */
+    public boolean canTakeResource() {
+        boolean value = false;
+
+        for (Human h : m_members) {
+            value |= (!h.hasResource());
+        }
+
+        return value;
     }
 
     /**
