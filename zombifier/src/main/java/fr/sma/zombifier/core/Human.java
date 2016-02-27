@@ -149,6 +149,16 @@ public class Human extends Entity
     }
 
     /**
+     * Define a group for the entity.
+     * @param g Human group the human join.
+     */
+    public void setGroup(HumanGroup g) {
+        m_group = g;
+        m_isGrouped = true;
+        m_active = false;
+    }
+
+    /**
      * Attack an other entity
      * @param e Entity attacked
      * @return true if the ennemy is dead, otherwise false

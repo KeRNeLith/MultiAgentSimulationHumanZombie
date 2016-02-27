@@ -10,7 +10,7 @@ import java.util.Observable;
  * This class store data related to a small part of the world.
  * World is a matrix of Platform.
  * 
- * @author Alexandre Rab�rin
+ * @author Alexandre Rabérin - Adrien Pierreval
  * @see World class.
  */
 public class Platform extends Observable

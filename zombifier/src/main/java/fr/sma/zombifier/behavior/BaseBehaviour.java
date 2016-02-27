@@ -23,6 +23,14 @@ public abstract class BaseBehaviour implements IBehaviour
     }
 
     /**
+     * Return the current target of the entity.
+     * @return The entity current target.
+     */
+    public Platform getTarget() {
+        return this.m_target;
+    }
+
+    /**
      * Return the next Behaviour of the entity.
      * @return the next Behaviour.
      */

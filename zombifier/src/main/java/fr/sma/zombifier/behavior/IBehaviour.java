@@ -18,7 +18,12 @@ public interface IBehaviour
         NORMAL_HUMAN,
         RUNAWAY_HUMAN,
         ATTACK_HUMAN,
-        
+
+        // Group related
+        NORMAL_GROUP,
+        RUNAWAY_GROUP,
+        ATTACK_GROUP,
+
         // Zombie related
         NORMAL_ZOMBIE,
         ATTACK_ZOMBIE,

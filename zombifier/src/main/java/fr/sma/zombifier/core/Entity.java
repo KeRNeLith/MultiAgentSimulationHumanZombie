@@ -113,6 +113,10 @@ public abstract class Entity
         return m_position.getDistance(p);
     }
 
+    /**
+     * Move the entity in a random position.
+     * @return The new position of the entity.
+     */
     public Platform randomMove()
     {
         int random;
