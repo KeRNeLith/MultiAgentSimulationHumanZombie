@@ -306,7 +306,9 @@ public class Simulation extends Observable
         }
     }
     
-    // Setter
+    /**
+     * Stop the simulation.
+     */
     public void stop()
     {
         m_stop = true;

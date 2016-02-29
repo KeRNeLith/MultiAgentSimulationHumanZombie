@@ -12,7 +12,6 @@ import java.util.List;
  * This class ...
  *
  * @author Adrien Pierreval
- * @date 27/02/2016
  */
 public class NormalGroupBehaviour extends BaseGroupBehaviour {
 

@@ -1,11 +1,9 @@
 package fr.sma.zombifier.behavior.human;
 
 import fr.sma.zombifier.behavior.IBehaviour;
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventMove;
-import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
 
 import java.util.List;
@@ -23,6 +21,8 @@ public class AttackHumanBehaviour extends BaseHumanBehaviour
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.
+     * @param target
+     * @param giveUp
      */
     public AttackHumanBehaviour(Human e, Platform target, int giveUp)
     {

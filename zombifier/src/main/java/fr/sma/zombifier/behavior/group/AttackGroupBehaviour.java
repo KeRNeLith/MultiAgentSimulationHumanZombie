@@ -6,7 +6,6 @@ package fr.sma.zombifier.behavior.group;
  * This class ...
  *
  * @author Adrien Pierreval
- * @date 27/02/2016
  */
 public class AttackGroupBehaviour {
 }
