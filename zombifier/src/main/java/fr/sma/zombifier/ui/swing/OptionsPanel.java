@@ -48,7 +48,7 @@ public class OptionsPanel extends JPanel
         setLayout(new BorderLayout());
         
         // Speed Slider
-        m_speedSlider = new JSlider(JSlider.HORIZONTAL, 40, 1000, 700);
+        m_speedSlider = new JSlider(JSlider.HORIZONTAL, 10, 2500, m_simulation.getTick());
         m_speedSlider.setMinorTickSpacing(20);
         m_speedSlider.addChangeListener((ChangeEvent e) -> {
             speedChanged();

@@ -38,7 +38,7 @@ public class MainWindow extends JFrame
     private void initWindow()
     {
         // Create simulation
-        m_simulation = new GUISimulation(700); /* 40 - 1000 */
+        m_simulation = new GUISimulation(1500);
         
         // Set up layout
         getContentPane().setLayout(new BorderLayout());

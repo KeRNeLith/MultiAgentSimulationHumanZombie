@@ -51,7 +51,6 @@ public class GUISimulation extends Simulation implements Callable<Void>
             while (!m_stop)
             {
                 step();
-                System.out.println("L " + m_simulationLoops);
                 Thread.sleep((int)(Globals.TIME_INTERVAL * this.m_tick));
             }
         } 
