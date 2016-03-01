@@ -48,6 +48,8 @@ public class MainWindow extends JFrame
         getContentPane().add(m_gridWorld);
         getContentPane().add(m_optionsPanel, BorderLayout.EAST);
         
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
         // Initialize Simulation
         initialize();
     }
