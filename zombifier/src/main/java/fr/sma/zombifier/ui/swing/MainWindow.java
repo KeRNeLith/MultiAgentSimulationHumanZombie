@@ -2,6 +2,9 @@ package fr.sma.zombifier.ui.swing;
 
 import fr.sma.zombifier.ui.swing.world.GUISimulation;
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javax.swing.JFrame;
 
 /**
@@ -49,6 +52,14 @@ public class MainWindow extends JFrame
         getContentPane().add(m_optionsPanel, BorderLayout.EAST);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                m_simulation.stop();
+            }
+        });
         
         // Initialize Simulation
         initialize();
