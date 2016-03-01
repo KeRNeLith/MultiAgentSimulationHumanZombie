@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -77,8 +77,8 @@ public class GUIPlatform extends JPanel implements Observer
      */
     private void initPanel()
     {
-        this.setPreferredSize(new Dimension(30, 30));
         this.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
+        this.setPreferredSize(new Dimension(30, 30));
     }
     
     @Override
@@ -147,14 +147,15 @@ public class GUIPlatform extends JPanel implements Observer
             BufferedImage out = new BufferedImage(  this.getWidth(),
                                                     this.getHeight(),
                                                     BufferedImage.TYPE_INT_ARGB);
+            // Load correct image
             Graphics g2 = out.getGraphics();
             if (e instanceof Human)
             {
-                g2.drawImage(m_human, 0, 0, null);
+                g2.drawImage(m_human.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
             }
             else
             {
-                g2.drawImage(m_zombie, 0, 0, null);
+                g2.drawImage(m_zombie.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
             }
             
             // Rotate image oto fit entity direction

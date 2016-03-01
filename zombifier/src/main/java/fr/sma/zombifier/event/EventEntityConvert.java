@@ -39,8 +39,8 @@ public class EventEntityConvert extends Event
                 Platform p = m_entityToConvert.getPosition();
 
                 // If the human as a Resource, he drop it
-                if(((Human) m_entityToConvert).hasResource()) {
-                    System.out.println("Lapin !");
+                if(((Human) m_entityToConvert).hasResource()) 
+                {
                     Resource r = ((Human) m_entityToConvert).getResource();
                     p.addResource(r);
                 }
