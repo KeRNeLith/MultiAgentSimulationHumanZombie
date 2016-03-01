@@ -4,6 +4,9 @@ import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.behavior.group.BaseGroupBehaviour;
 import fr.sma.zombifier.behavior.group.NormalGroupBehaviour;
 import fr.sma.zombifier.event.Event;
+import fr.sma.zombifier.resources.FireWeapon;
+import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.world.Platform;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -19,14 +22,14 @@ import java.util.List;
 public class HumanGroup extends Entity
 {
     private List<Human> m_members;
-    private boolean m_hasWeapon;
+    private List<Resource> m_resources;
 
     private HumanGroup()
     {
         super(null, 0, 0);
         
-        this.m_members = new LinkedList<Human>();
-        this.m_hasWeapon = false;
+        this.m_members = new LinkedList<>();
+        this.m_resources = new LinkedList<>();
         this.m_behaviour = new NormalGroupBehaviour(this);
         this.m_behaviourType = BehaviourType.NORMAL_GROUP;
     }
@@ -74,39 +77,20 @@ public class HumanGroup extends Entity
             h2.m_direction.setFirst(h2.m_position.getX() - this.m_position.getX());
             h2.m_direction.setSecond(h2.m_position.getY() - this.m_position.getY());
 
-            // Has one of them a weapon ?
-            this.m_hasWeapon = h1.haveWeapon() || h2.haveWeapon();
+            // Add their resources to the one of the group
+            if(h1.hasResource()) {
+                this.m_resources.add(h1.getResource());
+                h1.setResource(null);
+            }
+            if(h2.hasResource()) {
+                this.m_resources.add(h2.getResource());
+                h2.setResource(null);
+            }
 
             // Group them
             h1.setGroup(this);
             h2.setGroup(this);
         }
-    }
-
-    public List<Human> getMembers() {
-        return m_members;
-    }
-
-    /**
-     * Say if a group has a place available or not.
-     * @return True if the group is not completed otherwise false.
-     */
-    public boolean canBeJoined() {
-        return (m_members.size() < 4);
-    }
-
-    /**
-     * Say if the group is able to take one more resource.
-     * @return True if the group can otherwise false.
-     */
-    public boolean canTakeResource() {
-        boolean value = false;
-
-        for (Human h : m_members) {
-            value |= (!h.hasResource());
-        }
-
-        return value;
     }
 
     /**
@@ -138,13 +122,70 @@ public class HumanGroup extends Entity
             h.m_direction.setFirst(h.m_position.getX() - this.m_position.getX());
             h.m_direction.setSecond(h.m_position.getY() - this.m_position.getY());
 
-            // Has he a weapon ?
-            this.m_hasWeapon |= h.haveWeapon();
+            // Add his resource for the group
+            if(h.hasResource()) {
+                this.m_resources.add(h.getResource());
+                h.setResource(null);
+            }
 
             // Group him
             h.setGroup(this);
         }
     }
+
+    /**
+     * Return the humans who composed the group.
+     * @return A LinkedList which contained the humans.
+     */
+    public List<Human> getMembers() {
+        return m_members;
+    }
+
+    /**
+     * Say if a group has a place available or not.
+     * @return True if the group is not completed otherwise false.
+     */
+    public boolean canBeJoined() {
+        return (m_members.size() < 4);
+    }
+
+    /**
+     * Say if the group is able to take one more resource.
+     * @return True if the group can otherwise false.
+     */
+    public boolean canTakeResource() {
+        return (m_resources.size() < m_members.size());
+    }
+
+    /**
+     * Say if the group can attack or not an entity on a platform.
+     * @param target Platform where the target stands.
+     * @return true if the group can otherwise false.
+     */
+    public boolean canAttack(Platform target) {
+        boolean value = false;
+
+        // Check if with all of the weapons of the group, one human can attack the target.
+        for (Human h : m_members) {
+            for (Resource r : m_resources) {
+                if(r instanceof Weapon) {
+                    h.setResource(r);
+                    value |= h.canAttack(target);
+                    h.setResource(null);
+                }
+            }
+        }
+
+        return value;
+    }
+
+    /*
+    public boolean attack(Entity e) {
+        for (Human h : m_members) {
+
+        }
+    }*/
+
 
     /**
      * Main method of the group. Manage all actions that are allowed to be done at a given time t.
@@ -167,8 +208,6 @@ public class HumanGroup extends Entity
         // Set the different targets spotted for group analysis
         ((BaseGroupBehaviour) this.m_behaviour).setMembersTargets(targets);
 
-
-
         this.m_behaviour.analyze();
         List<Event> eventList = this.m_behaviour.react();
 
@@ -189,7 +228,13 @@ public class HumanGroup extends Entity
      * @return True if it has one, otherwise false.
      */
     public boolean hasWeapon() {
-        return m_hasWeapon;
+        boolean value = false;
+
+        for (Resource r : m_resources) {
+            value |= ((r instanceof Weapon) || (r instanceof FireWeapon));
+        }
+
+        return value;
     }
 
     @Override
