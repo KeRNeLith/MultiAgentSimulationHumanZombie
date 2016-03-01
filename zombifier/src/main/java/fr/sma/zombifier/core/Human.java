@@ -112,29 +112,38 @@ public class Human extends Entity
     }
 
     /**
-     * Say if a human can attack the entity on p
+     * Say if a human can attack the entity on p with a given resource
      * @param p Platform to reach
+     * @param r Resource to try to attack with
      * @return true if he can, otherwise false
      */
-    public boolean canAttack(Platform p) {
+    public boolean canAttack(Platform p, Resource r) {
         boolean b = false;
+        Resource weapon = null;
 
-        if(m_resource == null)
+        if(r == null)
         {
+            weapon = m_resource;
+        }
+        else {
+            weapon = r;
+        }
+
+        if(weapon == null) {
             return false;
         }
 
         int distance = m_position.getDistance(p);
 
-        if(m_resource instanceof FireWeapon)
+        if(weapon instanceof FireWeapon)
         {
-            FireWeapon weapon = (FireWeapon) m_resource;
+            FireWeapon fweapon = (FireWeapon) weapon;
             // If it's reachable and he got ammo : OK
-            if((weapon.getRange() >= distance) && (weapon.getAmmo() > 0))
+            if((fweapon.getRange() >= distance) && (fweapon.getAmmo() > 0))
                 b = true;
         }
-        else b = m_resource instanceof Weapon
-                && (distance <= 1);
+        else b = ((weapon instanceof Weapon)
+                && (distance <= 1));
 
         return b;
     }

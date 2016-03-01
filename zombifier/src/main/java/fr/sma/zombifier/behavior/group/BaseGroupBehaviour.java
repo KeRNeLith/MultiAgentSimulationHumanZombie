@@ -1,9 +1,6 @@
 package fr.sma.zombifier.behavior.group;
 
 import fr.sma.zombifier.behavior.BaseBehaviour;
-import fr.sma.zombifier.behavior.human.AttackHumanBehaviour;
-import fr.sma.zombifier.behavior.human.NormalHumanBehaviour;
-import fr.sma.zombifier.behavior.human.RunAwayHumanBehaviour;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Zombie;
@@ -17,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Base abstract class for human behaviour.
+ * Base abstract class for group behaviour.
  *
  * @author Adrien Pierreval
  */
@@ -117,12 +114,12 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
             defaultReaction(listEvent);
         }
         else                                                                            // Target defined
-        {/*
+        {
             if(m_target.hasEntity() && m_target.getEntity() instanceof Zombie)          // Zombie spotted
             {
-                if(m_group.hasWeapon() && m_group.canAttack(m_target))
+                if(m_group.hasWeapon() && m_group.canAttack(m_target))                  // If the group can attack the target
                 {
-                    if (m_group.attack(m_target.getEntity()))
+                    if (m_group.attack(m_target.getEntity()))                           //
                     {
                         // Success
                         listEvent.add(new EventEntityDie(m_target.getEntity()));
@@ -163,7 +160,7 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
             else    // Error
             {
                 throw new IllegalStateException(this.getClass().getSimpleName() + " : Target empty !");
-            }*/
+            }
         }
 
         return listEvent;

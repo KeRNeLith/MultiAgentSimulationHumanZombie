@@ -107,7 +107,7 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
         {
             if(m_target.hasEntity() && m_target.getEntity() instanceof Zombie)          // Zombie spotted
             {                      
-                if(m_entity.haveWeapon() && m_entity.canAttack(m_target)) 
+                if(m_entity.haveWeapon() && m_entity.canAttack(m_target, null))
                 {
                     if (m_entity.attack(m_target.getEntity())) 
                     {

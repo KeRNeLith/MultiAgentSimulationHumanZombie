@@ -15,7 +15,6 @@ import java.util.List;
  */
 public class AttackHumanBehaviour extends BaseHumanBehaviour 
 {
-    
     private Platform m_oldTarget = null;
     private int m_giveUp;
     /**

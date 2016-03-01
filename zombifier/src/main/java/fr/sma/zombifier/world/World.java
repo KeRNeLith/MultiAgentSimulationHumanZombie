@@ -85,7 +85,7 @@ public class World extends ArrayList<ArrayList< Platform >>
     public Platform getNeighbour(Platform p, int x, int y) 
     {
         if (p == null)
-            return p;
+            return null;
         
         int pX = p.getX();
         int pY = p.getY();
@@ -96,6 +96,6 @@ public class World extends ArrayList<ArrayList< Platform >>
             return this.get(pY + y).get(pX + x);
 
         else
-            return p;
+            return null;
     }
 }

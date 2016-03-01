@@ -23,7 +23,7 @@ public class NormalGroupBehaviour extends BaseGroupBehaviour {
 
     @Override
     protected void defaultReaction(List<Event> listEvent) {
-        // TODO : to implement
+        // TODO : to implement  : random move
     }
 
     @Override

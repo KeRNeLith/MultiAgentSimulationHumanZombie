@@ -190,19 +190,41 @@ public class Platform extends Observable
     }
 
     /**
+     * Get the left, right, up and down platforms
+     * @return An array which contains the required platforms.
+     */
+    public ArrayList<Platform> getCross() {
+        Platform tmp = null;
+        World world = this.getWorld();
+        ArrayList<Platform> possibilities = new ArrayList<>();
+
+        tmp = world.getNeighbour(this, 1, 0);
+        if(tmp != null)
+            possibilities.add(tmp);
+
+        tmp = world.getNeighbour(this, -1, 0);
+        if(tmp != null)
+            possibilities.add(tmp);
+
+        tmp = world.getNeighbour(this, 0, 1);
+        if(tmp != null)
+            possibilities.add(tmp);
+
+        tmp = world.getNeighbour(this, 0, -1);
+        if(tmp != null)
+            possibilities.add(tmp);
+
+        return possibilities;
+    }
+
+    /**
      * Get the possible locations where an entity can go.
      * @return An array which contains the possible locations.
      */
     public ArrayList<Platform> getAvailableLocations() {
-        Platform tmp = null;
         World world = this.getWorld();
-        ArrayList<Platform> possibilities = new ArrayList<>();
+        ArrayList<Platform> possibilities = this.getCross();
         ArrayList<Platform> locations = new ArrayList<>();
-
-        possibilities.add(world.getNeighbour(this, 1, 0));
-        possibilities.add(world.getNeighbour(this, -1, 0));
-        possibilities.add(world.getNeighbour(this, 0, 1));
-        possibilities.add(world.getNeighbour(this, 0, -1));
 
         for(Platform p : possibilities) {
             if(!p.hasEntity()) {

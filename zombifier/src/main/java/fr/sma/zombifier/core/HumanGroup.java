@@ -157,6 +157,21 @@ public class HumanGroup extends Entity
         return (m_resources.size() < m_members.size());
     }
 
+
+    /**
+     * Say if the group has a weapon or not.
+     * @return True if the group has at least one, otherwise false.
+     */
+    public boolean canAttack() {
+        boolean value = false;
+        for(Resource r : m_resources) {
+            value |= (r instanceof FireWeapon && ((FireWeapon) r).getAmmo() > 0);
+            value |= (r instanceof Weapon);
+        }
+
+        return value;
+    }
+
     /**
      * Say if the group can attack or not an entity on a platform.
      * @param target Platform where the target stands.
@@ -169,9 +184,7 @@ public class HumanGroup extends Entity
         for (Human h : m_members) {
             for (Resource r : m_resources) {
                 if(r instanceof Weapon) {
-                    h.setResource(r);
-                    value |= h.canAttack(target);
-                    h.setResource(null);
+                    value |= h.canAttack(target, r);
                 }
             }
         }
@@ -179,12 +192,36 @@ public class HumanGroup extends Entity
         return value;
     }
 
-    /*
+    /**
+     * Let the group attack the given entity.
+     * @param e The entity to attack.
+     * @return True if the given entity died otherwise false.
+     */
+    @Override
     public boolean attack(Entity e) {
-        for (Human h : m_members) {
+        boolean success = false;
+
+        if(this.canAttack(e.getPosition()))  {                      // If the group can attack
+            for(Human h : m_members) {                              // For all the humans
+                for(Resource r : m_resources)
+                {
+                    if(r instanceof FireWeapon || r instanceof Weapon) {
+                        if(h.canAttack(e.m_position, r)) {          // If they can attack with a weapon
+                            h.setResource(r);                       // They get it
+                            m_resources.remove(r);
+                            success = h.attack(e);                  // They attack
+                            if(h.getResource() != null)
+                                m_resources.add(h.getResource());   // The weapon, broken or not, return to the resource stock
+                            break;
+                        }
+                    }
+                }
+            }
 
         }
-    }*/
+
+        return success;
+    }
 
 
     /**
@@ -215,12 +252,153 @@ public class HumanGroup extends Entity
     }
 
     /**
+     * Return the possibles moves for every member and for the group.
+     * @return The list of a list of possible moves grouped by direction.
+     */
+    private List<List<Platform>> getPossibilities() {
+
+        List<Platform> groupPossibilities = this.m_position.getCross();
+        List<List<Platform>> membersPossibilities = new ArrayList<>();
+
+        for(int i = 0 ; i < 4 ; i++) {
+            membersPossibilities.add(new LinkedList<>());
+        }
+
+        // Get the available possibilities for all the members
+        for(Human h : m_members) {
+            List<Platform> humanPossibilities = h.m_position.getAvailableLocations();
+            if(humanPossibilities.size() == 0) {                             // If one of the human can't move
+                return null;
+            }
+            else {
+                for(int i = 0 ; i < humanPossibilities.size() ; i++) {
+                    membersPossibilities.get(i).add(humanPossibilities.get(i));
+                }
+            }
+        }
+
+        int k = 0;
+
+        while(k < membersPossibilities.size()) {
+            if(membersPossibilities.get(k).size() != m_members.size()) {
+                membersPossibilities.remove(k);
+                groupPossibilities.remove(k);
+            }
+            else {
+                k++;
+            }
+        }
+
+        if(membersPossibilities.size() == 0) {
+            return null;
+        }
+        else {
+            membersPossibilities.add(groupPossibilities);
+        }
+
+        return membersPossibilities;
+    }
+
+    /**
+     * Move the entire group following a given choice.
+     * @param choice Choice of direction given.
+     * @param groupPositions Group positions available.
+     * @param memberPositions Members positions available.
+     */
+    private void groupMove(int choice, List<Platform> groupPositions, List<List<Platform>> memberPositions) {
+        // Change the position of the group
+        this.m_position = groupPositions.get(choice);
+
+        // Change the position of each human
+        for(int i = 0 ; i < memberPositions.get(choice).size() ; i++) {
+            m_members.get(i).m_position = memberPositions.get(choice).get(i);
+        }
+    }
+
+    /**
      * Move the entire group in a random direction.
      * @return The new position of the group.
      */
     @Override
     public Platform randomMove() {
-        throw new NotImplementedException();
+
+        List<List<Platform>> possibilities = this.getPossibilities();
+
+        if(possibilities == null) {
+            return m_position;
+        }
+
+        // Get the group possibilites and remove it from the members possibilites
+        List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
+        possibilities.remove(possibilities.size() - 1);
+
+        // Get the choosen direction
+        int random = this.m_mt.nextInt(possibilities.size());
+
+        groupMove(random, groupPossibilities, possibilities);
+
+        return this.m_position;
+    }
+
+    /**
+     * Move the group in a direction of a platform.
+     * @param dest Platform where the group should move.
+     * @return Platform where the group stand at the end of the moving.
+     */
+    @Override
+    public Platform moveTo(Platform dest) {
+
+        int bestDirection = -1;
+        List<List<Platform>> possibilities = this.getPossibilities();
+
+        if(possibilities == null) {
+            return m_position;
+        }
+
+        // Get the group possibilites and remove it from the members possibilites
+        List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
+        possibilities.remove(possibilities.size() - 1);
+
+        for(int i = 0 ; i < groupPossibilities.size() ; i++) {
+            Platform p = groupPossibilities.get(i);
+            if(bestDirection == -1 || p.getDistance(dest) < groupPossibilities.get(bestDirection).getDistance(dest)) {
+                bestDirection = i;
+            }
+        }
+
+        groupMove(bestDirection, groupPossibilities, possibilities);
+
+        return this.m_position;
+    }
+
+    /**
+     * Escape from a danger located at p.
+     * @param target : Place of the danger.
+     * @return the position of the group after moving.
+     */
+    public Platform runAwayFrom(Platform target) {
+
+        int bestDirection = -1;
+        List<List<Platform>> possibilities = this.getPossibilities();
+
+        if(possibilities == null) {
+            return m_position;
+        }
+
+        // Get the group possibilites and remove it from the members possibilites
+        List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
+        possibilities.remove(possibilities.size() - 1);
+
+        for(int i = 0 ; i < groupPossibilities.size() ; i++) {
+            Platform p = groupPossibilities.get(i);
+            if(bestDirection == -1 || p.getDistance(target) > groupPossibilities.get(bestDirection).getDistance(target)) {
+                bestDirection = i;
+            }
+        }
+
+        groupMove(bestDirection, groupPossibilities, possibilities);
+
+        return this.m_position;
     }
 
     /**
@@ -235,11 +413,6 @@ public class HumanGroup extends Entity
         }
 
         return value;
-    }
-
-    @Override
-    public boolean attack(Entity e) {
-        return hasWeapon();
     }
 
     public class GroupFullException extends Exception {
