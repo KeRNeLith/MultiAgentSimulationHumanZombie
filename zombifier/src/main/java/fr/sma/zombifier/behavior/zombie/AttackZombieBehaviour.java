@@ -26,7 +26,7 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour
     {
         super(e);
         this.m_oldTarget = p;
-        this.m_giveUp = giveUp--;                                   // Decrease the giveUp time
+        this.m_giveUp = giveUp;
     }
 
     /**
@@ -36,6 +36,7 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
+        m_giveUp--;                                                         // Decrease the giveUp time
         // Try to go to the last position known of the target
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_oldTarget)));
 

@@ -28,12 +28,13 @@ public class AttackHumanBehaviour extends BaseHumanBehaviour
     {
         super(e);
         m_oldTarget = target;
-        m_giveUp = giveUp--;                                        // Decrease the giveUp time
+        m_giveUp = giveUp;
     }
 
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
+        m_giveUp--;                                             // Decrease the giveUp time
         if(m_entity.canAttack())
         {
             m_nextBehaviour = (m_giveUp == 0) ?
