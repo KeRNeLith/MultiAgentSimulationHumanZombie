@@ -120,9 +120,6 @@ public abstract class Entity
     public Platform randomMove()
     {
         int random;
-        int dirX = 0;
-        int dirY = 0;
-
         ArrayList<Platform> possibleLocations = m_position.getAvailableLocations();
 
         Collections.shuffle(possibleLocations, m_mt);
