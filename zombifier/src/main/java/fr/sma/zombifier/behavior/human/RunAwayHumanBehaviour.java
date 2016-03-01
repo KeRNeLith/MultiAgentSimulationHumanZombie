@@ -28,7 +28,7 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
     {
         super(e);
         m_knownThreat = threat;
-        m_time = time--;                                                        // Decrease the time
+        m_time = time;
     }
 
     /**
@@ -38,6 +38,7 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {
+        m_time--;                                               // Decrease the time
         // Run away from the oldThreat
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.runAwayFrom(m_knownThreat)));
 
