@@ -11,6 +11,7 @@ public abstract class BaseBehaviour implements IBehaviour
 {
     /** Entity using this behaviour. */
     protected Platform m_target;
+    /** The behabiour that will come next to the current. */
     protected BaseBehaviour m_nextBehaviour;
 
     /**
@@ -26,7 +27,8 @@ public abstract class BaseBehaviour implements IBehaviour
      * Return the current target of the entity.
      * @return The entity current target.
      */
-    public Platform getTarget() {
+    public Platform getTarget() 
+    {
         return this.m_target;
     }
 

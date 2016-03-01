@@ -12,30 +12,20 @@ import java.util.List;
  */
 public interface IBehaviour
 {
-    public enum BehaviourType 
-    {
-        // Human related
-        NORMAL_HUMAN,
-        RUNAWAY_HUMAN,
-        ATTACK_HUMAN,
-
-        // Group related
-        NORMAL_GROUP,
-        RUNAWAY_GROUP,
-        ATTACK_GROUP,
-
-        // Zombie related
-        NORMAL_ZOMBIE,
-        ATTACK_ZOMBIE,
-        
-        UNDEFINED
-    }
+    /**
+     * Analyze the environment around.
+     */
+    void analyze();
     
-    void analyze();                    // Analyse de l'environnement
-    
+    /**
+     * React to the environment based on the analysis.
+     * @return 
+     */
     List<Event> react();
     
-    BaseBehaviour next();               // Renvoie le prochain Behaviour
-
-    BehaviourType getType();
+    /**
+     * Return the next Behaviour.
+     * @return Next behaviour.
+     */
+    BaseBehaviour next();
 }

@@ -8,8 +8,11 @@ package fr.sma.zombifier.resources;
  */
 public abstract class Resource
 {
+    /**
+     * Constructor.
+     */
     public Resource()
     {
-        
+        // Nothing
     }
 }

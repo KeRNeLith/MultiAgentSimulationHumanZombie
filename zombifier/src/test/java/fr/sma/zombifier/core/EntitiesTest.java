@@ -10,18 +10,29 @@ import junit.framework.TestCase;
  */
 public class EntitiesTest extends TestCase
 {
-    
+    /**
+     * Constructor.
+     * @param testName Name of the test case.
+     */
     public EntitiesTest(String testName)
     {
         super(testName);
     }
     
+    /**
+     * Set up the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void setUp() throws Exception
     {
         super.setUp();
     }
     
+    /**
+     * Clean memory allocation for the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void tearDown() throws Exception
     {

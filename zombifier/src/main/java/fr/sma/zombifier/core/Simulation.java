@@ -84,7 +84,7 @@ public class Simulation extends Observable
         // Entities live
         for (Entity e : m_entities)
         {
-            if(e.is_active()) {
+            if(e.isActive()) {
                 List<Event> events = e.live();
                 m_eventHandler.handleEvents(events);
             }
@@ -92,7 +92,7 @@ public class Simulation extends Observable
 
         // Cleaning
         for(int i = 0 ; i < m_entities.size() ; i++) {
-            if(!m_entities.get(i).is_active())
+            if(!m_entities.get(i).isActive())
                 m_entities.remove(i);
         }
 

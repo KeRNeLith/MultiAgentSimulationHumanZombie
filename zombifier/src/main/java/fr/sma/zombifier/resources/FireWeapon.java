@@ -61,13 +61,22 @@ public class FireWeapon extends Weapon
         return m_ammo;
     }
 
-    public int getRange() { return m_range; }
+    /**
+     * Get the range of the fire weapon.
+     * @return Range of the fire weapon.
+     */
+    public int getRange() 
+    { 
+        return m_range; 
+    }
+    
     /**
      * Say if a weapon is able to attack
      * @return true if yes, otherwise false
      */
     @Override
-    public boolean canAttack() {
+    public boolean canAttack() 
+    {
         return(m_ammo > 0);
     }
 }

@@ -29,10 +29,4 @@ public class NormalHumanBehaviour extends BaseHumanBehaviour
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         m_nextBehaviour = new NormalHumanBehaviour(m_entity);
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.NORMAL_HUMAN;
-    }
 }

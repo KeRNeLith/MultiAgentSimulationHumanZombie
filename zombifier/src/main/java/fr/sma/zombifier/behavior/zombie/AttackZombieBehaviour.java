@@ -44,11 +44,4 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour
                         new NormalZombieBehaviour(m_entity)
                         : new AttackZombieBehaviour(m_entity, m_oldTarget, m_giveUp);
     }
-
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.ATTACK_ZOMBIE;
-    }
 }

@@ -25,7 +25,4 @@ public class NormalGroupBehaviour extends BaseGroupBehaviour {
     protected void defaultReaction(List<Event> listEvent) {
         // TODO : to implement
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType() { return BehaviourType.NORMAL_GROUP; }
 }

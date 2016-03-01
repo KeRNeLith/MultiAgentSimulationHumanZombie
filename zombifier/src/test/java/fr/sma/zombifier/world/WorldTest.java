@@ -14,17 +14,29 @@ import junit.framework.TestCase;
  */
 public class WorldTest extends TestCase
 {
+    /**
+     * Constructor.
+     * @param testName Name of the test case.
+     */
     public WorldTest(String testName)
     {
         super(testName);
     }
     
+    /**
+     * Set up the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void setUp() throws Exception
     {
         super.setUp();
     }
     
+    /**
+     * Clean memory allocation for the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void tearDown() throws Exception
     {

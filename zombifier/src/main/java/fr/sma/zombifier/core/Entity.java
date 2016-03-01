@@ -1,7 +1,6 @@
 package fr.sma.zombifier.core;
 
 import fr.sma.zombifier.behavior.BaseBehaviour;
-import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.utils.MersenneTwisterFast;
@@ -26,16 +25,14 @@ public abstract class Entity
     /** Class attribute to determine the ID of each constructed entity. */
     private static int m_nextId = 1;
     /** ID of the entity. */
-    private int m_id;
+    protected int m_id;
     
     /** Random generator of the entity. */
     protected final MersenneTwisterFast m_mt;
     
     /** Current behaviour of the entity. */
     protected BaseBehaviour m_behaviour;
-    /** Current behaviour type of the entity. */
-    protected BehaviourType m_behaviourType;
-    
+
     /** Platform on which the entity is on. */
     protected Platform m_position;
     /** Direction in which the entity is watching. */
@@ -63,7 +60,6 @@ public abstract class Entity
             this.m_mt = new MersenneTwisterFast(m_baseSeed++);
         
         this.m_behaviour = null;
-        this.m_behaviourType = BehaviourType.UNDEFINED;
     }
 
     /**
@@ -80,7 +76,6 @@ public abstract class Entity
         
         // Reaffect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
-        m_behaviourType = m_behaviour.getType();
 
         return eventList;
     }
@@ -188,16 +183,27 @@ public abstract class Entity
         return m_position;
     }
 
+    /**
+     * Attack the target entity in parameter.
+     * @param e Target entity.
+     * @return True if the attack succeed, otherwise false.
+     */
     public abstract boolean attack(Entity e);
 
     /**
      * Return if the entity is active or not.
      * @return True if it is, Otherwise false.
      */
-    public boolean is_active() { return m_active; }
+    public boolean isActive() 
+    { 
+        return m_active; 
+    }
 
     /**
-     * Disable an entity. Is equivalent to kill it
+     * Disable an entity. It is equivalent to kill it.
      */
-    public void disable() { m_active = false; }
+    public void disable() 
+    { 
+        m_active = false; 
+    }
 }

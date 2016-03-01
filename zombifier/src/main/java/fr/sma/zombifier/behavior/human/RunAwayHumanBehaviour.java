@@ -47,11 +47,4 @@ public class RunAwayHumanBehaviour extends BaseHumanBehaviour
                 new NormalHumanBehaviour(m_entity)
                 : new RunAwayHumanBehaviour(m_entity, m_knownThreat, m_time);
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.RUNAWAY_HUMAN;
-    }
-
 }

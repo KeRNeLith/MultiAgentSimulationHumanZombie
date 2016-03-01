@@ -47,11 +47,4 @@ public class AttackHumanBehaviour extends BaseHumanBehaviour
             m_nextBehaviour = new NormalHumanBehaviour(m_entity);
         }
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.ATTACK_HUMAN;
-    }
-
 }
