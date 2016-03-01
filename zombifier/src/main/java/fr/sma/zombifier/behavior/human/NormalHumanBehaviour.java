@@ -23,6 +23,10 @@ public class NormalHumanBehaviour extends BaseHumanBehaviour
         super(e);
     }
 
+    /**
+     * Default Reaction in case of nothing else happen.
+     * @param listEvent Reference to the Event(s) to add one or more.
+     */
     @Override
     protected void defaultReaction(List<Event> listEvent) 
     {

@@ -50,6 +50,7 @@ public class AttackGroupBehaviour extends BaseGroupBehaviour
         else                                                    // If the group can no more defend him self
         {
             listEvent.add(new EventMove(m_group.getPosition(), m_group.randomMove()));
+
             m_nextBehaviour = new NormalGroupBehaviour(m_group);// He run away
         }
     }

@@ -92,8 +92,11 @@ public class Simulation extends Observable
 
         // Cleaning
         for(int i = 0 ; i < m_entities.size() ; i++) {
-            if(!m_entities.get(i).is_active())
-                m_entities.remove(i);
+            if(!m_entities.get(i).is_active()) {
+                if(!(m_entities.get(i) instanceof Human && ((Human) m_entities.get(i)).isGrouped())) {
+                    m_entities.remove(i);
+                }
+            }
         }
 
         m_simulationLoops++;

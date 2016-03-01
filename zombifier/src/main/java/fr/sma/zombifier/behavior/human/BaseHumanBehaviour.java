@@ -2,9 +2,11 @@ package fr.sma.zombifier.behavior.human;
 
 import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.core.Human;
+import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventEntityDie;
+import fr.sma.zombifier.event.EventGroupCreated;
 import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.utils.Globals;
@@ -63,11 +65,24 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
             }
             else if(platform.getEntity() instanceof Human)
             {
-                // TODO : to implement
+                if(m_target == null) {
+                    m_target = platform;
+                }
+                else {
+                    if(m_target.getEntity() == null) {
+                        m_target = platform;
+                    }
+                    else {          // Else if it is not a zombie
+                        if(!(m_target.getEntity() instanceof Zombie)
+                                && (platform.getDistance(cur_position) < m_target.getDistance(cur_position))) {
+                            m_target = platform;
+                        }
+                    }
+                }
             }
         }
 
-        // If there is no ennemies, scan for ressources
+        // If there is no enemies nor allies, scan for resources
         if(m_target == null) 
         {
             for (Platform platform : neighborhood.getPlatformWithResources())
@@ -129,8 +144,29 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
             }
             else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
             {
-                throw new UnsupportedOperationException();
-                // TODO : Go to create or join a group
+                if(m_target.getDistance(m_entity.getPosition()) <= 1)               // Target reachable : try to join
+                {
+                    if(((Human) m_target.getEntity()).isGrouped()) {                        // If it's a member of a group
+                        try {
+                            ((Human) m_target.getEntity()).getGroup().join(this.m_entity);
+                        }
+                        catch(HumanGroup.GroupFullException e) {
+                            // TODO : ?
+                        }
+                        catch(HumanGroup.NoAvailablePlaceException e) {
+                            // TODO : ?
+                        }
+
+                    }
+                    else                                                        // Need to move to join
+                    {
+                        listEvent.add(new EventGroupCreated(this.m_entity, (Human) m_target.getEntity()));
+                    }
+                }
+                else {
+                    listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
+                }
+                m_nextBehaviour = new NormalHumanBehaviour(this.m_entity);
             }
             else if (m_target.hasResource())    // Resource spotted
             {              

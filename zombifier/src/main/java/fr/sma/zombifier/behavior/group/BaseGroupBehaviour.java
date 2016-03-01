@@ -6,6 +6,7 @@ import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventEntityDie;
+import fr.sma.zombifier.event.EventGroupMove;
 import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Platform;
@@ -133,7 +134,9 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                 }
                 else    // Human can't attack, he must runaway
                 {
-                    listEvent.add(new EventMove(m_group.getPosition(), m_group.runAwayFrom(m_target)));
+                    Platform oldPosition = m_group.getPosition();
+                    m_group.runAwayFrom(m_target);
+                    listEvent.add(new EventGroupMove(oldPosition));
                     m_nextBehaviour = new RunAwayGroupBehaviour(m_group, m_target, Globals.RUN_AWAY_TIME);
                 }
             }
@@ -146,15 +149,15 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
             {
                 if(m_target.getDistance(m_group.getPosition()) <= 1)
                 {
-                    // TODO : choose who will get the weapon
                     m_group.addResource(m_target.takeResource());
                     m_nextBehaviour = new NormalGroupBehaviour(m_group);
                 }
                 else    // Need to move
                 {
-                    listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
-                    m_nextBehaviour = new NormalHumanBehaviour(m_entity);               // A resource don't move !
-                    // TODO : implement a resourceSpottedBehaviour ?
+                    Platform oldPosition = m_group.getPosition();
+                    m_group.moveTo(m_target);
+                    listEvent.add(new EventGroupMove(oldPosition));
+                    m_nextBehaviour = new NormalGroupBehaviour(m_group);               // A resource don't move !
                 }
             }
             else    // Error

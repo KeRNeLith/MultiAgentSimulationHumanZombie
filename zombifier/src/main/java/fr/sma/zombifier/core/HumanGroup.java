@@ -134,6 +134,21 @@ public class HumanGroup extends Entity
     }
 
     /**
+     * Remove a member from a group.
+     * @param member Member to remove.
+     */
+    public void removeMember(Human member) {
+        if(m_members.contains(member)) {
+            if(m_resources.size() == m_members.size()) {                      // The group have to release a resource
+                int random = m_mt.nextInt(m_resources.size());
+                member.getPosition().addResource(m_resources.get(random));
+                m_resources.remove(random);
+            }
+            m_members.remove(member);
+        }
+    }
+
+    /**
      * Return the humans who composed the group.
      * @return A LinkedList which contained the humans.
      */
@@ -399,6 +414,16 @@ public class HumanGroup extends Entity
         groupMove(bestDirection, groupPossibilities, possibilities);
 
         return this.m_position;
+    }
+
+    /**
+     * Add a resource for the group
+     * @param r Resource added
+     */
+    public void addResource(Resource r) {
+        if(this.canTakeResource()) {
+            m_resources.add(r);
+        }
     }
 
     /**
