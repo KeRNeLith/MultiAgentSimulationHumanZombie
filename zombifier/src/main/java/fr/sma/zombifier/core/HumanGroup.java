@@ -72,10 +72,10 @@ public class HumanGroup extends Entity
 
             // Set the directions
             h1.m_direction.setFirst(h1.m_position.getX() - this.m_position.getX());
-            h1.m_direction.setSecond(h1.m_position.getY() - this.m_position.getY());
+            h1.m_direction.setSecond(this.m_position.getY() - h1.m_position.getY());
 
             h2.m_direction.setFirst(h2.m_position.getX() - this.m_position.getX());
-            h2.m_direction.setSecond(h2.m_position.getY() - this.m_position.getY());
+            h2.m_direction.setSecond(this.m_position.getY() - h2.m_position.getY());
 
             // Add their resources to the one of the group
             if(h1.hasResource()) {
@@ -120,7 +120,7 @@ public class HumanGroup extends Entity
 
             // Set direction
             h.m_direction.setFirst(h.m_position.getX() - this.m_position.getX());
-            h.m_direction.setSecond(h.m_position.getY() - this.m_position.getY());
+            h.m_direction.setSecond(this.m_position.getY() - h.m_position.getY());
 
             // Add his resource for the group
             if(h.hasResource()) {
@@ -154,6 +154,20 @@ public class HumanGroup extends Entity
      */
     public List<Human> getMembers() {
         return m_members;
+    }
+
+    /**
+     * Return the current positions of all the humans
+     * @return An ArrayList containing the positions of all the members.
+     */
+    public List<Platform> getMembersPlatform() {
+        List<Platform> values = new ArrayList<>();
+
+        for(Human h : m_members) {
+            values.add(h.getPosition());
+        }
+
+        return values;
     }
 
     /**
@@ -272,11 +286,15 @@ public class HumanGroup extends Entity
      */
     private List<List<Platform>> getPossibilities() {
 
-        List<Platform> groupPossibilities = this.m_position.getCross();
-        List<List<Platform>> membersPossibilities = new ArrayList<>();
+        List<Platform> groupPos = this.m_position.getCross();
+        List<List<Platform>> membersPos = new ArrayList<>();
+
+        List<Platform> finalGroupPos = new ArrayList<>();
+        List<List<Platform>> finalMembersPos = new ArrayList<>();
+
 
         for(int i = 0 ; i < 4 ; i++) {
-            membersPossibilities.add(new LinkedList<>());
+            membersPos.add(new LinkedList<>());
         }
 
         // Get the available possibilities for all the members
@@ -287,31 +305,26 @@ public class HumanGroup extends Entity
             }
             else {
                 for(int i = 0 ; i < humanPossibilities.size() ; i++) {
-                    membersPossibilities.get(i).add(humanPossibilities.get(i));
+                    membersPos.get(i).add(humanPossibilities.get(i));
                 }
             }
         }
 
-        int k = 0;
-
-        while(k < membersPossibilities.size()) {
-            if(membersPossibilities.get(k).size() != m_members.size()) {
-                membersPossibilities.remove(k);
-                groupPossibilities.remove(k);
-            }
-            else {
-                k++;
+        for(int i = 0 ; i < membersPos.size() ; i++) {
+            if(membersPos.get(i).size() == m_members.size()) {
+                finalMembersPos.add(membersPos.get(i));
+                finalGroupPos.add(groupPos.get(i));
             }
         }
 
-        if(membersPossibilities.size() == 0) {
+        if(finalMembersPos.size() == 0) {
             return null;
         }
         else {
-            membersPossibilities.add(groupPossibilities);
+            finalMembersPos.add(finalGroupPos);
         }
 
-        return membersPossibilities;
+        return finalMembersPos;
     }
 
     /**
@@ -347,7 +360,7 @@ public class HumanGroup extends Entity
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 
-        // Get the choosen direction
+        // Get the chosen direction
         int random = this.m_mt.nextInt(possibilities.size());
 
         groupMove(random, groupPossibilities, possibilities);

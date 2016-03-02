@@ -33,6 +33,9 @@ public class Simulation extends Observable
     
     /** List of entities. */
     protected List<Entity> m_entities;
+
+    /** List of entities to add after a loop */
+    protected List<Entity> m_entitiesToAdd;
     
     /** Event handler. */
     protected final EventHandler m_eventHandler;
@@ -90,6 +93,12 @@ public class Simulation extends Observable
             }
         }
 
+        // Adding the entities
+        for(Entity e : m_entitiesToAdd) {
+            m_entities.add(e);
+        }
+        m_entitiesToAdd.clear();
+
         // Cleaning
         for(int i = 0 ; i < m_entities.size() ; i++) {
             if(!m_entities.get(i).is_active()) {
@@ -114,6 +123,7 @@ public class Simulation extends Observable
         m_stop = false;
         m_simulationLoops = 0;
         m_entities = new LinkedList<>();
+        m_entitiesToAdd = new LinkedList<>();
         
         // Load simulation params from file
         Globals.readSimuProperties();
@@ -328,6 +338,15 @@ public class Simulation extends Observable
     }
     
     /**
+     * Getter on the entities to add.
+     * @return The list of entities managed by the simulation.
+     */
+    public List<Entity> getEntitiesToAdd()
+    {
+        return m_entitiesToAdd;
+    }
+
+    /**
      * Getter on the simulation entities.
      * @return The list of entities managed by the simulation.
      */
@@ -335,7 +354,7 @@ public class Simulation extends Observable
     {
         return m_entities;
     }
-    
+
     /**
      * Getter on the number of simulation loops.
      * @return Number of simulation loops..

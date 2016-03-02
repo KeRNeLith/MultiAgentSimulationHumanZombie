@@ -30,9 +30,9 @@ public class NormalGroupBehaviour extends BaseGroupBehaviour {
     @Override
     protected void defaultReaction(List<Event> listEvent) {
 
-        Platform oldPosition = m_group.getPosition();
+        List<Platform> oldPositions = m_group.getMembersPlatform();
         m_group.randomMove();
-        listEvent.add(new EventGroupMove(oldPosition));
+        listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
         m_nextBehaviour = new NormalGroupBehaviour(m_group);
     }
 

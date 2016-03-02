@@ -44,9 +44,9 @@ public class RunAwayGroupBehaviour extends BaseGroupBehaviour
         m_time--;                                               // Decrease the time
 
         // Run away from the oldThreat
-        Platform oldPosition = m_group.getPosition();
-        m_group.runAwayFrom(m_knownThreat);
-        listEvent.add(new EventGroupMove(oldPosition));
+        List<Platform> oldPositions = m_group.getMembersPlatform();
+        m_group.runAwayFrom(m_target);
+        listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
 
         // Define the next behaviour
         m_nextBehaviour = (m_time == 0) ?

@@ -4,10 +4,7 @@ import fr.sma.zombifier.behavior.BaseBehaviour;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Zombie;
-import fr.sma.zombifier.event.Event;
-import fr.sma.zombifier.event.EventEntityDie;
-import fr.sma.zombifier.event.EventGroupMove;
-import fr.sma.zombifier.event.EventMove;
+import fr.sma.zombifier.event.*;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Platform;
 
@@ -134,16 +131,34 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                 }
                 else    // Human can't attack, he must runaway
                 {
-                    Platform oldPosition = m_group.getPosition();
+                    List<Platform> oldPositions = m_group.getMembersPlatform();
                     m_group.runAwayFrom(m_target);
-                    listEvent.add(new EventGroupMove(oldPosition));
+                    listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
                     m_nextBehaviour = new RunAwayGroupBehaviour(m_group, m_target, Globals.RUN_AWAY_TIME);
                 }
             }
             else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
             {
-                throw new UnsupportedOperationException();
-                // TODO : Go to create or join a group
+                if(m_target.getDistance(m_group.getPosition()) <= 2)                    // Target reachable : try to join
+                {
+                    if(!(((Human) m_target.getEntity()).isGrouped())) {                 // If it's not a member of a group
+                        try {
+                            m_group.join((Human) m_target.getEntity());
+                        }
+                        catch(HumanGroup.GroupFullException e) {
+                            // TODO : ?
+                        }
+                        catch(HumanGroup.NoAvailablePlaceException e) {
+                            // TODO : ?
+                        }
+                    }
+                }
+                else {
+                    List<Platform> oldPositions = m_group.getMembersPlatform();
+                    m_group.moveTo(m_target);
+                    listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
+                }
+                m_nextBehaviour = new NormalGroupBehaviour(m_group);
             }
             else if (m_target.hasResource())    // Resource spotted
             {
@@ -154,9 +169,9 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                 }
                 else    // Need to move
                 {
-                    Platform oldPosition = m_group.getPosition();
+                    List<Platform> oldPositions = m_group.getMembersPlatform();
                     m_group.moveTo(m_target);
-                    listEvent.add(new EventGroupMove(oldPosition));
+                    listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
                     m_nextBehaviour = new NormalGroupBehaviour(m_group);               // A resource don't move !
                 }
             }

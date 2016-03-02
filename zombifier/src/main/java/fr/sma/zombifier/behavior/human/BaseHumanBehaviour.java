@@ -144,9 +144,9 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
             }
             else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
             {
-                if(m_target.getDistance(m_entity.getPosition()) <= 1)               // Target reachable : try to join
+                if(m_target.getDistance(m_entity.getPosition()) <= 1)                   // Target reachable : try to join
                 {
-                    if(((Human) m_target.getEntity()).isGrouped()) {                        // If it's a member of a group
+                    if(((Human) m_target.getEntity()).isGrouped()) {                    // If it's a member of a group
                         try {
                             ((Human) m_target.getEntity()).getGroup().join(this.m_entity);
                         }
