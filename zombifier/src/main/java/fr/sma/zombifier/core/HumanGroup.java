@@ -1,6 +1,5 @@
 package fr.sma.zombifier.core;
 
-import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.behavior.group.BaseGroupBehaviour;
 import fr.sma.zombifier.behavior.group.NormalGroupBehaviour;
 import fr.sma.zombifier.event.Event;
@@ -33,16 +32,16 @@ public class HumanGroup extends Entity
         this.m_members = new LinkedList<>();
         this.m_resources = new LinkedList<>();
         this.m_behaviour = new NormalGroupBehaviour(this);
-        this.m_behaviourType = BehaviourType.NORMAL_GROUP;
     }
 
     /**
      * Create a group composed by two humans.
      * @param h1 First human - The one who is joined.
      * @param h2 Second human - The one who is joining.
-     * @throws Exception if the group cannot be created.
+     * @throws fr.sma.zombifier.core.HumanGroup.NoAvailablePlaceException Launch when there is no possibility to move the group
      */
-    public HumanGroup(Human h1, Human h2) throws NoAvailablePlaceException {
+    public HumanGroup(Human h1, Human h2) throws NoAvailablePlaceException 
+    {
         this();
 
         List<Platform> possibilities = h1.getPosition().getAvailableLocations();

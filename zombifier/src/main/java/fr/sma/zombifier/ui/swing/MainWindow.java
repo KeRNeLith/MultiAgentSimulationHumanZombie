@@ -2,6 +2,8 @@ package fr.sma.zombifier.ui.swing;
 
 import fr.sma.zombifier.ui.swing.world.GUISimulation;
 import java.awt.BorderLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 /**
@@ -35,7 +37,7 @@ public class MainWindow extends JFrame
     private void initWindow()
     {
         // Create simulation
-        m_simulation = new GUISimulation(700); /* 40 - 1000 */
+        m_simulation = new GUISimulation(1500);
         
         // Set up layout
         getContentPane().setLayout(new BorderLayout());
@@ -45,10 +47,18 @@ public class MainWindow extends JFrame
         m_optionsPanel = new OptionsPanel(m_simulation);
         
         // Layout positions
-        getContentPane().add(m_gridWorld);
+        getContentPane().add(m_gridWorld, BorderLayout.CENTER);
         getContentPane().add(m_optionsPanel, BorderLayout.EAST);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter()
+        {
+            @Override
+            public void windowClosing(WindowEvent e)
+            {
+                m_simulation.stop();
+            }
+        });
         
         // Initialize Simulation
         initialize();

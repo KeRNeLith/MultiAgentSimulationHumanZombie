@@ -51,7 +51,7 @@ public class WorldGridView extends JPanel
         
         // Grid bag constraint for filling
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         
         World w = m_simulation.getWorld();
         // Initialize world GUI grid
@@ -62,6 +62,7 @@ public class WorldGridView extends JPanel
                 m_grid[i][j] = new GUIPlatform(w.get(i).get(j));
                 gbc.gridx = j;
                 gbc.gridy = i;
+                gbc.weightx = gbc.weighty = 1.0;
                 this.add(m_grid[i][j], gbc);
             }
         }

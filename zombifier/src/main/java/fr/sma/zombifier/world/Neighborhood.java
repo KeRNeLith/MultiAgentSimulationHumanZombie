@@ -88,11 +88,13 @@ public class Neighborhood
         }
         
         // Get neighborhood platforms
-        for (int i = xb ; i <= xe && i >= 0 && i < w.size() ; i++)
+        for (int j = yb ; j <= ye && j >= 0 && j < w.size() ; j++)
+        //for (int i = xb ; i <= xe && i >= 0 && i < w.size() ; i++)
         {
-            for (int j = yb ; j <= ye && j >= 0 && j < w.get(i).size() ; j++)
+            for (int i = xb ; i <= xe && i >= 0 && i < w.get(j).size() ; i++)
+            //for (int j = yb ; j <= ye && j >= 0 && j < w.get(i).size() ; j++)
             {
-                if (i != x || j != y)               // TODO : à modifier ?
+                if (i != x || j != y)               // TODO : To modify?
                 {
                     m_neighborPlatforms.add(w.get(j).get(i));
                 }

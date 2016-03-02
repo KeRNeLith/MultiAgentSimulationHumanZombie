@@ -1,6 +1,5 @@
 package fr.sma.zombifier.core;
 
-import fr.sma.zombifier.behavior.IBehaviour.BehaviourType;
 import fr.sma.zombifier.behavior.human.NormalHumanBehaviour;
 import fr.sma.zombifier.resources.FireWeapon;
 import fr.sma.zombifier.resources.Resource;
@@ -41,7 +40,6 @@ public class Human extends Entity
         this.m_resource = null;
 
         this.m_behaviour = new NormalHumanBehaviour(this);
-        this.m_behaviourType = BehaviourType.NORMAL_HUMAN;
     }
 
     /**

@@ -54,14 +54,4 @@ public class AttackGroupBehaviour extends BaseGroupBehaviour
             m_nextBehaviour = new NormalGroupBehaviour(m_group);// He run away
         }
     }
-
-    /**
-     * Return the type of the current behaviour of the group.
-     * @return The type of the current behaviour.
-     */
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.ATTACK_GROUP;
-    }
 }

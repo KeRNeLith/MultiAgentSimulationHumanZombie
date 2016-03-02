@@ -12,7 +12,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,10 @@ import javax.swing.JPanel;
  */
 public class GUIPlatform extends JPanel implements Observer
 {
-    /** Arrow image for the entities orientation. */
-    private static BufferedImage m_arrow;
+    /** Human image for the entities orientation. */
+    private static BufferedImage m_human;
+    /** Zombie image for the entities orientation. */
+    private static BufferedImage m_zombie;
     
     /** Platform watched. */
     private final Platform m_platform;
@@ -45,11 +47,13 @@ public class GUIPlatform extends JPanel implements Observer
     {
         try
         {
-            m_arrow = ImageIO.read(new File("resources/images/arrow.png"));
+            m_human = ImageIO.read(new File("resources/images/human.png"));
+            m_zombie = ImageIO.read(new File("resources/images/zombie.png"));
         }
         catch (IOException ex)
         {
-            m_arrow = null;
+            m_human = null;
+            m_zombie = null;
             Logger.getLogger(GUIPlatform.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -73,8 +77,8 @@ public class GUIPlatform extends JPanel implements Observer
      */
     private void initPanel()
     {
-        this.setPreferredSize(new Dimension(30, 30));
         this.setBorder(BorderFactory.createLineBorder(Color.darkGray, 1));
+        this.setPreferredSize(new Dimension(30, 30));
     }
     
     @Override
@@ -136,17 +140,27 @@ public class GUIPlatform extends JPanel implements Observer
     {
         super.paintComponent(g);
 
-        if (m_arrow != null && m_platform.getEntity() != null)
+        if (m_human != null && m_zombie != null && m_platform.getEntity() != null)
         {
-            BufferedImage out = new BufferedImage(  m_arrow.getWidth(),
-                    m_arrow.getHeight(),
-                    BufferedImage.TYPE_INT_ARGB);
+            Entity e = m_platform.getEntity();
+            
+            BufferedImage out = new BufferedImage(  this.getWidth(),
+                                                    this.getHeight(),
+                                                    BufferedImage.TYPE_INT_ARGB);
+            // Load correct image
             Graphics g2 = out.getGraphics();
-            g2.drawImage(m_arrow, 0, 0, null);
-
+            if (e instanceof Human)
+            {
+                g2.drawImage(m_human.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
+            }
+            else
+            {
+                g2.drawImage(m_zombie.getScaledInstance(this.getWidth(), this.getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
+            }
+            
             // Rotate image oto fit entity direction
             int angle = 0;
-            Pair<Integer, Integer> view = m_platform.getEntity().getDirection();
+            Pair<Integer, Integer> view = e.getDirection();
             if (view.getFirst() == 0)
             {
                 if (view.getSecond() == -1)
@@ -161,7 +175,7 @@ public class GUIPlatform extends JPanel implements Observer
             }
             
             Graphics2D g2d = (Graphics2D)g;
-            g2d.rotate(Math.toRadians(angle), m_arrow.getWidth() / 2, m_arrow.getHeight() / 2);
+            g2d.rotate(Math.toRadians(angle), this.getWidth() / 2, this.getHeight() / 2);
             g2d.drawImage(out, 0, 0, null);
         }
     }

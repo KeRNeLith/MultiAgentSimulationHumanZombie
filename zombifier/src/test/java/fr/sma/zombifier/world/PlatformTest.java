@@ -14,17 +14,29 @@ public class PlatformTest extends TestCase
     private static final World WORLD = new World(20, 20);
     private static final Platform PLATFORM = new Platform(WORLD, 5, 5);
 
+    /**
+     * Constructor.
+     * @param testName Name of the test case.
+     */
     public PlatformTest(String testName)
     {
         super(testName);
     }
     
+    /**
+     * Set up the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void setUp() throws Exception
     {
         super.setUp();
     }
     
+    /**
+     * Clean memory allocation for the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void tearDown() throws Exception
     {

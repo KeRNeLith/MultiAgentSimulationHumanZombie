@@ -53,11 +53,4 @@ public class RunAwayGroupBehaviour extends BaseGroupBehaviour
                 new NormalGroupBehaviour(m_group)
                 : new RunAwayGroupBehaviour(m_group, m_knownThreat, m_time);
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return BehaviourType.RUNAWAY_GROUP;
-    }
-
 }

@@ -48,7 +48,7 @@ public class OptionsPanel extends JPanel
         setLayout(new BorderLayout());
         
         // Speed Slider
-        m_speedSlider = new JSlider(JSlider.HORIZONTAL, 40, 1000, 700);
+        m_speedSlider = new JSlider(JSlider.HORIZONTAL, 10, 2500, m_simulation.getTick());
         m_speedSlider.setMinorTickSpacing(20);
         m_speedSlider.addChangeListener((ChangeEvent e) -> {
             speedChanged();
@@ -67,6 +67,7 @@ public class OptionsPanel extends JPanel
         m_runButton.addActionListener((ActionEvent e) -> {
             simulationStarted();
         });
+        m_runButton.setEnabled(false);
         add(m_runButton, BorderLayout.SOUTH);
         
         // Step Button
@@ -92,7 +93,9 @@ public class OptionsPanel extends JPanel
      */
     private void simulationStopped()
     {
+        m_stopButton.setEnabled(false);
         m_simulation.stop();
+        m_runButton.setEnabled(true);
     }
     
     /**
@@ -100,7 +103,9 @@ public class OptionsPanel extends JPanel
      */
     private void simulationStarted()
     {
+        m_runButton.setEnabled(false);
         m_simulation.start();
+        m_stopButton.setEnabled(true);
     }
     
     /**
@@ -108,7 +113,9 @@ public class OptionsPanel extends JPanel
      */
     private void simulationStep()
     {
+        m_stopButton.setEnabled(false);
         m_simulation.stop();
+        m_runButton.setEnabled(true);
         m_simulation.step();
     }
 }

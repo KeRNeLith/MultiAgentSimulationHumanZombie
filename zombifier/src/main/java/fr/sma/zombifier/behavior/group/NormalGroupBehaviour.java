@@ -35,7 +35,4 @@ public class NormalGroupBehaviour extends BaseGroupBehaviour {
         listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
         m_nextBehaviour = new NormalGroupBehaviour(m_group);
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType() { return BehaviourType.NORMAL_GROUP; }
 }

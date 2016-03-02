@@ -64,8 +64,6 @@ public class EventEntityConvert extends Event
                     // Replace the entity with a Zombie
                     s.getEntities().set(index, z);
 
-
-
                     // Remove the entity from the world and replace it
                     p.removeEntity();
                     p.addEntity(z);

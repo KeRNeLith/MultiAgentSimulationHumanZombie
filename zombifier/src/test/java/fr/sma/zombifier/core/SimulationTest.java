@@ -16,7 +16,10 @@ import junit.framework.TestCase;
  */
 public class SimulationTest extends TestCase
 {
-    
+    /**
+     * Constructor.
+     * @param testName Name of the test case.
+     */
     public SimulationTest(String testName)
     {
         super(testName);
@@ -27,12 +30,20 @@ public class SimulationTest extends TestCase
         Globals.RESOURCES_CONFIG = Constants.RESOURCES_CONFIG_TEST;
     }
     
+    /**
+     * Set up the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void setUp() throws Exception
     {
         super.setUp();
     }
     
+    /**
+     * Clean memory allocation for the test case context.
+     * @throws Exception Exception.
+     */
     @Override
     protected void tearDown() throws Exception
     {

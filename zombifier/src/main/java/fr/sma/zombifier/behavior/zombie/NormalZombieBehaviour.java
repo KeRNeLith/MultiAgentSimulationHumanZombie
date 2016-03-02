@@ -33,10 +33,4 @@ public class NormalZombieBehaviour extends BaseZombieBehaviour
         listEvent.add(new EventMove(m_entity.getPosition(), m_entity.randomMove()));
         m_nextBehaviour = new NormalZombieBehaviour(m_entity);
     }
-
-    @Override
-    public IBehaviour.BehaviourType getType()
-    {
-        return IBehaviour.BehaviourType.NORMAL_ZOMBIE;
-    }
 }
