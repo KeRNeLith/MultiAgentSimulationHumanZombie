@@ -42,6 +42,7 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
     @Override
     public void analyze()
     {
+        this.m_target = null;
         Platform cur_position = m_entity.getPosition();
         Neighborhood neighborhood = new Neighborhood(m_entity.getPosition(), m_entity.getDirection());
 

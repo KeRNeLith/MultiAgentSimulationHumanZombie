@@ -7,7 +7,9 @@ import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.resources.FireWeapon;
 import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.resources.Weapon;
+import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
+import fr.sma.zombifier.world.World;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
@@ -130,6 +132,7 @@ public class HumanGroup extends Entity
 
             // Group him
             h.setGroup(this);
+            m_members.add(h);
         }
     }
 
@@ -286,45 +289,50 @@ public class HumanGroup extends Entity
      */
     private List<List<Platform>> getPossibilities() {
 
-        List<Platform> groupPos = this.m_position.getCross();
-        List<List<Platform>> membersPos = new ArrayList<>();
+        Platform tmp = null;
+        World world = m_position.getWorld();
 
-        List<Platform> finalGroupPos = new ArrayList<>();
-        List<List<Platform>> finalMembersPos = new ArrayList<>();
+        List<Platform> groupPossibilities = new ArrayList<>();
+        List<List<Platform>> possibilities = new ArrayList<>();
 
+        // Creation of all the directions
+        List<Pair<Integer, Integer>> dirs = new ArrayList<>();
 
-        for(int i = 0 ; i < 4 ; i++) {
-            membersPos.add(new LinkedList<>());
-        }
+        dirs.add(new Pair<>(1, 0));
+        dirs.add(new Pair<>(-1, 0));
+        dirs.add(new Pair<>(0, 1));
+        dirs.add(new Pair<>(0, -1));
 
-        // Get the available possibilities for all the members
-        for(Human h : m_members) {
-            List<Platform> humanPossibilities = h.m_position.getAvailableLocations();
-            if(humanPossibilities.size() == 0) {                             // If one of the human can't move
-                return null;
-            }
-            else {
-                for(int i = 0 ; i < humanPossibilities.size() ; i++) {
-                    membersPos.get(i).add(humanPossibilities.get(i));
+        for(Pair<Integer, Integer> dir : dirs) {
+            tmp = world.getNeighbour(m_position, dir.getFirst(), dir.getSecond());
+            if(tmp != null) {
+                // Add it to the group possibility
+                groupPossibilities.add(tmp);
+
+                // Place all humans possibilities
+                List<Platform> memberLocs = new ArrayList<>();
+                for(Human h : m_members) {
+                    tmp = world.getNeighbour(h.getPosition(), dir.getFirst(), dir.getSecond());
+                    if(tmp != null && tmp.getEntity() == null) {
+                        memberLocs.add(tmp);
+                    }
+                }
+
+                // If all humans can go to the given direction, add the possibility
+                if(memberLocs.size() == m_members.size()) {
+                    possibilities.add(memberLocs);
                 }
             }
         }
 
-        for(int i = 0 ; i < membersPos.size() ; i++) {
-            if(membersPos.get(i).size() == m_members.size()) {
-                finalMembersPos.add(membersPos.get(i));
-                finalGroupPos.add(groupPos.get(i));
-            }
-        }
-
-        if(finalMembersPos.size() == 0) {
+        if(possibilities.size() == 0) {
             return null;
         }
         else {
-            finalMembersPos.add(finalGroupPos);
+            possibilities.add(groupPossibilities);
         }
 
-        return finalMembersPos;
+        return possibilities;
     }
 
     /**
@@ -356,7 +364,7 @@ public class HumanGroup extends Entity
             return m_position;
         }
 
-        // Get the group possibilites and remove it from the members possibilites
+        // Get the group possibilities and remove it from the members possibilities
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 

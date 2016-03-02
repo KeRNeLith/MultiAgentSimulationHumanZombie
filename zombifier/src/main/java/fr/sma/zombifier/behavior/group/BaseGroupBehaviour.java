@@ -70,7 +70,7 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                         }
                     }
                     // A non-grouped Human has been spotted, a place is available and nothing else was spotted
-                    else if (target.getEntity() instanceof Human && ((Human) target.getEntity()).isGrouped()
+                    else if (target.getEntity() instanceof Human && (!((Human) target.getEntity()).isGrouped())
                             && this.m_group.canBeJoined()) {
                         // If there is no target, add it
                         if(m_target == null || m_target.getEntity() == null) {
@@ -99,6 +99,7 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                     }
                 }
             }
+            m_membersTargets.clear();
         }
     }
 

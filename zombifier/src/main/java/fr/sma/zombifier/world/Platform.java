@@ -2,6 +2,7 @@ package fr.sma.zombifier.world;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.resources.Resource;
+import fr.sma.zombifier.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -190,48 +191,30 @@ public class Platform extends Observable
     }
 
     /**
-     * Get the left, right, up and down platforms
-     * @return An array which contains the required platforms.
+     * Get the possible locations where an entity can go.
+     * @return An array which contains the possible locations.
      */
-    public ArrayList<Platform> getCross() {
+    public ArrayList<Platform> getAvailableLocations() {
         Platform tmp = null;
         World world = this.getWorld();
         ArrayList<Platform> possibilities = new ArrayList<>();
 
         tmp = world.getNeighbour(this, 1, 0);
-        if(tmp != null)
+        if(tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, -1, 0);
-        if(tmp != null)
+        if(tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, 0, 1);
-        if(tmp != null)
+        if(tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, 0, -1);
-        if(tmp != null)
+        if(tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         return possibilities;
-    }
-
-    /**
-     * Get the possible locations where an entity can go.
-     * @return An array which contains the possible locations.
-     */
-    public ArrayList<Platform> getAvailableLocations() {
-        World world = this.getWorld();
-        ArrayList<Platform> possibilities = this.getCross();
-        ArrayList<Platform> locations = new ArrayList<>();
-
-        for(Platform p : possibilities) {
-            if(!p.hasEntity()) {
-                locations.add(p);
-            }
-        }
-
-        return locations;
     }
 }
