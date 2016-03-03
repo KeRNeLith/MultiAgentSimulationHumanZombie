@@ -11,7 +11,7 @@ import fr.sma.zombifier.world.Platform;
  */
 public class EventMove extends Event
 {
-    /** Platform on which the entity is on at the begining of the event. */
+    /** Platform on which the entity is on at the beginning of the event. */
     private final Platform m_origin;
     /** Platform on which the entity is on at the end of the event. */
     private final Platform m_destination;

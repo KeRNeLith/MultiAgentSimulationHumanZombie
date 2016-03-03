@@ -91,7 +91,7 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
         {
             for (Platform platform : neighborhood.getPlatformWithResources())
             {
-                if(platform.getResource() instanceof Resource)
+                if(platform.getResource() != null)
                 {
                     if(m_target == null)
                     {

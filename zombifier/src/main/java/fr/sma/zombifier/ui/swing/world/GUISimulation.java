@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 /**
  * The GUISimulation class provide interactions especially dedicated to a use in GUI application.
  * 
- * This class implmements the interface 'Callable' and not 'Runnable' because this last class doesn't allowed
+ * This class implements the interface 'Callable' and not 'Runnable' because this last class doesn't allowed
  * to throw exception into the main thread.
  * 
  * @author Alexandre Rabérin - Adrien Pierreval

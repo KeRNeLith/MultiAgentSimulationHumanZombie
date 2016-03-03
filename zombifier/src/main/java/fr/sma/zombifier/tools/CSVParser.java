@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class manage pasing of a CSV File.
+ * This class manage parsing of a CSV File.
  *
  * @author Alexandre Rabérin - Adrien Pierreval
  */
@@ -62,7 +62,7 @@ public class CSVParser
     }
     
     /**
-     * Recupere l'ordre de disposition des donnees dans le fichier.
+     * Recupère l'ordre de disposition des données dans le fichier.
      * @param content Contenu du fichier.
      * @return Tableau de string, la taille de ce tableau correspond au nombre de donnees differentes.
      */

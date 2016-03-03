@@ -1,7 +1,7 @@
 package fr.sma.zombifier.resources;
 
 /**
- * The class is the class that reprent a fire weapon resource.
+ * The class is the class that represent a fire weapon resource.
  * 
  * @author Alexandre Rabérin - Adrien Pierreval
  */

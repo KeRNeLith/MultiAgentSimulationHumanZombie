@@ -109,7 +109,7 @@ public class Globals
     }
     
     /**
-     * Fill all globals variables that can be retrived from properties.
+     * Fill all globals variables that can be retrieved from properties.
      * @param prop Properties to use to get variables values.
      */
     private static void loadGlobals(final Properties prop)

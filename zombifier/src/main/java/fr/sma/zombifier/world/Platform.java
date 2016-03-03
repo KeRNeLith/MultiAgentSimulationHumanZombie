@@ -85,7 +85,7 @@ public class Platform extends Observable
     
     /**
      * Determine if the platform has an entity on it.
-     * @return true if the plaform contains an entity, otherwise false.
+     * @return true if the platform contains an entity, otherwise false.
      */
     public boolean hasEntity()
     {
@@ -94,7 +94,7 @@ public class Platform extends Observable
     
     /**
      * Get the entity on the platform if has one.
-     * @return The entity on the plaform if it contains one, otherwise null.
+     * @return The entity on the platform if it contains one, otherwise null.
      */
     public Entity getEntity()
     {
@@ -138,7 +138,7 @@ public class Platform extends Observable
     
     /**
      * Determine if the platform has a resource on it.
-     * @return true if the plaform contains a resource, otherwise false.
+     * @return true if the platform contains a resource, otherwise false.
      */
     public boolean hasResource()
     {
@@ -147,7 +147,7 @@ public class Platform extends Observable
     
     /**
      * Get the resource on the platform if has one.
-     * @return The resource on the plaform if it contains one, otherwise null.
+     * @return The resource on the platform if it contains one, otherwise null.
      */
     public Resource getResource()
     {

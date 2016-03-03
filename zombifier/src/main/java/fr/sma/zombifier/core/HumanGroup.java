@@ -263,7 +263,7 @@ public class HumanGroup extends Entity
         // Analyse
         List<Platform> targets = new ArrayList<>();
 
-        // Lancement de l'analyse de tous les membres du groupe
+        // Launch the analysis of all the members
         for (Human h : m_members) {
             h.m_behaviour.analyze();
             if(h.m_behaviour.getTarget() != null) {
@@ -388,7 +388,7 @@ public class HumanGroup extends Entity
             return m_position;
         }
 
-        // Get the group possibilites and remove it from the members possibilites
+        // Get the group possibilities and remove it from the members possibilities
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 
@@ -418,7 +418,7 @@ public class HumanGroup extends Entity
             return m_position;
         }
 
-        // Get the group possibilites and remove it from the members possibilites
+        // Get the group possibilities and remove it from the members possibilities
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 

@@ -37,7 +37,7 @@ public abstract class BaseZombieBehaviour extends BaseBehaviour
     }
 
     /**
-     * Analyse of the environnement of the zombie.
+     * Analyse of the environment of the zombie.
      */
     @Override
     public void analyze()

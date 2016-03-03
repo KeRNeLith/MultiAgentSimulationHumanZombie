@@ -68,13 +68,13 @@ public abstract class Entity
      */
     public List<Event> live()
     {
-        // Analyse the environnement to make a decision.
+        // Analyse the environment to make a decision.
         m_behaviour.analyze();
 
         // Move the entity
         List<Event> eventList = m_behaviour.react();
         
-        // Reaffect the behaviour with the behaviour that comes next
+        // Affect the behaviour with the behaviour that comes next
         m_behaviour = m_behaviour.next();
 
         return eventList;
@@ -99,9 +99,9 @@ public abstract class Entity
     }
 
     /**
-     * Return the number of deplacements to do to go to p
+     * Return the number of moving to do to go to p
      * @param p Platform to go
-     * @return Number of deplacements to do to go at p.
+     * @return Number of moving to do to go at p.
      */
     public int getDistance(Platform p) 
     {

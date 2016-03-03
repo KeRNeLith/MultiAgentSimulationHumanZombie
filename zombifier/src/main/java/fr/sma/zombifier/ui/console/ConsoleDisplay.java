@@ -24,7 +24,7 @@ public class ConsoleDisplay implements Observer
     /** Instance of ConsoleDisplay (Singleton). */
     private static ConsoleDisplay m_instance;
     
-    /** Simulation that progress will be dispalyed. */
+    /** Simulation that progress will be displayed. */
     private final Simulation m_simulation;
     
     /**

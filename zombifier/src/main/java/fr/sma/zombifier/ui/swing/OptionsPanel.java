@@ -31,7 +31,7 @@ public class OptionsPanel extends JPanel
     
     /**
      * Constructor.
-     * @param simu Simulation on which applying options choosed.
+     * @param simu Simulation on which applying options chosen.
      */
     public OptionsPanel(GUISimulation simu)
     {

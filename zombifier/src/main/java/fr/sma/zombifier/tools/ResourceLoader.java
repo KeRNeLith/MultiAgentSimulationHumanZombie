@@ -38,7 +38,7 @@ public class ResourceLoader
     {
         List< Pair< Pair<Integer, Integer>, Resource > > resources = new ArrayList<>();
         
-        // Ouverture du fichier pour lecture
+        // Open file for reading
         FileReader reader;
         BufferedReader bufferReader;
         try
@@ -172,7 +172,7 @@ public class ResourceLoader
      * @param target Class wanted to initialize with string parameter.
      * @param s Parameter to convert.
      * @return Object corresponding to the target class.
-     * @throws Exception IllegalArgumentException if no convertion can be found for the parameter.
+     * @throws Exception IllegalArgumentException if no conversion can be found for the parameter.
      */
     private Object convert(Class<?> target, String s) throws Exception
     {

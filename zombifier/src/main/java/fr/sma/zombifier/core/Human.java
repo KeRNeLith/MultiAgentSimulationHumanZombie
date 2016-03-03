@@ -19,7 +19,7 @@ public class Human extends Entity
     /** Say if the human is grouped */
     private boolean m_isGrouped;
 
-    /** Groupe auquel appartient l'humain */
+    /** Group  to which belongs the human */
     private HumanGroup m_group;
 
     /** Human's Resources */
@@ -168,7 +168,7 @@ public class Human extends Entity
     /**
      * Attack an other entity
      * @param e Entity attacked
-     * @return true if the ennemy is dead, otherwise false
+     * @return true if the enemy is dead, otherwise false
      */
     @Override
     public boolean attack(Entity e)

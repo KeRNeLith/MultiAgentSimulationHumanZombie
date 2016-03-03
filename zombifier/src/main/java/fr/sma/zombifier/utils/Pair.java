@@ -36,7 +36,7 @@ public class Pair<F, S>
     
     /**
      * Set the value of the second element.
-     * @param second New value of the seconde element.
+     * @param second New value of the second element.
      */
     public void setSecond(S second)
     {

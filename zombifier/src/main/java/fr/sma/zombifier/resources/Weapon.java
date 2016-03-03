@@ -1,7 +1,7 @@
 package fr.sma.zombifier.resources;
 
 /**
- * The class is the class that reprent a weapon resource like a knife.
+ * The class is the class that represent a weapon resource like a knife.
  * 
  * @author Alexandre Rabérin - Adrien Pierreval
  */

@@ -43,7 +43,7 @@ public class WorldGridView extends JPanel
     }
     
     /**
-     * Initialize the grid with simulation datas.
+     * Initialize the grid with simulation data.
      */
     public void loadGrid()
     {

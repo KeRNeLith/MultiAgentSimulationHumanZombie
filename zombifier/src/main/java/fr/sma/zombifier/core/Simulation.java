@@ -206,7 +206,7 @@ public class Simulation extends Observable
                 continue;
             }
             
-            // Check if the coordinates given are valids
+            // Check if the coordinates given are OK.
             if (y >= 0 && y < m_world.size() && x >= 0 && x < m_world.get(y).size())
             {
                 Platform p = m_world.get(y).get(x);
@@ -249,7 +249,7 @@ public class Simulation extends Observable
                 
                 try
                 {
-                    // Get constructor to instanciate entity
+                    // Get constructor to instantiate entity
                     Constructor<T> constructor = clazz.getConstructor(Platform.class, int.class, int.class);
                     
                     // Create and affect the entity
@@ -326,8 +326,8 @@ public class Simulation extends Observable
     {
         m_stop = true;
     }
-    
-    // Accesseurs
+
+    // Getters
     /**
      * Getter on the simulation world.
      * @return The world of the simulation.
