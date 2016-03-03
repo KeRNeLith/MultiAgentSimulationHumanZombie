@@ -9,15 +9,17 @@ import fr.sma.zombifier.world.Platform;
 import java.util.List;
 
 /**
- * 
+ * This class manage the run away behaviour of a human.
  * 
  * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class RunAwayHumanBehaviour extends BaseHumanBehaviour 
 {
-
+    /** Platform on which there is a threat. */
     private Platform m_knownThreat = null;
+    /** Time before stopping running. */
     private int m_time;
+    
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.

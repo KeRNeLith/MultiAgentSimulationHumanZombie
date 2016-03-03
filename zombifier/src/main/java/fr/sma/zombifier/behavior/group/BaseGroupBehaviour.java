@@ -17,7 +17,8 @@ import java.util.List;
  * @author Alexandre Rabérin - Adrien Pierreval
  */
 
-public abstract class BaseGroupBehaviour extends BaseBehaviour {
+public abstract class BaseGroupBehaviour extends BaseBehaviour 
+{
 
     /**
      * Group concerned by the behaviour.
@@ -33,7 +34,8 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
      * Constructor.
      * @param g Group concerned by the current behaviour.
      */
-    public BaseGroupBehaviour(HumanGroup g) {
+    public BaseGroupBehaviour(HumanGroup g) 
+    {
         super();
         m_group = g;
     }
@@ -42,7 +44,8 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
      * Set the targets of the group.
      * @param targets Targets to set.
      */
-    public void setMembersTargets(List<Platform> targets) {
+    public void setMembersTargets(List<Platform> targets) 
+    {
         this.m_membersTargets = targets;
     }
 
@@ -50,57 +53,72 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
      * Define the most important target between all which was detected by the members of the group.
      */
     @Override
-    public void analyze() {
+    public void analyze() 
+    {
 
         Platform currentPosition = m_group.getPosition();
         m_target = null;
 
-        if(m_membersTargets != null && m_membersTargets.size() > 0) {
-            for (Platform target : m_membersTargets) {
+        if (m_membersTargets != null && m_membersTargets.size() > 0) 
+        {
+            for (Platform target : m_membersTargets) 
+            {
                 // If it is an entity ?
-                if(target.getEntity() != null) {
+                if (target.getEntity() != null) 
+                {
                     // If a zombie has been detected
-                    if(target.getEntity() instanceof Zombie) {
+                    if (target.getEntity() instanceof Zombie) 
+                    {
                         // There is no target, add it
-                        if(m_target == null || m_target.getEntity() == null) {
+                        if (m_target == null || m_target.getEntity() == null) 
+                        {
                             m_target = target;
                         }
                         // Is the target recorded a threat ?
-                        else if(m_target.getEntity() instanceof Zombie) {
+                        else if (m_target.getEntity() instanceof Zombie) 
+                        {
                             // Is the precedent zombie nearest or further than the new one ?
                             if(target.getDistance(currentPosition) < m_target.getDistance(currentPosition))
                                 m_target = target;
                         }
                         // Nothing is more important than a zombie for a group
-                        else {
+                        else 
+                        {
                             m_target = target;
                         }
                     }
                     // A non-grouped Human has been spotted, a place is available and nothing else was spotted
                     else if (target.getEntity() instanceof Human && (!((Human) target.getEntity()).isGrouped())
-                            && this.m_group.canBeJoined()) {
+                            && this.m_group.canBeJoined()) 
+                    {
                         // If there is no target, add it
-                        if(m_target == null || m_target.getEntity() == null) {
+                        if (m_target == null || m_target.getEntity() == null) 
+                        {
                             m_target = target;
                         }
                         // If the target is nearest and if it is not a zombie, add it too
-                        else if((!(m_target.getEntity() instanceof Zombie))
-                            && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) {
+                        else if ((!(m_target.getEntity() instanceof Zombie))
+                            && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) 
+                        {
                             m_target = target;
                         }
                     }
                 }
                 // A resource has been spotted
-                else {
+                else 
+                {
                     // Can the group take one more resource ?
-                    if(m_group.canTakeResource()) {
+                    if (m_group.canTakeResource()) 
+                    {
                         // If the group has no human or zombie target
-                        if(m_target == null || m_target.getEntity() == null) {
+                        if (m_target == null || m_target.getEntity() == null) 
+                        {
                             m_target = target;
                         }
                         // If a resource has already been spotted
-                        else if(m_target.getEntity() == null
-                                && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) {
+                        else if (m_target.getEntity() == null
+                                && target.getDistance(currentPosition) < m_target.getDistance(currentPosition)) 
+                        {
                             m_target = target;
                         }
                     }
@@ -145,23 +163,27 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
                     m_nextBehaviour = new RunAwayGroupBehaviour(m_group, m_target, Globals.RUN_AWAY_TIME);
                 }
             }
-            else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
+            else if (m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
             {
-                if(m_target.getDistance(m_group.getPosition()) <= 2)                    // Target reachable : try to join
+                if (m_target.getDistance(m_group.getPosition()) <= 2)                    // Target reachable : try to join
                 {
-                    if(!(((Human) m_target.getEntity()).isGrouped())) {                 // If it's not a member of a group
-                        try {
+                    if (!(((Human) m_target.getEntity()).isGrouped())) {                 // If it's not a member of a group
+                        try 
+                        {
                             m_group.join((Human) m_target.getEntity());
                         }
-                        catch(HumanGroup.GroupFullException e) {
+                        catch(HumanGroup.GroupFullException e) 
+                        {
                             // TODO : ?
                         }
-                        catch(HumanGroup.NoAvailablePlaceException e) {
+                        catch(HumanGroup.NoAvailablePlaceException e) 
+                        {
                             // TODO : ?
                         }
                     }
                 }
-                else {
+                else 
+                {
                     List<Platform> oldPositions = m_group.getMembersPlatform();
                     m_group.moveTo(m_target);
                     listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));
@@ -170,7 +192,7 @@ public abstract class BaseGroupBehaviour extends BaseBehaviour {
             }
             else if (m_target.hasResource())    // Resource spotted
             {
-                if(m_target.getDistance(m_group.getPosition()) <= 1)
+                if (m_target.getDistance(m_group.getPosition()) <= 1)
                 {
                     m_group.addResource(m_target.takeResource());
                     m_nextBehaviour = new NormalGroupBehaviour(m_group);

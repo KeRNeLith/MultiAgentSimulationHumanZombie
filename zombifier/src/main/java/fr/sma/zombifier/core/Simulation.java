@@ -87,22 +87,27 @@ public class Simulation extends Observable
         // Entities live
         for (Entity e : m_entities)
         {
-            if(e.isActive()) {
+            if (e.isActive()) 
+            {
                 List<Event> events = e.live();
                 m_eventHandler.handleEvents(events);
             }
         }
 
         // Adding the entities
-        for(Entity e : m_entitiesToAdd) {
+        for (Entity e : m_entitiesToAdd) 
+        {
             m_entities.add(e);
         }
         m_entitiesToAdd.clear();
 
         // Cleaning
-        for(int i = 0 ; i < m_entities.size() ; i++) {
-            if(!m_entities.get(i).isActive()) {
-                if(!(m_entities.get(i) instanceof Human && ((Human) m_entities.get(i)).isGrouped())) {
+        for (int i = 0 ; i < m_entities.size() ; i++) 
+        {
+            if (!m_entities.get(i).isActive()) 
+            {
+                if (!(m_entities.get(i) instanceof Human && ((Human) m_entities.get(i)).isGrouped())) 
+                {
                     m_entities.remove(i);
                 }
             }

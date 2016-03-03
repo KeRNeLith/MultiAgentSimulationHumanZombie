@@ -120,7 +120,8 @@ public abstract class Entity
         Collections.shuffle(possibleLocations, m_mt);
 
         // Find a place
-        if(!possibleLocations.isEmpty()) {                                   // The entity is stuck
+        if(!possibleLocations.isEmpty()) // The entity is stuck
+        {                                   
             random = m_mt.nextInt(possibleLocations.size());
             m_position = possibleLocations.get(random);
         }
@@ -167,11 +168,14 @@ public abstract class Entity
         Collections.shuffle(possibilities, m_mt);
 
         // If there is possibilities
-        if(possibilities.size() > 0) {
+        if (possibilities.size() > 0) 
+        {
             // Get the further platform
-            for(Platform p : possibilities) {
+            for (Platform p : possibilities) 
+            {
                 int distance = p.getDistance(dest);
-                if(p.getEntity() == null && distance < min) {
+                if (p.getEntity() == null && distance < min) 
+                {
                     min = distance;
                     m_position = p;
                 }

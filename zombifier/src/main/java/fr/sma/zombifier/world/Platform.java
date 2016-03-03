@@ -1,9 +1,7 @@
 package fr.sma.zombifier.world;
 
 import fr.sma.zombifier.core.Entity;
-import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.resources.Resource;
-import fr.sma.zombifier.utils.Pair;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -195,25 +193,26 @@ public class Platform extends Observable
      * Get the possible locations where an entity can go.
      * @return An array which contains the possible locations.
      */
-    public ArrayList<Platform> getAvailableLocations() {
+    public ArrayList<Platform> getAvailableLocations() 
+    {
         Platform tmp = null;
         World world = this.getWorld();
         ArrayList<Platform> possibilities = new ArrayList<>();
 
         tmp = world.getNeighbour(this, 1, 0);
-        if(tmp != null && tmp.getEntity() == null)
+        if (tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, -1, 0);
-        if(tmp != null && tmp.getEntity() == null)
+        if (tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, 0, 1);
-        if(tmp != null && tmp.getEntity() == null)
+        if (tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         tmp = world.getNeighbour(this, 0, -1);
-        if(tmp != null && tmp.getEntity() == null)
+        if (tmp != null && tmp.getEntity() == null)
             possibilities.add(tmp);
 
         return possibilities;

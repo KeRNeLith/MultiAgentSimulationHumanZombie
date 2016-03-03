@@ -32,10 +32,11 @@ public class EventGroupMove extends Event
     @Override
     public void exec(Simulation s)
     {
-        if(m_membersOrigin.size() != m_membersDest.size())
+        if (m_membersOrigin.size() != m_membersDest.size())
             throw new IllegalStateException("There is not the same number of positions after and before the moving !");
 
-        for (int i = 0 ; i < m_membersOrigin.size() ; i++) {
+        for (int i = 0 ; i < m_membersOrigin.size() ; i++) 
+        {
             Entity e = m_membersOrigin.get(i).getEntity();
             if (e != null)
             {

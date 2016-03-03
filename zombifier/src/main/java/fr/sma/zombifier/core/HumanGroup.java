@@ -9,7 +9,6 @@ import fr.sma.zombifier.resources.Weapon;
 import fr.sma.zombifier.utils.Pair;
 import fr.sma.zombifier.world.Platform;
 import fr.sma.zombifier.world.World;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,7 +46,8 @@ public class HumanGroup extends Entity
         List<Platform> possibilities = h1.getPosition().getAvailableLocations();
 
         // Place them
-        if(possibilities.size() < 2) {
+        if(possibilities.size() < 2) 
+        {
             throw new NoAvailablePlaceException();
         }
 
@@ -79,11 +79,13 @@ public class HumanGroup extends Entity
         h2.m_direction.setSecond(this.m_position.getY() - h2.m_position.getY());
 
         // Add their resources to the one of the group
-        if(h1.hasResource()) {
+        if (h1.hasResource()) 
+        {
             this.m_resources.add(h1.getResource());
             h1.setResource(null);
         }
-        if(h2.hasResource()) {
+        if (h2.hasResource()) 
+        {
             this.m_resources.add(h2.getResource());
             h2.setResource(null);
         }
@@ -99,17 +101,21 @@ public class HumanGroup extends Entity
      * @throws GroupFullException Exception thrown if the group is full.
      * @throws NoAvailablePlaceException Exception thrown if there is no place to place the new member.
      */
-    public void join(Human h) throws GroupFullException, NoAvailablePlaceException {
-        if(this.m_members.size() >= 4) {
+    public void join(Human h) throws GroupFullException, NoAvailablePlaceException 
+    {
+        if (this.m_members.size() >= 4) 
+        {
             throw new GroupFullException();
         }
 
         List<Platform> possibilities = this.m_position.getAvailableLocations();
 
-        if(possibilities.size() < 1) {
+        if (possibilities.size() < 1) 
+        {
             throw new NoAvailablePlaceException();
         }
-        else {
+        else 
+        {
             Collections.shuffle(possibilities, this.m_mt);
 
             // Remove from where he was
@@ -124,7 +130,8 @@ public class HumanGroup extends Entity
             h.m_direction.setSecond(this.m_position.getY() - h.m_position.getY());
 
             // Add his resource for the group
-            if(h.hasResource()) {
+            if (h.hasResource()) 
+            {
                 this.m_resources.add(h.getResource());
                 h.setResource(null);
             }
@@ -139,9 +146,12 @@ public class HumanGroup extends Entity
      * Remove a member from a group.
      * @param member Member to remove.
      */
-    public void removeMember(Human member) {
-        if(m_members.contains(member)) {
-            if(m_resources.size() == m_members.size()) {                      // The group have to release a resource
+    public void removeMember(Human member) 
+    {
+        if (m_members.contains(member)) 
+        {
+            if (m_resources.size() == m_members.size()) // The group have to release a resource
+            {                      
                 int random = m_mt.nextInt(m_resources.size());
                 member.getPosition().addResource(m_resources.get(random));
                 m_resources.remove(random);
@@ -154,7 +164,8 @@ public class HumanGroup extends Entity
      * Return the humans who composed the group.
      * @return A LinkedList which contained the humans.
      */
-    public List<Human> getMembers() {
+    public List<Human> getMembers() 
+    {
         return m_members;
     }
 
@@ -162,10 +173,12 @@ public class HumanGroup extends Entity
      * Return the current positions of all the humans
      * @return An ArrayList containing the positions of all the members.
      */
-    public List<Platform> getMembersPlatform() {
+    public List<Platform> getMembersPlatform() 
+    {
         List<Platform> values = new ArrayList<>();
 
-        for(Human h : m_members) {
+        for (Human h : m_members) 
+        {
             values.add(h.getPosition());
         }
 
@@ -176,7 +189,8 @@ public class HumanGroup extends Entity
      * Say if a group has a place available or not.
      * @return True if the group is not completed otherwise false.
      */
-    public boolean canBeJoined() {
+    public boolean canBeJoined() 
+    {
         return (m_members.size() < 4);
     }
 
@@ -184,7 +198,8 @@ public class HumanGroup extends Entity
      * Say if the group is able to take one more resource.
      * @return True if the group can otherwise false.
      */
-    public boolean canTakeResource() {
+    public boolean canTakeResource() 
+    {
         return (m_resources.size() < m_members.size());
     }
 
@@ -193,9 +208,11 @@ public class HumanGroup extends Entity
      * Say if the group has a weapon or not.
      * @return True if the group has at least one, otherwise false.
      */
-    public boolean canAttack() {
+    public boolean canAttack() 
+    {
         boolean value = false;
-        for(Resource r : m_resources) {
+        for (Resource r : m_resources) 
+        {
             value |= (r instanceof FireWeapon && ((FireWeapon) r).getAmmo() > 0);
             value |= (r instanceof Weapon);
         }
@@ -208,13 +225,17 @@ public class HumanGroup extends Entity
      * @param target Platform where the target stands.
      * @return true if the group can otherwise false.
      */
-    public boolean canAttack(Platform target) {
+    public boolean canAttack(Platform target) 
+    {
         boolean value = false;
 
         // Check if with all of the weapons of the group, one human can attack the target.
-        for (Human h : m_members) {
-            for (Resource r : m_resources) {
-                if(r instanceof Weapon) {
+        for (Human h : m_members) 
+        {
+            for (Resource r : m_resources) 
+            {
+                if (r instanceof Weapon) 
+                {
                     value |= h.canAttack(target, r);
                 }
             }
@@ -228,19 +249,24 @@ public class HumanGroup extends Entity
      * @return True if the given entity died otherwise false.
      */
     @Override
-    public boolean attack(Entity e) {
+    public boolean attack(Entity e) 
+    {
         boolean success = false;
 
-        if(this.canAttack(e.getPosition()))  {                      // If the group can attack
-            for(Human h : m_members) {                              // For all the humans
-                for(Resource r : m_resources)
+        if (this.canAttack(e.getPosition()))   // If the group can attack
+        {                     
+            for (Human h : m_members) // For all the humans
+            {                              
+                for (Resource r : m_resources)
                 {
-                    if(r instanceof FireWeapon || r instanceof Weapon) {
-                        if(h.canAttack(e.m_position, r)) {          // If they can attack with a weapon
+                    if (r instanceof FireWeapon || r instanceof Weapon) 
+                    {
+                        if (h.canAttack(e.m_position, r)) // If they can attack with a weapon
+                        {          
                             h.setResource(r);                       // They get it
                             m_resources.remove(r);
                             success = h.attack(e);                  // They attack
-                            if(h.getResource() != null)
+                            if (h.getResource() != null)
                                 m_resources.add(h.getResource());   // The weapon, broken or not, return to the resource stock
                             break;
                         }
@@ -258,15 +284,17 @@ public class HumanGroup extends Entity
      * @return List of events generated by the life cycle of the group.
      */
     @Override
-    public List<Event> live() {
-
+    public List<Event> live() 
+    {
         // Analyse
         List<Platform> targets = new ArrayList<>();
 
         // Launch the analysis of all the members
-        for (Human h : m_members) {
+        for (Human h : m_members) 
+        {
             h.m_behaviour.analyze();
-            if(h.m_behaviour.getTarget() != null) {
+            if(h.m_behaviour.getTarget() != null) 
+            {
                 targets.add(h.m_behaviour.getTarget());
             }
         }
@@ -284,7 +312,8 @@ public class HumanGroup extends Entity
      * Return the possibles moves for every member and for the group.
      * @return The list of a list of possible moves grouped by direction.
      */
-    private List<List<Platform>> getPossibilities() {
+    private List<List<Platform>> getPossibilities() 
+    {
 
         Platform tmp;
         World world = m_position.getWorld();
@@ -300,32 +329,41 @@ public class HumanGroup extends Entity
         dirs.add(new Pair<>(0, 1));
         dirs.add(new Pair<>(0, -1));
 
-        for(Pair<Integer, Integer> dir : dirs) {
+        for (Pair<Integer, Integer> dir : dirs) 
+        {
             // Get all members possibilities
             List<Platform> memberLocs = new ArrayList<>();
-            for(Human h : m_members) {
+            for (Human h : m_members) 
+            {
                 tmp = world.getNeighbour(h.getPosition(), dir.getFirst(), dir.getSecond());
-                if (tmp == null || tmp.getEntity() != null) {
+                if (tmp == null || tmp.getEntity() != null) 
+                {
                     break;
-                } else {
+                } 
+                else 
+                {
                     memberLocs.add(tmp);
                 }
             }
 
-            if(memberLocs.size() == m_members.size()) {
+            if (memberLocs.size() == m_members.size()) 
+            {
                 // Get group possibilities
                 tmp = world.getNeighbour(m_position, dir.getFirst(), dir.getSecond());
-                if(tmp != null) {
+                if (tmp != null) 
+                {
                     groupPossibilities.add(tmp);
                     possibilities.add(memberLocs);
                 }
             }
         }
 
-        if(possibilities.size() == 0) {
+        if (possibilities.isEmpty()) 
+        {
             return null;
         }
-        else {
+        else 
+        {
             possibilities.add(groupPossibilities);
         }
 
@@ -338,12 +376,14 @@ public class HumanGroup extends Entity
      * @param groupPositions Group positions available.
      * @param memberPositions Members positions available.
      */
-    private void groupMove(int choice, List<Platform> groupPositions, List<List<Platform>> memberPositions) {
+    private void groupMove(int choice, List<Platform> groupPositions, List<List<Platform>> memberPositions) 
+    {
         // Change the position of the group
         this.m_position = groupPositions.get(choice);
 
         // Change the position of each human
-        for(int i = 0 ; i < memberPositions.get(choice).size() ; i++) {
+        for (int i = 0 ; i < memberPositions.get(choice).size() ; i++) 
+        {
             m_members.get(i).m_position = memberPositions.get(choice).get(i);
         }
     }
@@ -353,11 +393,13 @@ public class HumanGroup extends Entity
      * @return The new position of the group.
      */
     @Override
-    public Platform randomMove() {
+    public Platform randomMove() 
+    {
 
         List<List<Platform>> possibilities = this.getPossibilities();
 
-        if(possibilities == null) {
+        if (possibilities == null) 
+        {
             return m_position;
         }
 
@@ -379,12 +421,14 @@ public class HumanGroup extends Entity
      * @return Platform where the group stand at the end of the moving.
      */
     @Override
-    public Platform moveTo(Platform dest) {
+    public Platform moveTo(Platform dest) 
+    {
 
         int bestDirection = -1;
         List<List<Platform>> possibilities = this.getPossibilities();
 
-        if(possibilities == null) {
+        if (possibilities == null) 
+        {
             return m_position;
         }
 
@@ -392,9 +436,11 @@ public class HumanGroup extends Entity
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 
-        for(int i = 0 ; i < groupPossibilities.size() ; i++) {
+        for (int i = 0 ; i < groupPossibilities.size() ; i++) 
+        {
             Platform p = groupPossibilities.get(i);
-            if(bestDirection == -1 || p.getDistance(dest) < groupPossibilities.get(bestDirection).getDistance(dest)) {
+            if (bestDirection == -1 || p.getDistance(dest) < groupPossibilities.get(bestDirection).getDistance(dest)) 
+            {
                 bestDirection = i;
             }
         }
@@ -409,12 +455,14 @@ public class HumanGroup extends Entity
      * @param target : Place of the danger.
      * @return the position of the group after moving.
      */
-    public Platform runAwayFrom(Platform target) {
+    public Platform runAwayFrom(Platform target) 
+    {
 
         int bestDirection = -1;
         List<List<Platform>> possibilities = this.getPossibilities();
 
-        if(possibilities == null) {
+        if (possibilities == null) 
+        {
             return m_position;
         }
 
@@ -422,9 +470,11 @@ public class HumanGroup extends Entity
         List<Platform> groupPossibilities = possibilities.get(possibilities.size() - 1);
         possibilities.remove(possibilities.size() - 1);
 
-        for(int i = 0 ; i < groupPossibilities.size() ; i++) {
+        for (int i = 0 ; i < groupPossibilities.size() ; i++) 
+        {
             Platform p = groupPossibilities.get(i);
-            if(bestDirection == -1 || p.getDistance(target) > groupPossibilities.get(bestDirection).getDistance(target)) {
+            if (bestDirection == -1 || p.getDistance(target) > groupPossibilities.get(bestDirection).getDistance(target)) 
+            {
                 bestDirection = i;
             }
         }
@@ -438,8 +488,10 @@ public class HumanGroup extends Entity
      * Add a resource for the group
      * @param r Resource added
      */
-    public void addResource(Resource r) {
-        if(this.canTakeResource()) {
+    public void addResource(Resource r) 
+    {
+        if (this.canTakeResource()) 
+        {
             m_resources.add(r);
         }
     }
@@ -448,10 +500,12 @@ public class HumanGroup extends Entity
      * Return if the group has a weapon or not.
      * @return True if it has one, otherwise false.
      */
-    public boolean hasWeapon() {
+    public boolean hasWeapon() 
+    {
         boolean value = false;
 
-        for (Resource r : m_resources) {
+        for (Resource r : m_resources) 
+        {
             value |= ((r instanceof Weapon) || (r instanceof FireWeapon));
         }
 
@@ -461,8 +515,13 @@ public class HumanGroup extends Entity
     /**
      * Exception thrown when attempting to join a group but this one is full.
      */
-    public class GroupFullException extends Exception {
-        public GroupFullException() {
+    public class GroupFullException extends Exception 
+    {
+        /**
+         * Constructor.
+         */
+        public GroupFullException() 
+        {
             System.out.println("No way to join the group, it is full !");
         }
     }
@@ -470,8 +529,13 @@ public class HumanGroup extends Entity
     /**
      * Exception thrown when a new member can't join a group because there is no available location for him.
      */
-    public class NoAvailablePlaceException extends Exception {
-        public NoAvailablePlaceException() {
+    public class NoAvailablePlaceException extends Exception 
+    {
+        /**
+         * Constructor.
+         */
+        public NoAvailablePlaceException() 
+        {
             System.out.println("There is no place for joining the group !");
         }
     }

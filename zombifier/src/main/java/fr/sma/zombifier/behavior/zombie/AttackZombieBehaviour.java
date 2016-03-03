@@ -1,6 +1,5 @@
 package fr.sma.zombifier.behavior.zombie;
 
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventMove;
@@ -18,7 +17,7 @@ public class AttackZombieBehaviour extends NormalZombieBehaviour
     /**
      * Previous behaviour's target.
      */
-    private Platform m_oldTarget;
+    private final Platform m_oldTarget;
 
     /**
      * Time before giving up this behaviour.

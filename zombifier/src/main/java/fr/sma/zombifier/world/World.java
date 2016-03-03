@@ -93,8 +93,9 @@ public class World extends ArrayList<ArrayList< Platform >>
         // Checking parameters
         if(pY + y >= 0 && pY + y < this.size()
            && pX + x >= 0 && pX + x < this.get(pY + y).size())
+        {
             return this.get(pY + y).get(pX + x);
-
+        }
         else
             return null;
     }

@@ -1,6 +1,5 @@
 package fr.sma.zombifier.behavior.zombie;
 
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventMove;

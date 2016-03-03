@@ -1,13 +1,8 @@
 package fr.sma.zombifier.event;
 
-import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Simulation;
-import fr.sma.zombifier.world.Platform;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This event manage the creation of a group.
@@ -16,9 +11,10 @@ import java.util.List;
  */
 public class EventGroupCreated extends Event
 {
-    /** Platform on which the entity is on at the beginning of the event. */
-    private Human m_human1;
-    private Human m_human2;
+    /** First member of the group which will be created. */
+    private final Human m_human1;
+    /** Second member of the group which will be created. */
+    private final Human m_human2;
 
 
     /**
@@ -35,11 +31,13 @@ public class EventGroupCreated extends Event
     @Override
     public void exec(Simulation s)
     {
-        try {
+        try 
+        {
             HumanGroup g = new HumanGroup(m_human1, m_human2);
             s.getEntitiesToAdd().add(g);
         }
-        catch(HumanGroup.NoAvailablePlaceException e) {
+        catch(HumanGroup.NoAvailablePlaceException e) 
+        {
 
         }
     }

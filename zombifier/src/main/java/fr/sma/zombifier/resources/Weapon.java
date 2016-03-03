@@ -41,7 +41,10 @@ public class Weapon extends Resource
      * Get the efficiency of the weapon.
      * @return Efficiency of the weapon.
      */
-    public float getEfficiency() { return m_efficiency; }
+    public float getEfficiency() 
+    { 
+        return m_efficiency; 
+    }
 
     /**
      * Get the power level of the weapon.
@@ -56,7 +59,8 @@ public class Weapon extends Resource
      * Say if a weapon is able to attack
      * @return true if yes, otherwise false
      */
-    public boolean canAttack() {
+    public boolean canAttack() 
+    {
         return true;
     }
 }

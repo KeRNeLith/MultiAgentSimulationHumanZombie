@@ -34,22 +34,22 @@ public class CSVParser
     private List<String> loadFile(String path)
     {
         // Create return list
-        List<String> content = new LinkedList<String>();
+        List<String> content = new LinkedList<>();
         
         try
         {
-            // Get the buffer of the file
-            BufferedReader br = new BufferedReader(new FileReader(path));
-            
             // Read the file line per line
-            while (br.ready())
+            try ( // Get the buffer of the file
+                    BufferedReader br = new BufferedReader(new FileReader(path))) 
             {
-                String line = br.readLine();
-                content.add(line);
+                // Read the file line per line
+                while (br.ready()) 
+                {
+                    String line = br.readLine();
+                    content.add(line);
+                }
+                // Close the stream and free resources
             }
-            
-            // Close the stream and free resources
-            br.close();
         }
         catch (IOException err)
         {
@@ -83,7 +83,7 @@ public class CSVParser
         boolean returnCode = false;
         
         // Create lists of parsed content
-        m_parsedContent = new LinkedList<HashMap<String,String>>();
+        m_parsedContent = new LinkedList<>();
         
         // Get content of the file
         List<String> content = loadFile(path);
@@ -95,7 +95,7 @@ public class CSVParser
             String[] order = loadOrder(content);
             
             // Initialize recovering maps
-            Map<String,String> map = new HashMap<String, String>();
+            Map<String,String> map = new HashMap<>();
             for (String orderS : order) 
             {
                 map.put(orderS, "");
@@ -116,7 +116,7 @@ public class CSVParser
                 }
                 
                 // Add the line to list of parsed content
-                m_parsedContent.add(new HashMap<String, String>(map));
+                m_parsedContent.add(new HashMap<>(map));
             }
             
             returnCode = true;

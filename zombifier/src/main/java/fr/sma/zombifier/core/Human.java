@@ -55,13 +55,17 @@ public class Human extends Entity
      * Check if a human has a resource.
      * @return True if he has otherwise false.
      */
-    public boolean hasResource() { return m_resource != null; }
+    public boolean hasResource() 
+    { 
+        return m_resource != null; 
+    }
 
     /**
      * Get the resource of a human
      * @return Resource of the human
      */
-    public Resource getResource() {
+    public Resource getResource() 
+    {
         return m_resource;
     }
 
@@ -69,7 +73,8 @@ public class Human extends Entity
      * Give a resource to the entity
      * @param r resource to give
      */
-    public void setResource(Resource r) {
+    public void setResource(Resource r) 
+    {
         m_resource = r;
     }
 
@@ -77,7 +82,8 @@ public class Human extends Entity
      * Say if a human has a weapon or not
      * @return true if he has one, otherwise false
      */
-    public boolean haveWeapon() {
+    public boolean haveWeapon() 
+    {
         return (m_resource != null && m_resource instanceof Weapon);
     }
 
@@ -85,27 +91,31 @@ public class Human extends Entity
      * Say if a human can attack
      * @return true if he can, otherwise false
      */
-    public boolean canAttack() {
+    public boolean canAttack() 
+    {
         boolean b = false;
 
-        if(m_resource == null)
+        if (m_resource == null)
         {
             return false;
         }
 
-        if(m_resource instanceof FireWeapon)
+        if (m_resource instanceof FireWeapon)
         {
             FireWeapon weapon = (FireWeapon) m_resource;
             // If it's reachable and he got ammo : OK
             if(weapon.getAmmo() > 0)
                 b = true;
         }
-        else if(m_resource instanceof Weapon)
+        else if (m_resource instanceof Weapon)
+        {
             b = true;
-
+        }
         else
+        {
             b = false;
-
+        }
+        
         return b;
     }
 
@@ -115,33 +125,38 @@ public class Human extends Entity
      * @param r Resource to try to attack with
      * @return true if he can, otherwise false
      */
-    public boolean canAttack(Platform p, Resource r) {
+    public boolean canAttack(Platform p, Resource r) 
+    {
         boolean b = false;
         Resource weapon = null;
 
-        if(r == null)
+        if (r == null)
         {
             weapon = m_resource;
         }
-        else {
+        else 
+        {
             weapon = r;
         }
 
-        if(weapon == null) {
+        if(weapon == null) 
+        {
             return false;
         }
 
         int distance = m_position.getDistance(p);
 
-        if(weapon instanceof FireWeapon)
+        if (weapon instanceof FireWeapon)
         {
             FireWeapon fweapon = (FireWeapon) weapon;
             // If it's reachable and he got ammo : OK
             if((fweapon.getRange() >= distance) && (fweapon.getAmmo() > 0))
                 b = true;
         }
-        else b = ((weapon instanceof Weapon)
-                && (distance <= 1));
+        else 
+        {
+            b = ((weapon instanceof Weapon) && (distance <= 1));
+        }
 
         return b;
     }
@@ -159,7 +174,8 @@ public class Human extends Entity
      * Define a group for the entity.
      * @param g Human group the human join.
      */
-    public void setGroup(HumanGroup g) {
+    public void setGroup(HumanGroup g) 
+    {
         m_group = g;
         m_isGrouped = true;
         m_active = false;
@@ -175,18 +191,20 @@ public class Human extends Entity
     {
         boolean success = false;
 
-        if(m_resource != null && m_resource instanceof Weapon)      // If Human has a weapon
+        if (m_resource != null && m_resource instanceof Weapon)      // If Human has a weapon
         {
-            if(m_resource instanceof FireWeapon) {                  // Fire Weapon
+            if (m_resource instanceof FireWeapon)  // Fire Weapon
+            {                 
                 FireWeapon weapon = (FireWeapon) m_resource;
-                if(m_position.getDistance(e.getPosition()) <= weapon.getRange())
+                if (m_position.getDistance(e.getPosition()) <= weapon.getRange())
                 {
-                    if(weapon.getAmmo() > 0)                        // If it has ammo
+                    if (weapon.getAmmo() > 0)                        // If it has ammo
                     {
                         success = (m_mt.nextFloat()) <= ((Weapon) m_resource).getEfficiency();
 
                         // Check if the weapon break
-                        if(m_mt.nextFloat() <= weapon.getBreakRate()) {
+                        if (m_mt.nextFloat() <= weapon.getBreakRate()) 
+                        {
                             m_resource = null;
                         }
                     }
@@ -196,14 +214,16 @@ public class Human extends Entity
                 else                                                // Not in range
                     success = false;
             }
-            else if(m_resource instanceof Weapon) {                 // Blade Weapon
+            else if (m_resource instanceof Weapon) // Blade Weapon
+            {                 
                 Weapon weapon = (Weapon) m_resource;
-                if(m_position.getDistance(e.getPosition()) <= 1)    // Target is reachable
+                if (m_position.getDistance(e.getPosition()) <= 1)    // Target is reachable
                 {
                     success = (m_mt.nextFloat()) <= weapon.getEfficiency();
 
                     // Check if the weapon break
-                    if(m_mt.nextFloat() <= weapon.getBreakRate()) {
+                    if (m_mt.nextFloat() <= weapon.getBreakRate()) 
+                    {
                         m_resource = null;
                     }
                 }
@@ -224,7 +244,8 @@ public class Human extends Entity
      * @param target : Place of the danger.
      * @return the position of the entity after moving.
      */
-    public Platform runAwayFrom(Platform target) {
+    public Platform runAwayFrom(Platform target) 
+    {
 
         int max = -1;
         Platform currentPosition = m_position;
@@ -233,11 +254,14 @@ public class Human extends Entity
         Collections.shuffle(possibilities, m_mt);
 
         // If there is possibilities
-        if(possibilities.size() > 0) {
+        if (possibilities.size() > 0) 
+        {
             // Get the further platform
-            for(Platform p : possibilities) {
+            for(Platform p : possibilities) 
+            {
                 int distance = p.getDistance(target);
-                if(p.getEntity() == null && distance > max) {
+                if (p.getEntity() == null && distance > max) 
+                {
                     max = distance;
                     m_position = p;
                 }

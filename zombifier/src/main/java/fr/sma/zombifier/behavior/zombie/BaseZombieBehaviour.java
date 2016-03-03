@@ -45,20 +45,20 @@ public abstract class BaseZombieBehaviour extends BaseBehaviour
         Neighborhood neighborhood = new Neighborhood(m_entity.getPosition(), m_entity.getDirection());
 
         // Get only entity for zombies
-        for(Platform platform : neighborhood.getPlatformWithEntity()) 
+        for (Platform platform : neighborhood.getPlatformWithEntity()) 
         {
             Platform cur_position = m_entity.getPosition();
 
             // Compute the nearest target
-            if(platform.getEntity() instanceof Human) 
+            if (platform.getEntity() instanceof Human) 
             {
-                if(m_target == null) 
+                if (m_target == null) 
                 {
                     m_target = platform;
                 }
                 else 
                 {
-                    if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
+                    if (platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
                     {
                         m_target = platform;
                     }
@@ -76,13 +76,13 @@ public abstract class BaseZombieBehaviour extends BaseBehaviour
     {
         List<Event> listEvent = new ArrayList<>();
 
-        if(m_target == null)                                            // No target : Random move
+        if (m_target == null)                                            // No target : Random move
         {
             defaultReaction(listEvent);
         }
         else                                                            // Target known
         {
-            if(m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable : attack
+            if (m_target.getDistance(m_entity.getPosition()) <= 1)       // Target reachable : attack
             {
                 m_entity.attack(m_target.getEntity());
                 listEvent.add(new EventEntityConvert(m_target.getEntity()));

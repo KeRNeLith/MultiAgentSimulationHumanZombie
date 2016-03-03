@@ -1,24 +1,22 @@
 package fr.sma.zombifier.behavior.group;
 
-import fr.sma.zombifier.behavior.IBehaviour;
-import fr.sma.zombifier.core.Human;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventGroupMove;
-import fr.sma.zombifier.event.EventMove;
 import fr.sma.zombifier.world.Platform;
 
 import java.util.List;
 
 /**
- *
+ * This class manage the run away behaviour of a human group.
  *
  * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class RunAwayGroupBehaviour extends BaseGroupBehaviour
 {
-
+    /** Platform on which there is a known threat. */
     private Platform m_knownThreat = null;
+    /** Time before stopping running. */
     private int m_time;
 
     /**

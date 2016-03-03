@@ -7,7 +7,8 @@ import fr.sma.zombifier.world.Platform;
  *
  * @author Alexandre Rabérin - Adrien Pierreval
  */
-public abstract class BaseBehaviour implements IBehaviour {
+public abstract class BaseBehaviour implements IBehaviour 
+{
     /**
      * Entity using this behaviour.
      */
@@ -20,7 +21,8 @@ public abstract class BaseBehaviour implements IBehaviour {
     /**
      * Constructor.
      */
-    public BaseBehaviour() {
+    public BaseBehaviour() 
+    {
         this.m_target = null;
         m_nextBehaviour = null;             // m_nextBehaviour will be to defined
     }
@@ -30,7 +32,8 @@ public abstract class BaseBehaviour implements IBehaviour {
      *
      * @return The entity current target.
      */
-    public Platform getTarget() {
+    public Platform getTarget() 
+    {
         return this.m_target;
     }
 
@@ -40,7 +43,8 @@ public abstract class BaseBehaviour implements IBehaviour {
      * @return the next Behaviour.
      */
     @Override
-    public BaseBehaviour next() {
+    public BaseBehaviour next() 
+    {
         return m_nextBehaviour;
     }
 }

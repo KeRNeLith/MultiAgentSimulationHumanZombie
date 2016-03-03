@@ -8,7 +8,6 @@ import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventEntityDie;
 import fr.sma.zombifier.event.EventGroupCreated;
 import fr.sma.zombifier.event.EventMove;
-import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.utils.Globals;
 import fr.sma.zombifier.world.Neighborhood;
 import fr.sma.zombifier.world.Platform;
@@ -50,35 +49,39 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
         Neighborhood neighborhood = new Neighborhood(m_entity.getPosition(), m_entity.getDirection());
 
         // First analyse the entities
-        for(Platform platform : neighborhood.getPlatformWithEntity()) 
+        for (Platform platform : neighborhood.getPlatformWithEntity()) 
         {
             // Compute the nearest target
-            if(platform.getEntity() instanceof Zombie) 
+            if (platform.getEntity() instanceof Zombie) 
             {
-                if(m_target == null) 
+                if (m_target == null) 
                 {
                     m_target = platform;
                 }
                 else 
                 {
-                    if(platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
+                    if (platform.getDistance(cur_position) < m_target.getDistance(cur_position)) 
                     {
                         m_target = platform;
                     }
                 }
             }
-            else if(platform.getEntity() instanceof Human)
+            else if (platform.getEntity() instanceof Human)
             {
-                if(m_target == null) {
+                if (m_target == null) {
                     m_target = platform;
                 }
-                else {
-                    if(m_target.getEntity() == null) {
+                else 
+                {
+                    if (m_target.getEntity() == null) 
+                    {
                         m_target = platform;
                     }
-                    else {          // Else if it is not a zombie
-                        if(!(m_target.getEntity() instanceof Zombie)
-                                && (platform.getDistance(cur_position) < m_target.getDistance(cur_position))) {
+                    else // Else if it is not a zombie
+                    {          
+                        if (!(m_target.getEntity() instanceof Zombie)
+                                && (platform.getDistance(cur_position) < m_target.getDistance(cur_position))) 
+                        {
                             m_target = platform;
                         }
                     }
@@ -87,19 +90,19 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
         }
 
         // If there is no enemies nor allies, scan for resources
-        if(m_target == null) 
+        if (m_target == null) 
         {
             for (Platform platform : neighborhood.getPlatformWithResources())
             {
-                if(platform.getResource() != null)
+                if (platform.getResource() != null)
                 {
-                    if(m_target == null)
+                    if (m_target == null)
                     {
                         m_target = platform;
                     }
                     else
                     {
-                        if(platform.getDistance(cur_position) < m_target.getDistance(cur_position))
+                        if (platform.getDistance(cur_position) < m_target.getDistance(cur_position))
                         {
                             m_target = platform;
                         }
@@ -118,15 +121,15 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
     {
         List<Event> listEvent = new ArrayList<>();
 
-        if(m_target == null)            // No target : random move
+        if (m_target == null)            // No target : random move
         {                              
             defaultReaction(listEvent);
         }
         else                            // Target defined
         {
-            if(m_target.hasEntity() && m_target.getEntity() instanceof Zombie)          // Zombie spotted
+            if (m_target.hasEntity() && m_target.getEntity() instanceof Zombie)          // Zombie spotted
             {                      
-                if(m_entity.haveWeapon() && m_entity.canAttack(m_target, null))
+                if (m_entity.haveWeapon() && m_entity.canAttack(m_target, null))
                 {
                     if (m_entity.attack(m_target.getEntity())) 
                     {
@@ -146,35 +149,39 @@ public abstract class BaseHumanBehaviour extends BaseBehaviour
                     m_nextBehaviour = new RunAwayHumanBehaviour(m_entity, m_target, Globals.RUN_AWAY_TIME);
                 }
             }
-            else if(m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
+            else if (m_target.hasEntity() && m_target.getEntity() instanceof Human)      // Human spotted
             {
-                if(m_target.getDistance(m_entity.getPosition()) <= 1)                   // Target reachable : try to join
+                if (m_target.getDistance(m_entity.getPosition()) <= 1)                   // Target reachable : try to join
                 {
-                    if(((Human) m_target.getEntity()).isGrouped()) {                    // If it's a member of a group
-                        try {
+                    if(((Human) m_target.getEntity()).isGrouped()) // If it's a member of a group
+                    {                    
+                        try 
+                        {
                             ((Human) m_target.getEntity()).getGroup().join(this.m_entity);
                         }
-                        catch(HumanGroup.GroupFullException e) {
+                        catch(HumanGroup.GroupFullException e) 
+                        {
                             // TODO : ?
                         }
-                        catch(HumanGroup.NoAvailablePlaceException e) {
+                        catch(HumanGroup.NoAvailablePlaceException e) 
+                        {
                             // TODO : ?
                         }
-
                     }
                     else                                                        // Need to move to join
                     {
                         listEvent.add(new EventGroupCreated(this.m_entity, (Human) m_target.getEntity()));
                     }
                 }
-                else {
+                else 
+                {
                     listEvent.add(new EventMove(m_entity.getPosition(), m_entity.moveTo(m_target)));
                 }
                 m_nextBehaviour = new NormalHumanBehaviour(this.m_entity);
             }
             else if (m_target.hasResource())    // Resource spotted
             {              
-                if(m_target.getDistance(m_entity.getPosition()) <= 1) 
+                if (m_target.getDistance(m_entity.getPosition()) <= 1) 
                 {
                     m_entity.setResource(m_target.takeResource());
                     m_nextBehaviour = new NormalHumanBehaviour(m_entity);

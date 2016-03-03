@@ -1,6 +1,5 @@
 package fr.sma.zombifier.behavior.group;
 
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventMove;
@@ -9,15 +8,15 @@ import fr.sma.zombifier.world.Platform;
 import java.util.List;
 
 /**
- * zombifier
- * <p>
- * This class ...
- *
+ * This class manage the attack behaviour of a human group.
+ * 
  * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class AttackGroupBehaviour extends BaseGroupBehaviour
 {
+    /** Old target platform. */
     private Platform m_oldTarget = null;
+    /** Give up time. */
     private int m_giveUp;
 
     /**

@@ -23,7 +23,8 @@ public class EventEntityDie extends Event
     }
 
     @Override
-    public void exec(Simulation s) {
+    public void exec(Simulation s) 
+    {
         m_dyingEntity.getPosition().removeEntity();
         m_dyingEntity.disable();
     }
