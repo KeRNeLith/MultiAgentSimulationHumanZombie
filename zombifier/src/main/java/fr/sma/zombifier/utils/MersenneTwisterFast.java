@@ -48,7 +48,7 @@ import java.util.Random;
  * suggestions from Topher Cooper and Marc Rieffel, July 1997. The code was
  * originally translated into Java by Michael Lecuyer, January 1999, and is
  * Copyright (c) 1999 by Michael Lecuyer. The included license is as follows:
- * <blockquote><font size="-1"> The basic algorithmic work of this library
+ * <blockquote> The basic algorithmic work of this library
  * (appearing in nextInt() and setSeed()) is free software; you can redistribute
  * it and or modify it under the terms of the GNU Library General Public License
  * as published by the Free Software Foundation; either version 2 of the
@@ -59,7 +59,7 @@ import java.util.Random;
  * FOR A PARTICULAR PURPOSE. See the GNU Library General Public License for more
  * details. You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free Foundation, Inc.,
- * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA </font> </blockquote>
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA </blockquote>
  * <h3>Bug Fixes</h3>
  * <p>
  * This implementation implements the bug fixes made in Java 1.2's version of
@@ -893,7 +893,7 @@ public class MersenneTwisterFast extends Random implements Serializable
 
     /**
      * Returns an integer drawn uniformly from 0 to n-1. Suffice it to say, n
-     * must be > 0, or an IllegalArgumentException is raised.
+     * must be greater 0, or an IllegalArgumentException is raised.
      * 
      * @param n the upper bound
      * @return the next int

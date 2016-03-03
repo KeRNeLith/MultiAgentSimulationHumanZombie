@@ -79,7 +79,7 @@ public class Globals
 
     /**
      * Read the simulation properties and load its values into globals variables.
-     * @see The file simulation.properties to have all properties and edit them.
+     * The file simulation.properties to have all properties and edit them.
      * @return true if the load of simulation.properties succeed, otherwise false.
      */
     public static boolean readSimuProperties()

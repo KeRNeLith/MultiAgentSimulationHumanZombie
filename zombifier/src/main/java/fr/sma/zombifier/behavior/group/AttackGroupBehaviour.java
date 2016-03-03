@@ -22,8 +22,8 @@ public class AttackGroupBehaviour extends BaseGroupBehaviour
     /**
      * Constructor.
      * @param g Entity concerned by the current behaviour.
-     * @param target
-     * @param giveUp
+     * @param target Target platform.
+     * @param giveUp Give up time.
      */
     public AttackGroupBehaviour(HumanGroup g, Platform target, int giveUp)
     {

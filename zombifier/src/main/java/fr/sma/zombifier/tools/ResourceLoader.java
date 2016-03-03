@@ -32,7 +32,7 @@ public class ResourceLoader
     /**
      * Load a resource configuration file (*.conf).
      * @param filePath Path to the resources file.
-     * @return List of resources successfully loaded with their wanted coordinates. (< <Coordinate X, Coordinate Y>, Resource >)
+     * @return List of resources successfully loaded with their wanted coordinates. ([ [Coordinate X, Coordinate Y], Resource ])
      */
     public List< Pair< Pair<Integer, Integer>, Resource > > loadFromFile(String filePath)
     {
