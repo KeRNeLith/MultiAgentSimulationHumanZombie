@@ -95,11 +95,13 @@ public class WorldTest extends TestCase
                 // Get Platform
                 Platform p = w.getNeighbour(startPlatform, i, j);
 
-                if ((i == 0 && j == 0) || i < -10 || i >= 10 || j < -10 || j >= 10)
+                if (i == 0 && j == 0)
                 {
                     assertSame(startPlatform, p);
-                    assertEquals(p.getX(), 10);
-                    assertEquals(p.getY(), 10);
+                }
+                else if (i < -10 || i >= 10 || j < -10 || j >= 10)
+                {
+                    assertNull(p);
                 }
                 else
                 {
