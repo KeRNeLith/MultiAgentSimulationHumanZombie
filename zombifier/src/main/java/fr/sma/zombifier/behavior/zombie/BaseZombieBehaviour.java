@@ -21,7 +21,11 @@ import java.util.List;
 public abstract class BaseZombieBehaviour extends BaseBehaviour 
 {
 
+    /**
+     * Zombie concerned by this behaviour.
+     */
     protected final Zombie m_entity;
+
     /**
      * Constructor.
      * @param e Entity concerned by the current behaviour.

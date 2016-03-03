@@ -94,9 +94,10 @@ public class HumanGroup extends Entity
     }
 
     /**
-     * Allow a human to join the group
-     * @param h human who want to join
-     * @throws Exception
+     * Allow a human to join the group.
+     * @param h human who want to join the group.
+     * @throws GroupFullException Exception thrown if the group is full.
+     * @throws NoAvailablePlaceException Exception thrown if there is no place to place the new member.
      */
     public void join(Human h) throws GroupFullException, NoAvailablePlaceException {
         if(this.m_members.size() >= 4) {
@@ -457,12 +458,18 @@ public class HumanGroup extends Entity
         return value;
     }
 
+    /**
+     * Exception thrown when attempting to join a group but this one is full.
+     */
     public class GroupFullException extends Exception {
         public GroupFullException() {
             System.out.println("No way to join the group, it is full !");
         }
     }
 
+    /**
+     * Exception thrown when a new member can't join a group because there is no available location for him.
+     */
     public class NoAvailablePlaceException extends Exception {
         public NoAvailablePlaceException() {
             System.out.println("There is no place for joining the group !");

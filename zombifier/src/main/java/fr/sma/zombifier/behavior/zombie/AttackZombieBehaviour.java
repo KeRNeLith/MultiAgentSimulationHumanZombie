@@ -15,12 +15,21 @@ import java.util.List;
  */
 public class AttackZombieBehaviour extends NormalZombieBehaviour 
 {
+    /**
+     * Previous behaviour's target.
+     */
     private Platform m_oldTarget;
+
+    /**
+     * Time before giving up this behaviour.
+     */
     private int m_giveUp;
-    
+
     /**
      * Constructor.
-     * @param e Entity concerned by the current behaviour.
+     * @param e Entity concerned by the behaviour.
+     * @param p Previous behaviour's target.
+     * @param giveUp Time before giving up.
      */
     public AttackZombieBehaviour(Zombie e, Platform p, int giveUp)
     {

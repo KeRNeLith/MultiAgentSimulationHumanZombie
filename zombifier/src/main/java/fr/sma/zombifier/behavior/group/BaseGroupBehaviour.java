@@ -19,7 +19,14 @@ import java.util.List;
 
 public abstract class BaseGroupBehaviour extends BaseBehaviour {
 
+    /**
+     * Group concerned by the behaviour.
+     */
     protected final HumanGroup m_group;
+
+    /**
+     * Targets spotted following the members' analysis.
+     */
     protected List<Platform> m_membersTargets;
 
     /**

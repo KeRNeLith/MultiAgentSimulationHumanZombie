@@ -24,6 +24,9 @@ import java.util.List;
 public abstract class BaseHumanBehaviour extends BaseBehaviour 
 {
 
+    /**
+     * Human concerned by the behaviour
+     */
     protected final Human m_entity;
 
     /**

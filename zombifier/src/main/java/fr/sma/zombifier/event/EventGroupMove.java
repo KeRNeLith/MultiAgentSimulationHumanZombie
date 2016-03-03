@@ -4,7 +4,6 @@ import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Simulation;
 import fr.sma.zombifier.world.Platform;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +18,11 @@ public class EventGroupMove extends Event
     /** Platforms on which the members will be at the end of the event. */
     private final List<Platform> m_membersDest;
 
+    /**
+     * Constructor of a EventGroupMove.
+     * @param mOrig Members of the group's origin platforms.
+     * @param mDest Members of the group's destination platforms.
+     */
     public EventGroupMove(final List<Platform> mOrig, final List<Platform> mDest)
     {
         this.m_membersOrigin = mOrig;
