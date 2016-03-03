@@ -31,47 +31,38 @@ public class EventEntityConvert extends Event
     {
         if (m_entityToConvert instanceof Human)
         {
-            if(((Human) m_entityToConvert).isGrouped()) {
+            int index = s.getEntities().indexOf(m_entityToConvert);
+
+            // Test if the entity has been found
+            if(index != -1) {
                 Platform p = m_entityToConvert.getPosition();
 
-                ((Human) m_entityToConvert).getGroup().removeMember((Human) m_entityToConvert);
+                // If the human is grouped
+                if(((Human) m_entityToConvert).isGrouped()) {
+                    ((Human) m_entityToConvert).getGroup().removeMember((Human) m_entityToConvert);
+                }
+                // Human alone
+                else {
+                    // If the human as a Resource, he drop it
+                    if(((Human) m_entityToConvert).hasResource()) {
+                        Resource r = ((Human) m_entityToConvert).getResource();
+                        p.addResource(r);
+                    }
+                }
 
                 // Converted entity
                 Zombie z = new Zombie(  p,
                         m_entityToConvert.getDirection().getFirst(),
                         m_entityToConvert.getDirection().getSecond());
                 // Replace the entity with a Zombie
-                s.getEntities().add(z);
+                s.getEntities().set(index, z);
+
+                // Remove the entity from the world and replace it
+                p.removeEntity();
+                p.addEntity(z);
             }
-            else {
-                int index = s.getEntities().indexOf(m_entityToConvert);
-
-                // Test if the entity has been found
-                if (index != -1)
-                {
-                    Platform p = m_entityToConvert.getPosition();
-
-                    // If the human as a Resource, he drop it
-                    if(((Human) m_entityToConvert).hasResource()) {
-                        Resource r = ((Human) m_entityToConvert).getResource();
-                        p.addResource(r);
-                    }
-
-                    // Converted entity
-                    Zombie z = new Zombie(  p,
-                            m_entityToConvert.getDirection().getFirst(),
-                            m_entityToConvert.getDirection().getSecond());
-                    // Replace the entity with a Zombie
-                    s.getEntities().set(index, z);
-
-                    // Remove the entity from the world and replace it
-                    p.removeEntity();
-                    p.addEntity(z);
-                }
-                else
-                    throw new IllegalStateException("Trying to convert a non existing Human to Zombie.");
-            }
-
+            else
+                throw new IllegalStateException("Trying to convert a non existing Human to Zombie.");
         }
         else
             throw new IllegalStateException("Trying to convert a non Human entity to Zombie.");

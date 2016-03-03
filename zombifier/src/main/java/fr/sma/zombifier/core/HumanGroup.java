@@ -46,52 +46,51 @@ public class HumanGroup extends Entity
 
         List<Platform> possibilities = h1.getPosition().getAvailableLocations();
 
-        // Add the humans in the group
-        m_members.add(h1);
-        m_members.add(h2);
-
         // Place them
         if(possibilities.size() < 2) {
             throw new NoAvailablePlaceException();
         }
-        else {
-            // Place the group
-            this.m_position = h1.m_position;
 
-            // Random placement
-            Collections.shuffle(possibilities, m_mt);
+        // Add the humans in the group
+        m_members.add(h1);
+        m_members.add(h2);
 
-            // Remove humans from where they were
-            h1.getPosition().removeEntity();
-            h2.getPosition().removeEntity();
+        // Place the group
+        this.m_position = h1.m_position;
 
-            // Place them
-            possibilities.get(0).addEntity(h1);
-            possibilities.get(1).addEntity(h2);
-            h1.m_position = possibilities.get(0);
-            h2.m_position = possibilities.get(1);
+        // Random placement
+        Collections.shuffle(possibilities, m_mt);
 
-            // Set the directions
-            h1.m_direction.setFirst(h1.m_position.getX() - this.m_position.getX());
-            h1.m_direction.setSecond(this.m_position.getY() - h1.m_position.getY());
+        // Remove humans from where they were
+        h1.getPosition().removeEntity();
+        h2.getPosition().removeEntity();
 
-            h2.m_direction.setFirst(h2.m_position.getX() - this.m_position.getX());
-            h2.m_direction.setSecond(this.m_position.getY() - h2.m_position.getY());
+        // Place them
+        possibilities.get(0).addEntity(h1);
+        possibilities.get(1).addEntity(h2);
+        h1.m_position = possibilities.get(0);
+        h2.m_position = possibilities.get(1);
 
-            // Add their resources to the one of the group
-            if(h1.hasResource()) {
-                this.m_resources.add(h1.getResource());
-                h1.setResource(null);
-            }
-            if(h2.hasResource()) {
-                this.m_resources.add(h2.getResource());
-                h2.setResource(null);
-            }
+        // Set the directions
+        h1.m_direction.setFirst(h1.m_position.getX() - this.m_position.getX());
+        h1.m_direction.setSecond(this.m_position.getY() - h1.m_position.getY());
 
-            // Group them
-            h1.setGroup(this);
-            h2.setGroup(this);
+        h2.m_direction.setFirst(h2.m_position.getX() - this.m_position.getX());
+        h2.m_direction.setSecond(this.m_position.getY() - h2.m_position.getY());
+
+        // Add their resources to the one of the group
+        if(h1.hasResource()) {
+            this.m_resources.add(h1.getResource());
+            h1.setResource(null);
         }
+        if(h2.hasResource()) {
+            this.m_resources.add(h2.getResource());
+            h2.setResource(null);
+        }
+
+        // Group them
+        h1.setGroup(this);
+        h2.setGroup(this);
     }
 
     /**
@@ -219,7 +218,6 @@ public class HumanGroup extends Entity
                 }
             }
         }
-
         return value;
     }
 
@@ -250,7 +248,6 @@ public class HumanGroup extends Entity
             }
 
         }
-
         return success;
     }
 
@@ -288,7 +285,7 @@ public class HumanGroup extends Entity
      */
     private List<List<Platform>> getPossibilities() {
 
-        Platform tmp = null;
+        Platform tmp;
         World world = m_position.getWorld();
 
         List<Platform> groupPossibilities = new ArrayList<>();
@@ -303,22 +300,22 @@ public class HumanGroup extends Entity
         dirs.add(new Pair<>(0, -1));
 
         for(Pair<Integer, Integer> dir : dirs) {
-            tmp = world.getNeighbour(m_position, dir.getFirst(), dir.getSecond());
-            if(tmp != null) {
-                // Add it to the group possibility
-                groupPossibilities.add(tmp);
-
-                // Place all humans possibilities
-                List<Platform> memberLocs = new ArrayList<>();
-                for(Human h : m_members) {
-                    tmp = world.getNeighbour(h.getPosition(), dir.getFirst(), dir.getSecond());
-                    if(tmp != null && tmp.getEntity() == null) {
-                        memberLocs.add(tmp);
-                    }
+            // Get all members possibilities
+            List<Platform> memberLocs = new ArrayList<>();
+            for(Human h : m_members) {
+                tmp = world.getNeighbour(h.getPosition(), dir.getFirst(), dir.getSecond());
+                if (tmp == null || tmp.getEntity() != null) {
+                    break;
+                } else {
+                    memberLocs.add(tmp);
                 }
+            }
 
-                // If all humans can go to the given direction, add the possibility
-                if(memberLocs.size() == m_members.size()) {
+            if(memberLocs.size() == m_members.size()) {
+                // Get group possibilities
+                tmp = world.getNeighbour(m_position, dir.getFirst(), dir.getSecond());
+                if(tmp != null) {
+                    groupPossibilities.add(tmp);
                     possibilities.add(memberLocs);
                 }
             }

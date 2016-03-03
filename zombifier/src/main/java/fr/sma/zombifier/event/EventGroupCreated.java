@@ -36,7 +36,8 @@ public class EventGroupCreated extends Event
     public void exec(Simulation s)
     {
         try {
-            s.getEntitiesToAdd().add(new HumanGroup(m_human1, m_human2));
+            HumanGroup g = new HumanGroup(m_human1, m_human2);
+            s.getEntitiesToAdd().add(g);
         }
         catch(HumanGroup.NoAvailablePlaceException e) {
 

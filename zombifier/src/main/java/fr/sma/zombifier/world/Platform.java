@@ -1,6 +1,7 @@
 package fr.sma.zombifier.world;
 
 import fr.sma.zombifier.core.Entity;
+import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.resources.Resource;
 import fr.sma.zombifier.utils.Pair;
 

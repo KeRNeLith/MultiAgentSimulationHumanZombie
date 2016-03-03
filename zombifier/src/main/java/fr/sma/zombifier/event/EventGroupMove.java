@@ -14,18 +14,15 @@ import java.util.List;
  */
 public class EventGroupMove extends Event
 {
-    /** Platform on which the entity is on at the begining of the event. */
+    /** Platforms on which the members are at the beginning of the event. */
     private final List<Platform> m_membersOrigin;
+    /** Platforms on which the members will be at the end of the event. */
     private final List<Platform> m_membersDest;
 
-    /**
-     * Constructor.
-     * @param orig Origin platform.
-     */
-    public EventGroupMove(final List<Platform> orig, final List<Platform> dest)
+    public EventGroupMove(final List<Platform> mOrig, final List<Platform> mDest)
     {
-        this.m_membersOrigin = orig;
-        this.m_membersDest = dest;
+        this.m_membersOrigin = mOrig;
+        this.m_membersDest = mDest;
     }
 
     @Override

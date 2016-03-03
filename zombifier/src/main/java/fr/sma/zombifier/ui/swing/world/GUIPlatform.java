@@ -2,6 +2,7 @@ package fr.sma.zombifier.ui.swing.world;
 
 import fr.sma.zombifier.core.Entity;
 import fr.sma.zombifier.core.Human;
+import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.core.Zombie;
 import fr.sma.zombifier.resources.FireWeapon;
 import fr.sma.zombifier.resources.Resource;

@@ -1,6 +1,5 @@
 package fr.sma.zombifier.behavior.group;
 
-import fr.sma.zombifier.behavior.IBehaviour;
 import fr.sma.zombifier.core.HumanGroup;
 import fr.sma.zombifier.event.Event;
 import fr.sma.zombifier.event.EventGroupMove;
@@ -29,7 +28,6 @@ public class NormalGroupBehaviour extends BaseGroupBehaviour {
      */
     @Override
     protected void defaultReaction(List<Event> listEvent) {
-
         List<Platform> oldPositions = m_group.getMembersPlatform();
         m_group.randomMove();
         listEvent.add(new EventGroupMove(oldPositions, m_group.getMembersPlatform()));

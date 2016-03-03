@@ -28,9 +28,9 @@ public class EventHandler
      */
     public void handleEvents(List<Event> events)
     {
-        events.stream().forEach((e) -> 
+        for(Event e : events)
         {
             e.exec(m_simulation);
-        });
+        }
     }
 }
