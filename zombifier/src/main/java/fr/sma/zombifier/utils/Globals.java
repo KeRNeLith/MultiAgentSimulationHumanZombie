@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 /**
  * Globals variables for this project.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class Globals
 {

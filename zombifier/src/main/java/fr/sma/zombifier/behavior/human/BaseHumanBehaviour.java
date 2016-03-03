@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Base abstract class for human behaviour.
  * 
- * @author Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public abstract class BaseHumanBehaviour extends BaseBehaviour 
 {

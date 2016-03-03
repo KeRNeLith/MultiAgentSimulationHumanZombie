@@ -17,7 +17,7 @@ import java.util.Observer;
  * Singleton class.
  * This class is the class that is in charge of displaying simulation progress.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class ConsoleDisplay implements Observer
 {

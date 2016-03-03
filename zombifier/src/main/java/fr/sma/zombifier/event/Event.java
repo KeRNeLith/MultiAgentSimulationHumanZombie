@@ -6,7 +6,7 @@ import fr.sma.zombifier.core.Simulation;
 /**
  * The event class defines what is spotted by entities and is used to set their futures reactions.
  *
- * @author Adrien Pierreval - Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public abstract class Event
 {

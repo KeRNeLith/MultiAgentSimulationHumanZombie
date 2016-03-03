@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for World class.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class WorldTest extends TestCase
 {

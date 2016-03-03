@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 /**
  * Main Window of the application.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class MainWindow extends JFrame
 {

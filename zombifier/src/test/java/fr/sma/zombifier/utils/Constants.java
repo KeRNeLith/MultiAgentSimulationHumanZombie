@@ -8,7 +8,7 @@ package fr.sma.zombifier.utils;
 /**
  * Globals test constants for this project.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class Constants
 {

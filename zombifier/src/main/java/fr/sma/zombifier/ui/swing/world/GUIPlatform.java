@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  * The GUIPlatform class provide interactions especially dedicated to a use in GUI application.
  * It manage display of what is present on the model platform.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class GUIPlatform extends JPanel implements Observer
 {

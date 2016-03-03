@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Base abstract class for group behaviour.
  *
- * @author Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 
 public abstract class BaseGroupBehaviour extends BaseBehaviour {

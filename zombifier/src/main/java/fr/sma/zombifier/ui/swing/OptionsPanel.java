@@ -12,7 +12,7 @@ import javax.swing.event.ChangeEvent;
 /**
  * This class is the panel that allow to interact directly with the simulation by running, stopping it.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class OptionsPanel extends JPanel
 {

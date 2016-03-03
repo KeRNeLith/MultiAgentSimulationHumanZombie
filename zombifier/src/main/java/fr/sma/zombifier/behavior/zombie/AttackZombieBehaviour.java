@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * This class handle the attack behaviour for a zombie entity.
  * 
- * @author Adrien Pierreval - Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class AttackZombieBehaviour extends NormalZombieBehaviour 
 {

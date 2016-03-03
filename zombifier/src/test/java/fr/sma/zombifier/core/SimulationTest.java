@@ -12,7 +12,7 @@ import junit.framework.TestCase;
 /**
  * Unit tests for Simulation class.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class SimulationTest extends TestCase
 {

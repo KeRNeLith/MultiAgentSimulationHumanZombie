@@ -3,7 +3,7 @@ package fr.sma.zombifier.utils;
 /**
  * Store an association of 2 elements with template types.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  * @param <F> Type of the first member.
  * @param <S> Type of the second member.
  */

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  *
  *
- * @author Adrien Pierreval - Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class RunAwayGroupBehaviour extends BaseGroupBehaviour
 {

@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * This class manage pasing of a CSV File.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class CSVParser
 {

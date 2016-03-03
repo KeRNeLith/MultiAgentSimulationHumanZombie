@@ -3,7 +3,7 @@ package fr.sma.zombifier.resources;
 /**
  * The class is the class that reprent a fire weapon resource.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class FireWeapon extends Weapon
 {

@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 /**
  * This class manage loading of a CSV File.
  *
- * @author Alexandre Rabérin
+ * @author Alexandre RabÃ©rin - Adrien Pierreval
  */
 public class ResourceLoader
 {

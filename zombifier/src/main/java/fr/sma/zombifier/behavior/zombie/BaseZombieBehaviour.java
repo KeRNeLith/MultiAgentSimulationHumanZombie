@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Base abstract class for zombies behaviour.
  * 
- * @author Adrien Pierreval - Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public abstract class BaseZombieBehaviour extends BaseBehaviour 
 {

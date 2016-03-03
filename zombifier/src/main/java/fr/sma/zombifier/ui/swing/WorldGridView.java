@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 /**
  * This class is the panel that handle displaying the simulation content like a grid.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class WorldGridView extends JPanel
 {

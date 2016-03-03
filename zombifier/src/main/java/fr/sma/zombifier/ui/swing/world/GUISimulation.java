@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * This class implmements the interface 'Callable' and not 'Runnable' because this last class doesn't allowed
  * to throw exception into the main thread.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class GUISimulation extends Simulation implements Callable<Void>
 {

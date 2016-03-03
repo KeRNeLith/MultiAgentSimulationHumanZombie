@@ -50,7 +50,7 @@ public class NeighborhoodTest extends TestCase
     /**
      * Class dedicated to check neighborhood functionalities.
      * 
-     * @author Alexandre Rab�rin
+     * @author Alexandre Rabérin - Adrien Pierreval
      */
     private class NeighborhoodChecker
     {

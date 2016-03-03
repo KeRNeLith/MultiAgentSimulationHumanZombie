@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * This class manage the neighborhood of a entity based on his position and orientation.
  *
- * @author Alexandre Rab�rin - Adrien Pierreval
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class Neighborhood
 {

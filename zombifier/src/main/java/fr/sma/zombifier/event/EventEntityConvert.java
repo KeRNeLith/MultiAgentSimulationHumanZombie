@@ -10,7 +10,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * This event manage conversion from a Human entity to a Zombie entity.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class EventEntityConvert extends Event
 {

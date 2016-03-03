@@ -7,7 +7,7 @@ import fr.sma.zombifier.world.Platform;
 /**
  * This event manage moving an entity form one location to another.
  * 
- * @author Alexandre Rabérin
+ * @author Alexandre Rabérin - Adrien Pierreval
  */
 public class EventMove extends Event
 {
